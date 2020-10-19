@@ -3,7 +3,7 @@ package by.uniqo.telegrambot.processor;
 import org.springframework.stereotype.Service;
 
 @Service
-public class HelpProcessor implements Processor {
+public class HelpProcessor implements ProcessorI {
 
     @Override
     public String run() {

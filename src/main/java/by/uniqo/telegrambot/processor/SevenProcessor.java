@@ -3,10 +3,10 @@ package by.uniqo.telegrambot.processor;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SettingsProcessor implements ProcessorI {
+public class SevenProcessor implements ProcessorI {
 
     @Override
     public String run() {
-        return "Nothing you can set now, sorry...";
+        return "/seven";
     }
 }

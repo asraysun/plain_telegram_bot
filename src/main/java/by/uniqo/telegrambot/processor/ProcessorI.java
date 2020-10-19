@@ -1,5 +1,5 @@
 package by.uniqo.telegrambot.processor;
 
-public interface Processor {
+public interface ProcessorI {
     String run();
 }
