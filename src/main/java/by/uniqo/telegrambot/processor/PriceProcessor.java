@@ -1,6 +1,7 @@
 package by.uniqo.telegrambot.processor;
 
 import by.uniqo.telegrambot.service.LocaleMessageService;
+import by.uniqo.telegrambot.utils.Emojis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,6 @@ public class PriceProcessor implements ProcessorI{
 
     @Override
     public String run() {
-        return localeMessageService.getMessage("reply.Payment", null, localeMessageService.getLocale());
+        return localeMessageService.getMessage("reply.Payment", Emojis.TOOLS, Emojis.GIFT);
     }
 }

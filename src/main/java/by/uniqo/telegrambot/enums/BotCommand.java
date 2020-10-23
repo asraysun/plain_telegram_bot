@@ -8,15 +8,28 @@ public enum BotCommand {
     SEVEN("/seven"),
     ABOUTBOT("Что умеет чат бот"),
     SCOPEOFAPP("Сферы применения"),
-    PRICE("Стоимость"),
+    PRICE("Узнать стоймость"),
     FAQ("Ответы на частые вопросы"),
     TELLMEMORE("Узнать больше"),
-    MANAGER("Связаться с менеджером");
+    MANAGER("Связаться с менеджером"),
+    ABOUTOURBOT("Что умеют наши боты?"),
+    PRICEQUESTIONCHAIN,
+    PRICEQUESTIONCHAINSTEP1,
+    PRICEQUESTIONCHAINSTEP2,
+    PRICEQUESTIONCHAINSTEP3,
+    PRICEQUESTIONCHAINSTEP4,
+    SENDDOCUMENT,
+    SENDPHONEERROR;
+
 
 
     String command;
     public String getCommand() {
         return command;
+    }
+
+    BotCommand() {
+
     }
 
     BotCommand(String command) {

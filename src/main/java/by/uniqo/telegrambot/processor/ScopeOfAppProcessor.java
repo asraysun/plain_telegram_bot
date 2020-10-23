@@ -1,6 +1,7 @@
 package by.uniqo.telegrambot.processor;
 
 import by.uniqo.telegrambot.service.LocaleMessageService;
+import by.uniqo.telegrambot.utils.Emojis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,8 @@ public class ScopeOfAppProcessor implements ProcessorI {
 
     @Override
     public String run() {
-        return localeMessageService.getMessage("reply.fieldOfApplication", null, localeMessageService.getLocale());
+        return localeMessageService.getMessage("reply.fieldOfApplication", Emojis.CART,
+                Emojis.MONEYBAG, Emojis.SHIELD, Emojis.PILL, Emojis.HOMES, Emojis.BENTO,
+        Emojis.DESKTOP, Emojis.RAILROAD_TRACK);
     }
 }

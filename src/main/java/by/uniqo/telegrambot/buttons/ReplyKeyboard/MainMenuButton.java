@@ -24,12 +24,11 @@ public class MainMenuButton extends ReplyKeyboardMarkup {
         KeyboardRow row1 = new KeyboardRow();
         KeyboardRow row2 = new KeyboardRow();
         KeyboardRow row3 = new KeyboardRow();
-        row1.add(new KeyboardButton("Что умеет чат бот"));
-        row1.add(new KeyboardButton("Сферы применения"));
-        row2.add(new KeyboardButton("Стоимость"));
-        row2.add(new KeyboardButton("Ответы на частые вопросы"));
+        row2.add(new KeyboardButton("Сферы применения"));
+        row2.add(new KeyboardButton("Узнать стоймость"));;
         row3.add(new KeyboardButton("Узнать больше"));
         row3.add(new KeyboardButton("Связаться с менеджером"));
+        row1.add(new KeyboardButton("Что умеют наши боты?"));
         keyboard.add(row1);
         keyboard.add(row2);
         keyboard.add(row3);

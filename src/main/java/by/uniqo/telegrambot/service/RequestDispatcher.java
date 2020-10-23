@@ -1,13 +1,19 @@
 package by.uniqo.telegrambot.service;
 
 
+import by.uniqo.telegrambot.buttons.InlineKeyboard.NumberOfEmployeesButtons;
+import by.uniqo.telegrambot.buttons.InlineKeyboard.PriceButtons;
 import by.uniqo.telegrambot.buttons.ReplyKeyboard.ReplyButtonProcessor;
 import by.uniqo.telegrambot.cache.UserDataCache;
 import by.uniqo.telegrambot.enums.BotCommand;
+import by.uniqo.telegrambot.model.UserProfileData;
 import by.uniqo.telegrambot.processor.*;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
+import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -40,6 +46,28 @@ public class RequestDispatcher {
     ScopeOfAppProcessor scopeOfAppProcessor;
     @Autowired
     TellMeMoreProcessor tellMeMoreProcessor;
+    @Autowired
+    AboutOurProcessor aboutOurProcessor;
+    @Autowired
+    PriceButtons priceButtons;
+    @Autowired
+    PriceQuestionChainProcessor priceQuestionChainProcessor;
+    @Autowired
+    PriceQuestionChainStep1Processor priceQuestionChainStep1Processor;
+    @Autowired
+    PriceQuestionChainStep2Processor priceQuestionChainStep2Processor;
+    @Autowired
+    PriceQuestionChainStep3Processor priceQuestionChainStep3Processor;
+    @Autowired
+    SendDocumentProcessor sendDocumentProcessor;
+    @Autowired
+    PriceQuestionChainStep4Processor priceQuestionChainStep4Processor;
+    @Autowired
+    UserProfileData userProfileData;
+    @Autowired
+    PhoneErrorProcessor phoneErrorProcessor;
+    @Autowired
+    LocaleMessageService localeMessageService;
 
     public void dispatch(Update update) {
         switch (getCommand(update)) {
@@ -61,32 +89,61 @@ public class RequestDispatcher {
             case SCOPEOFAPP:
                 messageService.sendMessage(update.getMessage(), scopeOfAppProcessor.run());
                 break;
-           case NONE:
+            case NONE:
                 messageService.sendMessage(update.getMessage(), noneProcessor.run());
                 break;
-           case PRICE:
-                messageService.sendMessage(update.getMessage(), priceProcessor.run());
+            case PRICE:
+                messageService.sendMessageWithCallBackQuery(update.getMessage(), priceProcessor.run());
                 break;
-           case FAQ:
+            case FAQ:
                 messageService.sendMessage(update.getMessage(), faqProcessor.run());
                 break;
-           case TELLMEMORE:
+            case TELLMEMORE:
                 messageService.sendMessage(update.getMessage(), tellMeMoreProcessor.run());
                 break;
-           case MANAGER:
+            case MANAGER:
                 messageService.sendMessage(update.getMessage(), managerProcessor.run());
+                break;
+            case ABOUTOURBOT:
+                messageService.sendMessage(update.getMessage(), aboutOurProcessor.run());
+                break;
+            case PRICEQUESTIONCHAIN:
+                messageService.sendMessage(update.getMessage(), priceQuestionChainProcessor.run());
+                break;
+            case PRICEQUESTIONCHAINSTEP1:
+                CallbackQuery send = update.getCallbackQuery();
+                messageService.sendMessageWithCallBackQuery(send.getMessage(), priceQuestionChainStep1Processor.run());
+                break;
+            case PRICEQUESTIONCHAINSTEP2:
+                CallbackQuery send1 = update.getCallbackQuery();
+                messageService.sendMessageWithCallBackQuery(send1.getMessage(), priceQuestionChainStep2Processor.run());
+                break;
+            case PRICEQUESTIONCHAINSTEP3:
+                CallbackQuery send2 = update.getCallbackQuery();
+                messageService.sendMessageWithCallBackQuery(send2.getMessage(), priceQuestionChainStep3Processor.run());
+                break;
+            case PRICEQUESTIONCHAINSTEP4:
+                messageService.sendMessage(update.getMessage(), priceQuestionChainStep4Processor.run());
+                break;
+            case SENDDOCUMENT:
+                messageService.sendMessage(update.getMessage(), sendDocumentProcessor.run());
+                break;
+            case SENDPHONEERROR:
+                messageService.sendMessage(update.getMessage(), phoneErrorProcessor.run());
                 break;
 
         }
     }
 
-    public void dispatchBotState(Update update, UserDataCache userDataCache) {
+    public void dispatchBotState(UserProfileData userDataCache) {
 
     }
 
     private BotCommand getCommand(Update update) {
         if (update.hasMessage()) {
             Message message = update.getMessage();
+            System.out.println(message.getChatId());
+            System.out.println(message.getText());
             if (message != null && message.hasText()) {
                 String msgText = message.getText();
                 if (msgText.startsWith(BotCommand.HELP.getCommand())) {
@@ -109,8 +166,33 @@ public class RequestDispatcher {
                     return BotCommand.TELLMEMORE;
                 } else if (msgText.startsWith(BotCommand.MANAGER.getCommand())) {
                     return BotCommand.MANAGER;
+                } else if (msgText.startsWith(BotCommand.ABOUTOURBOT.getCommand())) {
+                    return BotCommand.ABOUTOURBOT;
+                } else if (msgText.length() >= 7) {
+                    userProfileData.setId(message.getChat().getId().toString());
+                    userProfileData.setUsername(message.getFrom().getUserName());
+                    userProfileData.setFirstname(message.getFrom().getFirstName());
+                    userProfileData.setLastname(message.getFrom().getLastName());
+                    userProfileData.setText(message.getText());
+                    return BotCommand.PRICEQUESTIONCHAINSTEP4;
+                } else if (msgText.length() < 7) {
+                    return BotCommand.SENDPHONEERROR;
                 }
             }
+        } else if (update.hasCallbackQuery()) {
+            CallbackQuery buttonQuery = update.getCallbackQuery();
+            if (buttonQuery.getData().equals("buttonVar1") ||
+                    buttonQuery.getData().equals("buttonVar2") ||
+                    buttonQuery.getData().equals("buttonVar3")) {
+                userProfileData.setTypeOfBot(localeMessageService.getMessage("button." +buttonQuery.getData()));
+                return BotCommand.PRICEQUESTIONCHAINSTEP2;
+            } else if (buttonQuery.getData().equals("buttonSetPrice")) {
+                return BotCommand.PRICEQUESTIONCHAINSTEP1;
+            } else if (buttonQuery.getData().equals("buttonStep1") || buttonQuery.getData().equals("buttonStep2") ||
+                    buttonQuery.getData().equals("buttonStep3") || buttonQuery.getData().equals("buttonStep4")) {
+                userProfileData.setNumberOfEmployees(localeMessageService.getMessage("button." +buttonQuery.getData()));
+                return BotCommand.PRICEQUESTIONCHAINSTEP3;
+            } else return BotCommand.PRICEQUESTIONCHAIN;
         }
         return BotCommand.NONE;
     }

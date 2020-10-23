@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TellMeMoreProcessor implements ProcessorI{
+public class AboutOurProcessor implements ProcessorI {
     @Autowired
     LocaleMessageService localeMessageService;
 
     @Override
     public String run() {
-        return localeMessageService.getMessage("reply.tellMeMore", Emojis.CHECK, Emojis.CHECK,
-                Emojis.CHECK, Emojis.CHECK, Emojis.CHECK);
+        return localeMessageService.getMessage("reply.AboutOurBot", Emojis.BAR_CHART,
+                Emojis.CALLING, Emojis.ENVELOPE_WITH_ARROW, Emojis.DOLLAR, Emojis.CREDIT_CARD,
+                Emojis.MAG_RIGHT, Emojis.SHOPPING_BAGS, Emojis.GEAR, Emojis.BOOKS);
     }
 }

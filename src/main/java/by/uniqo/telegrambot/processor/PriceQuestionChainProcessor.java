@@ -6,13 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TellMeMoreProcessor implements ProcessorI{
-    @Autowired
-    LocaleMessageService localeMessageService;
+public class PriceQuestionChainProcessor implements ProcessorI{
 
     @Override
     public String run() {
-        return localeMessageService.getMessage("reply.tellMeMore", Emojis.CHECK, Emojis.CHECK,
-                Emojis.CHECK, Emojis.CHECK, Emojis.CHECK);
+        return "Выберите навык бота";
     }
 }
