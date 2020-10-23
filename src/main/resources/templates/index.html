@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/mq.css" />
+    <!-- Facebook Pixel Code -->
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js"
+      );
+      fbq("init", "377033547011184");
+      fbq("track", "PageView");
+    </script>
+    <noscript
+      ><img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=377033547011184&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+  </head>
+  <body>
+    <header>
+      <nav id="nav-container" class="container">
+        <div class="logo"><img src="../img/logo.png" alt="" /></div>
+        <div class="navbar">
+          <button id="menu-btn">☰</button>
+          <ul class="menu">
+            <li><a href="#whats-bot">Что такое чат-бот</a></li>
+            <li><a href="#our-bot-can">Что умеет чат-бот</a></li>
+            <li><a href="#opportunities">Преимущества</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contacts">Контакты</a></li>
+            <li>
+              <a href="#form">Получить консультацию</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <section id="main-info" class="main-info">
+        <div class="container">
+          <div class="content">
+            <h3>Чат-боты для бизнеса от 299$</h3>
+            <p>
+              Делаем чат-ботов для мессенджеров и с их помощью упрощаем
+              различные бизнес-процессы в компаниях
+            </p>
+            <div class="header-buttons">
+              <a href="#form">Купить бота</a
+              ><a href="https://t.me/testBotForWork_bot">Как это работает</a>
+            </div>
+          </div>
+          <div class="main-info-img">
+            <img src="../img/main-info-bg.jpg" alt="" />
+          </div>
+        </div>
+      </section>
+      <section class="we-create">
+        <a name="we-create" class="rel"></a>
+        <article class="container">
+          <h3>Мы создаем чат-ботов на всех платформах</h3>
+          <div class="our-social-webs">
+            <div class="social-webs">
+              <img
+                src="https://thumb.tildacdn.com/tild6231-3935-4133-b563-666363343737/-/resize/130x/-/format/webp/instagram.png"
+                alt=""
+              />
+              <p>Instagram</p>
+            </div>
+            <div class="social-webs">
+              <img
+                src="https://thumb.tildacdn.com/tild6132-6635-4963-b634-396638613861/-/resize/140x/-/format/webp/social-56-512.png"
+                alt=""
+              />
+              <p>Telegram</p>
+            </div>
+            <div class="social-webs">
+              <img
+                src="https://thumb.tildacdn.com/tild6135-6364-4339-a632-323365623139/-/resize/130x/-/format/webp/fb.png"
+                alt=""
+              />
+              <p>Facebook</p>
+            </div>
+            <div class="social-webs">
+              <img
+                src="https://thumb.tildacdn.com/tild3537-3639-4635-b062-356164376333/-/resize/130x/-/format/webp/vk-512.png"
+                alt=""
+              />
+              <p>Вконтакте</p>
+            </div>
+            <div class="social-webs">
+              <img
+                src="https://thumb.tildacdn.com/tild6332-3038-4534-b236-633564323636/-/resize/130x/-/format/webp/whatsapp.png"
+                alt=""
+              />
+              <p>WhatsApp</p>
+            </div>
+            <div class="social-webs">
+              <img
+                src="https://thumb.tildacdn.com/tild3364-3239-4364-b531-323463386236/-/resize/140x/-/format/webp/social-41-512.png"
+                alt=""
+              />
+              <p>Viber</p>
+            </div>
+          </div>
+        </article>
+      </section>
+      <section class="whats-bot">
+        <div class="container">
+          <a name="whats-bot" class="rel"></a>
+          <article class="whats-bot-info">
+            <div>
+              <span></span>
+              <span></span>
+            </div>
+            <h3>
+              Что такое чат-бот<br />
+              и какая от него польза?
+            </h3>
+            <p><span>Больше заказов и прибыли уже через 7 дней.</span></p>
+            <p>
+              Чат-бот — виртуальный менеджер, который живёт в мессенджерах и
+              автоматически отвечает на сообщения.
+            </p>
+            <p>
+              С помощью бота можно заказать пиццу, такси, забронировать билеты
+              или купить платье не выходя из мессенджера.
+            </p>
+            <p>
+              Их использование полезно для клиентов, т.к. они могут получить
+              нужную информацию или совершить заказ простым и удобным способом.
+              Так же это выгодно для компаний, которые могут налаживать
+              контакты, собирать информацию и взаимодействовать с клиентами
+              24/7.
+            </p>
+            <p>
+              <span>Результат:</span> рост продаж, автоматизация рутинных
+              операций, разгрузка call-центра или службы поддержки.
+            </p>
+            <a href="http://t.me/testBotForWork_bot">Пример чат бота</a>
+          </article>
+          <article class="whats-bot-img">
+            <img src="../img/whats-bot-bg.png" alt="" />
+          </article>
+        </div>
+      </section>
+      <section class="our-bot-can">
+        <a name="our-bot-can" class="rel"></a>
+        <article class="container">
+          <div>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <h3>Что умеет чат-бот?</h3>
+          <p>
+            Возможности бота сравнимы с возможностями сайта или мобильного
+            приложения. Здесь перечислены только ключевые моменты.
+          </p>
+          <div class="our-bot-can-skills">
+            <div class="left">
+              <ul>
+                <li>
+                  <p>Подберет товар или услугу по заданным параметрам.</p>
+                </li>
+                <li><p>Проверит наличие товара в магазине.</p></li>
+                <li>
+                  <p>
+                    Получит оплату (доступно в Telegram, скоро в Facebook
+                    Messenger)..
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Сообщит адрес офиса или магазина (пользователь не будет
+                    искать адрес через веб-поиск и не увидит рекламу
+                    конкурентов).
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Определит координаты местонахождения пользователя и проложит
+                    маршрут до ближайшего офиса.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Сообщит об акциях и новинках. Отправит промокоды, а так же
+                    соберет отызывы о товаре, бренде, фирме, магазине
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Соберет и сегментирует E-mail и телефоны для маркетинговых
+                    рассылок.
+                  </p>
+                </li>
+              </ul>
+            </div>
+            <div class="right">
+              <ul>
+                <li>
+                  <p>Назначит встречу или запишет на прием.</p>
+                </li>
+                <li>
+                  <p>
+                    Запомнит историю общения или историю покупок. На основании
+                    этой информации может делать повторные продажи.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Даст бесплатный совет и сделает допродажи («К этому платью
+                    рекомендую туфли», «Добавьте к заказу напиток всего за 50
+                    рублей»).
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Не требует регистрации на сайте (проблема забытого
+                    логина/пароля решена).
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Заносит в CRM собранные данные и получает к ним доступ в
+                    любое время.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Формирует и отправляет прайс-листы, счета, договора и т.д.
+                  </p>
+                </li>
+                <li>
+                  <p>Предоставляет справочную информацию и строит отчеты.</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </section>
+      <section class="opportunities">
+        <a name="opportunities" class="rel"></a>
+        <a name="form" class="rel"></a>
+        <div class="container">
+          <article class="opportunities-form">
+            <a name="form" class="rel"></a>
+            <img src="../img/diagramma.png" alt="" />
+            <form onsubmit="fbq('track', 'Lead',);">
+              <h3>Узнать больше</h3>
+              <input type="text" name="name" placeholder="Имя *" required />
+              <input type="tel" name="phone" placeholder="Телефон *" required />
+              <input type="email" name="email" placeholder="Эл. почта" />
+              <button>Получить консультацию</button>
+            </form>
+          </article>
+          <article class="opportunities-list">
+            <div>
+              <span></span>
+              <span></span>
+            </div>
+            <h3>Преимущества для вашего бизнеса очевидны</h3>
+            <ul>
+              <li><p>Чат-бот работает круглые сутки без выходных.</p></li>
+              <li>
+                <p>Обрабатывает больше запросов, чем любой сотрудник.</p>
+              </li>
+              <li><p>Автоматизация рутинных операций.</p></li>
+              <li>
+                <p>
+                  Чат-бот закрывает до 80% обращений в call-центр или службу
+                  поддержки.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Чат-боты – один из самых дешевых способов общения с
+                  аудиторией.
+                </p>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+      <section class="faq">
+        <a name="faq" class="rel"></a>
+        <div class="container">
+          <article class="faq-img">
+            <img src="../img/faq-bg.png" alt="" />
+          </article>
+          <article class="faq-info">
+            <div>
+              <span></span>
+              <span></span>
+            </div>
+            <h3>Ответы на частые вопросы</h3>
+            <ol>
+              <li class="faq-info-btn">
+                <div>
+                  <h3>Может ли чат-бот заменить человека?</h3>
+                  <div>
+                    <span class="plus-mines-first"></span>
+                    <span class="plus-mines"></span>
+                  </div>
+                </div>
+                <p class="faq-info-answer">
+                  Задача чат-бота не заменить человека, а выполнять рутинные
+                  операции, которые отнимают у людей драгоценное время. Боты с
+                  этим прекрасно справляются.
+                </p>
+              </li>
+              <li class="faq-info-btn">
+                <div>
+                  <h3>Вы делаете чат боты с исскувственным интеллектом?</h3>
+                  <div>
+                    <span class="plus-mines-first"></span>
+                    <span class="plus-mines"></span>
+                  </div>
+                </div>
+                <p class="faq-info-answer">
+                  Да, делаем. Но мы всегда исходим из задач, которые должен
+                  решать робот. Для большинства из них искусственный интеллект
+                  не нужен. Его наличие только увеличит сроки и стоимость
+                  разработки.
+                </p>
+              </li>
+              <li class="faq-info-btn">
+                <div>
+                  <h3>На каких языках может общаться чат-бот?</h3>
+                  <div>
+                    <span class="plus-mines-first"></span>
+                    <span class="plus-mines"></span>
+                  </div>
+                </div>
+                <p class="faq-info-answer">
+                  Практически на любых. Обычно у нас заказывают чат-ботов на
+                  русском и английском языках.
+                </p>
+              </li>
+              <li class="faq-info-btn">
+                <div>
+                  <h3>Как понять бизнесу, что им нужен чат-бот?</h3>
+                  <div>
+                    <span class="plus-mines-first"></span>
+                    <span class="plus-mines"></span>
+                  </div>
+                </div>
+                <ul class="faq-info-answer">
+                  <li>
+                    <p>Вашему отделу поддержки задают одни и те же вопросы;</p>
+                  </li>
+                  <li>
+                    <p>
+                      У вас регулярно проходят акции, и о них нужно сообщить
+                      клиенту;
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Клиенту нужно найти товар или услугу на вашем сайте по
+                      критериям;
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Вам нужно собрать контактные данные клиентов и ответы на
+                      короткие вопросы;
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Вы хотите упорядочить операционные процессы в организации.
+                    </p>
+                  </li>
+                </ul>
+              </li>
+              <li class="faq-info-btn">
+                <div>
+                  <h3>Где можно увидеть чат-бота в работе?</h3>
+                  <div>
+                    <span class="plus-mines-first"></span>
+                    <span class="plus-mines"></span>
+                  </div>
+                </div>
+                <p class="faq-info-answer">
+                  Прямо на нашем сайте работает простейший чат-бот, которые
+                  приветствует вас в зависимости от времени суток, а также
+                  предлагает заказать наши услуги или записаться на
+                  консультацию. Тех, кто оставит контактные данные, ждет
+                  приятный сюрприз.
+                  <a href="http://t.me/testBotForWork_bot">Открыть окно с ботом</a>
+                </p>
+              </li>
+              <li class="faq-info-btn">
+                <div>
+                  <h3>Я готов сделать заказ. Что дальше?</h3>
+                  <div>
+                    <span class="plus-mines-first"></span>
+                    <span class="plus-mines"></span>
+                  </div>
+                </div>
+                <ul class="faq-info-answer">
+                  <li>
+                    <p>
+                      Оформите заявку через
+                      <a href="http://t.me/testBotForWork_bot">чат-бота</a>, с
+                      помощью формы обратной связи или позвонив нам по указанным
+                      на сайте телефонам.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Мы свяжемся с вами, определим круг задач, которые должен
+                      выполнять чат-бот, целевую аудиторию, а также критерии
+                      успеха.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      После консультации мы направим вам коммерческое
+                      предложение с указанием сроков и стоимости разработки.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Заключаем договор, получаем предоплату и приступаем к
+                      работе.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      В указанный срок или раньше вы получаете готового
+                      чат-бота.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      После запуска анализируем поведение чат-бота. На основе
+                      результатов анализа вносим необходимые доработки.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Наша работа закончена. Вы совершаете окончательную оплату
+                      и пользуетесь готовым виртуальным помощником.
+                    </p>
+                  </li>
+                </ul>
+              </li>
+              <li class="faq-info-btn">
+                <div>
+                  <h3>На каких платформах будет работать чат-бот?</h3>
+                  <div>
+                    <span class="plus-mines-first"></span>
+                    <span class="plus-mines"></span>
+                  </div>
+                </div>
+                <p class="faq-info-answer">
+                  Мы делаем чат-боты для сайтов, Вконтакте, Telegram, Facebook
+                  Messenger, Viber, WhatsApp и других платформ.
+                </p>
+              </li>
+            </ol>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <a name="contacts"></a>
+      <div class="container">
+        <section class="footer-contacts">
+          <article>
+            <h3>Наши контакты:</h3>
+            <p>
+              <a href="tel:+375447357152" onclick="fbq('track', 'Contact',);"
+                >+375447357152</a
+              >
+            </p>
+            <p>
+              <a href="mailto:integratorfounder@gmail.com"
+                >integratorfounder@gmail.com</a
+              >
+            </p>
+            <p>Минск, Беларусь</p>
+            <div>
+              <a href="https://www.instagram.com/integratorby/"
+                ><img src="../img/footer-sw/instagram.svg" /></a
+              ><a href="https://t.me/testBotForWork_bot"
+                ><img src="../img/footer-sw/telegram.svg"
+              /></a>
+            </div>
+          </article>
+        </section>
+        <section class="footer-map">
+          <article id="map"></article>
+        </section>
+      </div>
+    </footer>
+    <div id="popup" class="popup">
+      <div class="popup-body">
+        <div class="popup-content">
+          <button class="popup-exit">&times;</button>
+          <div class="popup-content-block">
+            <h3>Спасибо за вашу заявку!</h3>
+            <p>Мы обязательно перезвоним вам в ближайшее время</p>
+            <p class="promo">
+              А еще возьмите промокод на бесплатную публикацию на сервере
+            </p>
+            <div class="popup-content-block-info">
+              <button class="popup-exit">Назад</button>
+              <div class="img"><img src="../img/popup.gif" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://api-maps.yandex.ru/2.1/?apikey=d5509981-1dbd-457e-b2a2-5394ef2d32cf&lang=ru_RU"
+      type="text/javascript"
+    ></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/mail.js"></script>
+  </body>
+</html>

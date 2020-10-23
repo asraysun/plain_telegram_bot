@@ -1,0 +1,1394 @@
+@media screen and (max-width: 1205px) {
+  .container {
+    max-width: 1160px;
+    padding: 0 20px;
+  }
+  section.main-info > div.container .content {
+    padding-left: 15px;
+  }
+}
+@media screen and (max-width: 1170px) {
+  .container {
+    max-width: 1100px;
+  }
+  footer .container .footer-map {
+    width: 56%;
+  }
+}
+@media screen and (max-width: 1150px) {
+  .container {
+    max-width: 1050px;
+  }
+  .faq-info-answer-active-height3 {
+    height: 50px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 280px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 120px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 450px;
+  }
+  .faq-info-answer-active-height7 {
+    height: 50px;
+  }
+}
+@media screen and (max-width: 1088px) {
+  .container {
+    max-width: 1000px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 300px;
+  }
+  section.main-info > div.container {
+    flex-direction: column;
+  }
+  .faq-info-answer-active-height6 {
+    height: 435px;
+  }
+  section.main-info > div.container .main-info-img {
+    margin-top: 30px;
+    width: 90%;
+    height: 100%;
+  }
+}
+@media screen and (max-width: 1089px) {
+  #menu-btn {
+    clear: both;
+    display: block;
+    width: 35px;
+    height: 35px;
+    background-color: #6226ac;
+    color: #fff;
+    font-size: 24px;
+    position: fixed;
+    top: 20px;
+    left: -60px;
+  }
+  header nav.container > div.logo {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .navbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #6226ac;
+    transition: 0.4s ease-in;
+    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    -o-transform: translateX(100%);
+    -webkit-transition: 0.4s ease-in;
+    -moz-transition: 0.4s ease-in;
+    -ms-transition: 0.4s ease-in;
+    -o-transition: 0.4s ease-in;
+  }
+  .navbar-active {
+    transform: translateX(70%);
+    -webkit-transform: translateX(70%);
+    -moz-transform: translateX(70%);
+    -ms-transform: translateX(70%);
+    -o-transform: translateX(70%);
+  }
+  div.navbar > ul li {
+    margin-left: 0;
+  }
+  header nav.container > div.navbar > ul.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  li {
+    max-width: 87%;
+    word-wrap: break-word;
+  }
+  .logo > img {
+    width: 100px;
+    height: 100%;
+    position: relative;
+  }
+  header nav.container > div.navbar > ul.menu li {
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    transition: all 0.3s ease-in;
+    -webkit-transition: all 0.3s ease-in;
+    -moz-transition: all 0.3s ease-in;
+    -ms-transition: all 0.3s ease-in;
+    -o-transition: all 0.3s ease-in;
+  }
+  header nav.container > div.navbar > ul.menu li > a {
+    width: 100%;
+    color: #fff;
+    font-size: 12px;
+    padding-left: 5px;
+  }
+  header nav.container > div.navbar > ul.menu li:last-child > a {
+    padding: 5px;
+    background-color: #fff;
+    color: #000;
+    border: none;
+  }
+}
+@media screen and (max-width: 1070px) {
+  .container {
+    max-width: 1040px;
+  }
+  a[name="whats-bot"].rel {
+    top: -480px;
+  }
+  a[name="our-bot-can"].rel {
+    top: -20px;
+  }
+  a[name="opportunities"].rel {
+    top: 455px;
+  }
+  a[name="faq"].rel {
+    top: 700px;
+  }
+  section.opportunities .container {
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+  }
+  section.opportunities .container .opportunities-form {
+    margin-top: 20px;
+    margin-right: 0px;
+    display: flex;
+    justify-content: center;
+  }
+  section.opportunities .container .opportunities-list {
+    margin-top: 270px;
+  }
+  section.faq .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  section.faq .container .faq-img {
+    margin-right: 0;
+    padding: 0 40px;
+  }
+  section.faq .container .faq-info {
+    margin-top: 40px;
+    padding: 0 20px;
+  }
+  .faq-info-answer-active-height1 {
+    height: 50px;
+  }
+  .faq-info-answer-active-height2 {
+    height: 50px;
+  }
+  .faq-info-answer-active-height3 {
+    height: 25px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 215px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 90px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 370px;
+  }
+  .faq-info-answer-active-height7 {
+    height: 30px;
+  }
+}
+@media screen and (max-width: 997px) {
+  .faq-info-answer-active-height4 {
+    height: 230px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 90px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 400px;
+  }
+  .faq-info-answer-active-height7 {
+    height: 30px;
+  }
+}
+@media screen and (max-width: 979px) {
+  .faq-info-answer-active-height4 {
+    height: 230px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 90px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 455px;
+  }
+  .faq-info-answer-active-height7 {
+    height: 30px;
+  }
+}
+@media screen and (max-width: 922px) {
+  .faq-info-answer-active-height2 {
+    height: 50px;
+  }
+  .faq-info-answer-active-height3 {
+    height: 20px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 215px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 85px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 445px;
+  }
+  .faq-info-answer-active-height7 {
+    height: 55px;
+  }
+}
+@media screen and (max-width: 911px) {
+  .container {
+    max-width: 870px;
+    padding: 0 20px;
+  }
+  a[name="we-create"].rel {
+    top: -110px;
+  }
+  a[name="whats-bot"].rel {
+    top: -540px;
+  }
+  a[name="our-bot-can"].rel {
+    top: 28px;
+  }
+  a[name="opportunities"].rel {
+    top: 405px;
+  }
+  a[name="faq"].rel {
+    top: -90px;
+  }
+  section.opportunities .container {
+    border-bottom: none;
+  }
+  .faq-info-answer-active-height2 {
+    height: 50px;
+  }
+  .faq-info-answer-active-height3 {
+    height: 20px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 215px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 85px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 445px;
+  }
+  .faq-info-answer-active-height7 {
+    height: 55px;
+  }
+  footer .container .footer-map > article#map {
+    width: 400px;
+    height: 230px;
+  }
+}
+@media screen and (max-width: 900px) {
+  .container {
+    max-width: 860px;
+  }
+  section.we-create {
+    margin: 15px 0;
+  }
+  section.opportunities .container .opportunities-list {
+    width: 100%;
+    margin-top: 310px;
+    position: relative;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 110px;
+  }
+}
+@media screen and (max-width: 868px) {
+  .navbar-active {
+    transform: translateX(65%);
+    -webkit-transform: translateX(65%);
+    -moz-transform: translateX(65%);
+    -ms-transform: translateX(65%);
+    -o-transform: translateX(65%);
+  }
+}
+@media screen and (max-width: 844px) {
+  .faq-info-answer-active-height2 {
+    height: 78px;
+  }
+  .faq-info-answer-active-height3 {
+    height: 25px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 215px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 90px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 445px;
+  }
+  .faq-info-answer-active-height7 {
+    height: 55px;
+  }
+}
+@media screen and (max-width: 810px) {
+  .faq-info-answer-active-height1 {
+    height: 52px;
+  }
+  .faq-info-answer-active-height2 {
+    height: 77px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 230px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 120px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 450px;
+  }
+  section.faq .container .faq-info > ol li > p > a,
+  section.faq .container .faq-info > ol li > ul > p > a {
+    display: inline-block;
+  }
+}
+@media screen and (max-width: 801px) {
+  .container {
+    max-width: 760px;
+    padding: 0 20px;
+  }
+  a[name="whats-bot"].rel {
+    top: -600px;
+  }
+  a[name="our-bot-can"].rel {
+    top: -20px;
+  }
+  a[name="opportunities"].rel {
+    top: 455px;
+  }
+  a[name="faq"].rel {
+    top: 1600px;
+  }
+  section.our-bot-can .container > .our-bot-can-skills .left > ul li,
+  section.our-bot-can .container > .our-bot-can-skills .right > ul li {
+    padding-left: 44px;
+  }
+  .faq-info-answer-active-height3 {
+    height: 48px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 245px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 120px;
+  }
+  .faq-info-answer-active-height7 {
+    height: 55px;
+  }
+}
+@media screen and (max-width: 750px) {
+  footer .container {
+    flex-direction: column;
+  }
+  footer .container .footer-contacts {
+    width: 100%;
+    height: 100%;
+    margin-right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  footer .container .footer-map {
+    width: 100%;
+  }
+  footer .container .footer-map > article#map {
+    width: 100%;
+    margin-top: 30px;
+  }
+}
+@media screen and (max-width: 720px) {
+  .container {
+    max-width: 660px;
+    padding: 0 15px;
+  }
+  a[name="whats-bot"].rel {
+    top: -760px;
+  }
+  a[name="opportunities"].rel {
+    top: 455px;
+  }
+  a[name="faq"].rel {
+    top: 420px;
+  }
+  .navbar-active {
+    transform: translateX(62%);
+    -webkit-transform: translateX(62%);
+    -moz-transform: translateX(62%);
+    -ms-transform: translateX(62%);
+    -o-transform: translateX(62%);
+  }
+  section.main-info div.container .content > h3 {
+    font-weight: bold;
+    width: 500px;
+    font-size: 42px;
+    letter-spacing: 1px;
+  }
+  section.main-info div.container .content > p {
+    width: 600px;
+    font-size: 22px;
+    font-weight: 100;
+    margin: 40px 0 70px 0;
+  }
+  section.whats-bot .container {
+    flex-direction: column-reverse;
+  }
+  section.whats-bot .container .whats-bot-info,
+  section.whats-bot .container .whats-bot-img {
+    width: 85%;
+  }
+  section.whats-bot .container .whats-bot-info {
+    margin: 30px 0 0 0;
+  }
+  .faq-info-answer-active-height1 {
+    height: 76px;
+  }
+  .faq-info-answer-active-height2 {
+    height: 80px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 450px;
+  }
+}
+@media screen and (max-width: 682px) {
+  .container {
+    max-width: 620px;
+    padding: 0 20px;
+  }
+  a[name="whats-bot"].rel {
+    top: -790px;
+  }
+  a[name="our-bot-can"].rel {
+    top: 28px;
+  }
+  a[name="opportunities"].rel {
+    top: 455px;
+  }
+  a[name="faq"].rel {
+    top: 420px;
+  }
+  .navbar-active {
+    transform: translateX(58%);
+    -webkit-transform: translateX(58%);
+    -moz-transform: translateX(58%);
+    -ms-transform: translateX(58%);
+    -o-transform: translateX(58%);
+  }
+  section.main-info div.container .content > h3 {
+    font-weight: bold;
+    width: 400px;
+    font-size: 40px;
+    letter-spacing: 1px;
+  }
+  section.main-info div.container .content > p {
+    width: 600px;
+    font-size: 20px;
+    font-weight: 100;
+    margin: 40px 0 70px 0;
+  }
+  section.we-create .container > .our-social-webs {
+    max-width: 560px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 30px;
+    justify-items: center;
+  }
+  section.we-create .container > h3 {
+    font-size: 34px;
+    width: 400px;
+    margin-bottom: 50px;
+  }
+  section.we-create .container > .our-social-webs .social-webs > p {
+    font-size: 22px;
+  }
+  section.our-bot-can .container > .our-bot-can-skills .left > ul li,
+  section.our-bot-can .container > .our-bot-can-skills .right > ul li {
+    padding-left: 39px;
+  }
+  .faq-info-answer-active-height1 {
+    height: 77px;
+  }
+  .faq-info-answer-active-height3 {
+    height: 50px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 325px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 150px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 510px;
+  }
+}
+@media screen and (max-width: 610px) {
+  .container {
+    max-width: 550px;
+    padding: 0 15px;
+  }
+  .navbar-active {
+    transform: translateX(54%);
+    -webkit-transform: translateX(54%);
+    -moz-transform: translateX(54%);
+    -ms-transform: translateX(54%);
+    -o-transform: translateX(54%);
+  }
+  section.main-info div.container .content > p {
+    width: 500px;
+    font-size: 20px;
+    font-weight: 100;
+    margin: 40px 0 70px 0;
+  }
+  section.our-bot-can .container > p {
+    width: 500px;
+    margin: 0 auto;
+    font-size: 21px;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  section.our-bot-can .container > .our-bot-can-skills .left > ul li,
+  section.our-bot-can .container > .our-bot-can-skills .right > ul li {
+    padding-left: 32px;
+  }
+  section.opportunities .container {
+    margin-bottom: 20px;
+  }
+  section.opportunities .container .opportunities-list > h3 {
+    width: 340px;
+    font-size: 26px;
+    margin-bottom: 22px;
+  }
+  section.opportunities .container .opportunities-form {
+    margin-top: 0;
+  }
+  section.opportunities .container .opportunities-form form {
+    top: 90px;
+  }
+  section.opportunities .container .opportunities-form > img,
+  section.opportunities .container .opportunities-list > img {
+    margin-left: 300px;
+  }
+  .faq-info-answer li {
+    margin-bottom: 20px;
+  }
+  .faq-info-answer-active-height2 {
+    height: 105px;
+  }
+  .faq-info-answer-active-height3 {
+    height: 50px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 320px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 145px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 595px;
+  }
+  ol li > ul li > p {
+    padding-left: 30px;
+  }
+}
+@media screen and (max-width: 565px) {
+  .container {
+    max-width: 500px;
+    padding: 0 15px;
+  }
+  a[name="whats-bot"].rel {
+    top: -700px;
+  }
+  a[name="our-bot-can"].rel {
+    top: -68px;
+  }
+  a[name="opportunities"].rel {
+    top: 365px;
+  }
+  a[name="faq"].rel {
+    top: 520px;
+  }
+  .navbar-active {
+    transform: translateX(52%);
+    -webkit-transform: translateX(52%);
+    -moz-transform: translateX(52%);
+    -ms-transform: translateX(52%);
+    -o-transform: translateX(52%);
+  }
+  section.main-info div.container .content > p {
+    width: 400px;
+    font-size: 18px;
+    margin: 40px 0 70px 0;
+  }
+  section.main-info div.container .content > .header-buttons {
+    flex-direction: column;
+  }
+  section.main-info div.container .content > .header-buttons a {
+    font-size: 16px;
+  }
+  section.main-info div.container .content > .header-buttons a:first-child {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+  section.main-info div.container .content > .header-buttons button,
+  section.main-info div.container .content > .header-buttons a {
+    padding: 15px 50px;
+  }
+  section.whats-bot .container .whats-bot-info > h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  section.whats-bot .container .whats-bot-info > p {
+    font-size: 14px;
+  }
+  section.our-bot-can .container {
+    padding: 30px 0;
+  }
+  section.main-info.our-bot-can .container > p {
+    width: 500px;
+    margin: 0 auto;
+    font-size: 21px;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  section.our-bot-can .container > .our-bot-can-skills {
+    flex-direction: column;
+  }
+  section.our-bot-can .container > h3 {
+    font-size: 31px;
+    margin: 20px 0;
+  }
+  section.our-bot-can .container > .our-bot-can-skills .left > ul li,
+  section.our-bot-can .container > .our-bot-can-skills .right > ul li {
+    max-width: 83%;
+    word-wrap: break-word;
+    padding-left: 29px;
+  }
+  section.opportunities .container .opportunities-form form > input,
+  section.opportunities .container .opportunities-form form > button {
+    width: 80%;
+  }
+  section.opportunities .container .opportunities-list > h3 {
+    width: 320px;
+    font-size: 25px;
+    margin-bottom: 20px;
+  }
+  section.faq .container .faq-info > ol {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .faq-info-answer-active-height1 {
+    height: 105px;
+  }
+  .faq-info-answer-active-height2 {
+    height: 110px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 347px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 180px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 650px;
+  }
+  .faq-info-answer-active-height7 {
+    height: 85px;
+  }
+}
+@media screen and (max-width: 541px) {
+  a[name="opportunities"].rel {
+    top: 450px;
+  }
+}
+@media screen and (max-width: 530px) {
+  section.main-info > div.container .content {
+    padding-left: 15px;
+  }
+}
+@media screen and (max-width: 490px) {
+  .container {
+    max-width: 470px;
+    padding: 0 10px;
+  }
+  .navbar-active {
+    transform: translateX(48%);
+    -webkit-transform: translateX(48%);
+    -moz-transform: translateX(48%);
+    -ms-transform: translateX(48%);
+    -o-transform: translateX(48%);
+  }
+  section.main-info div.container .content > .header-buttons button,
+  section.main-info div.container .content > .header-buttons a {
+    padding: 10px 40px;
+  }
+  section.our-bot-can .container > p {
+    width: 400px;
+    font-size: 19px;
+    margin-bottom: 25px;
+  }
+  section.opportunities .container .opportunities-list > h3 {
+    text-align: center;
+    width: 420px;
+    font-size: 27px;
+    margin-bottom: 30px;
+  }
+  section.opportunities .container .opportunities-list ul li > p {
+    width: 310px;
+    max-width: 315px;
+  }
+  section.opportunities .container .opportunities-list > ul li {
+    width: 100%;
+    word-wrap: break-word;
+    font-size: 20px;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+  section.faq .container .faq-info {
+    margin-top: 40px;
+    padding: 0;
+  }
+  section.faq .container .faq-info > div,
+  section.opportunities .container .opportunities-list > div {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+  section.faq .container .faq-info > h3,
+  section.opportunities .container .opportunities-list > h3 {
+    margin-top: 20px;
+    font-size: 24px;
+    text-align: center;
+  }
+  section.opportunities .container .opportunities-list > h3 {
+    width: 400px;
+  }
+  section.faq .container .faq-info > ol li > div > h3 {
+    width: 95%;
+  }
+  .faq-info-answer-active-height2 {
+    height: 134px;
+  }
+  .faq-info-answer-active-height3 {
+    height: 75px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 431px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 205px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 804px;
+  }
+}
+@media screen and (max-width: 465px) {
+  .faq-info-answer-active-height4 {
+    height: 430px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 830px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .container {
+    max-width: 420px;
+    padding: 0 10px;
+  }
+  .navbar-active {
+    transform: translateX(46%);
+    -webkit-transform: translateX(46%);
+    -moz-transform: translateX(46%);
+    -ms-transform: translateX(46%);
+    -o-transform: translateX(46%);
+  }
+  a[name="whats-bot"].rel {
+    top: -810px;
+  }
+  a[name="opportunities"].rel {
+    top: 460px;
+  }
+  a[name="faq"].rel {
+    top: 420px;
+  }
+  section.main-info div.container .content > h3 {
+    font-weight: bold;
+    width: 300px;
+    font-size: 30px;
+    letter-spacing: 1px;
+  }
+  section.main-info div.container .content > p {
+    width: 300px;
+    font-size: 20px;
+    font-weight: 100;
+  }
+  section.we-create .container > h3 {
+    font-size: 29px;
+    width: 300px;
+    margin-bottom: 40px;
+  }
+  section.our-bot-can .container > p {
+    width: 300px;
+    text-align: center;
+    font-size: 17px;
+    margin-bottom: 20px;
+  }
+  section.opportunities .container .opportunities-list > h3 {
+    width: 300px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 460px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 225px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 915px;
+  }
+  .faq-info-answer-active-height7 {
+    height: 90px;
+  }
+  a[name="we-create"].rel {
+    top: -110px;
+  }
+  a[name="whats-bot"].rel {
+    top: -790px;
+  }
+  a[name="our-bot-can"].rel {
+    top: -70px;
+  }
+  a[name="opportunities"].rel {
+    top: 360px;
+  }
+  a[name="faq"].rel {
+    top: 420px;
+  }
+}
+@media screen and (max-width: 415px) {
+  a[name="opportunities"].rel {
+    top: 440px;
+  }
+  .navbar-active {
+    transform: translateX(43%);
+    -webkit-transform: translateX(43%);
+    -moz-transform: translateX(43%);
+    -ms-transform: translateX(43%);
+    -o-transform: translateX(43%);
+  }
+}
+@media screen and (max-width: 414px) {
+  .faq-info-answer-active-height4 {
+    height: 430px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 200px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 860px;
+  }
+  section.faq .container .faq-info > ol li > p {
+    width: 105%;
+  }
+  section.main-info div.container .content {
+    padding-left: 10px;
+  }
+}
+@media screen and (max-width: 412px) {
+  .faq-info-answer-active-height4 {
+    height: 456px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 230px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 890px;
+  }
+  .faq-info-answer-active-height7 {
+    height: 105px;
+  }
+}
+@media screen and (max-width: 401px) {
+  .container {
+    padding: 0 5px;
+  }
+  a[name="whats-bot"].rel {
+    top: -800px;
+  }
+  a[name="opportunities"].rel {
+    top: 400px;
+  }
+  a[name="faq"].rel {
+    top: 420px;
+  }
+  .navbar-active {
+    transform: translateX(38%);
+    -webkit-transform: translateX(38%);
+    -moz-transform: translateX(38%);
+    -ms-transform: translateX(38%);
+    -o-transform: translateX(38%);
+  }
+  .faq-info-answer-active-height1 {
+    height: 135px;
+  }
+  .faq-info-answer-active-height2 {
+    height: 160px;
+  }
+  .faq-info-answer-active-height3 {
+    height: 90px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 430px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 200px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 860px;
+  }
+  .faq-info-answer-active-height7 {
+    height: 80px;
+  }
+}
+@media screen and (max-width: 398px) {
+  .faq-info-answer-active-height1 {
+    height: 105px;
+  }
+  .faq-info-answer-active-height2 {
+    height: 135px;
+  }
+  .faq-info-answer-active-height3 {
+    height: 75px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 456px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 860px;
+  }
+  .faq-info-answer-active-height7 {
+    height: 90px;
+  }
+}
+@media screen and (max-width: 394px) {
+  .faq-info-answer-active-height1 {
+    height: 105px;
+  }
+}
+@media screen and (max-width: 393px) {
+  .faq-info-answer-active-height6 {
+    height: 915px;
+  }
+  section.faq .container .faq-info > ol {
+    padding: 0 5px;
+  }
+  section.faq .container .faq-info > ol li > p {
+    width: 110%;
+  }
+}
+@media screen and (max-width: 391px) {
+  .faq-info-answer-active-height2 {
+    height: 140px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 460px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 230px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 865px;
+  }
+}
+@media screen and (max-width: 386px) {
+  section.opportunities .container .opportunities-form > img,
+  section.opportunities .container .opportunities-list > img {
+    width: 100%;
+    margin-left: 0px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 230px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 915px;
+  }
+}
+@media screen and (max-width: 376px) {
+  .faq-info-answer-active-height4 {
+    height: 450px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 845px;
+  }
+  a[name="opportunities"].rel {
+    top: 505px;
+  }
+  a[name="faq"].rel {
+    top: 390px;
+  }
+}
+@media screen and (max-width: 373px) {
+  .faq-info-answer-active-height6 {
+    height: 965px;
+  }
+  .faq-info-answer-active-height7 {
+    height: 120px;
+  }
+  section.opportunities .container .opportunities-list {
+    margin-top: 310px;
+  }
+}
+@media screen and (max-width: 370px) {
+  .faq-info-answer-active-height4 {
+    height: 490px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 945px;
+  }
+}
+@media screen and (max-width: 366px) {
+  .faq-info-answer-active-height2 {
+    height: 125px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 485px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 230px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 970px;
+  }
+}
+@media screen and (max-width: 365px) {
+  .faq-info-answer-active-height1 {
+    height: 110px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 485px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 230px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 970px;
+  }
+}
+@media screen and (max-width: 364px) {
+  .faq-info-answer-active-height1 {
+    height: 110px;
+  }
+  .faq-info-answer-active-height2 {
+    height: 135px;
+  }
+}
+@media screen and (max-width: 362px) {
+  .navbar-active {
+    transform: translateX(34%);
+    -webkit-transform: translateX(34%);
+    -moz-transform: translateX(34%);
+    -ms-transform: translateX(34%);
+    -o-transform: translateX(34%);
+  }
+  a[name="we-create"].rel {
+    top: -110px;
+  }
+  a[name="whats-bot"].rel {
+    top: -860px;
+  }
+  a[name="our-bot-can"].rel {
+    top: -60px;
+  }
+  a[name="opportunities"].rel {
+    top: 580px;
+  }
+  a[name="faq"].rel {
+    top: 360px;
+  }
+  .faq-info-answer-active-height1 {
+    height: 135px;
+  }
+  .faq-info-answer-active-height2 {
+    height: 160px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 510px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 995px;
+  }
+}
+@media screen and (max-width: 360px) {
+  .faq-info-answer-active-height4 {
+    height: 485px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 970px;
+  }
+}
+@media screen and (max-width: 350px) {
+  .faq-info-answer-active-height4 {
+    height: 515px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 1020px;
+  }
+}
+@media screen and (max-width: 342px) {
+  .faq-info-answer-active-height4 {
+    height: 510px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 1080px;
+  }
+}
+@media screen and (max-width: 337px) {
+  .faq-info-answer-active-height1 {
+    height: 135px;
+  }
+  .faq-info-answer-active-height3 {
+    height: 80px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 540px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 255px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 1105px;
+  }
+}
+@media screen and (max-width: 321px) {
+  a[name="we-create"].rel {
+    top: -110px;
+  }
+  a[name="whats-bot"].rel {
+    top: -960px;
+  }
+  a[name="our-bot-can"].rel {
+    top: -50px;
+  }
+  a[name="opportunities"].rel {
+    top: 480px;
+  }
+  a[name="faq"].rel {
+    top: 300px;
+  }
+  a[name="contacts"].rel {
+    top: 40px;
+  }
+  section.whats-bot .container .whats-bot-info > a {
+    width: 190px;
+    padding: 15px 0;
+    font-size: 16px;
+  }
+  section.our-bot-can .container > p {
+    width: 270px;
+    font-size: 16px;
+  }
+  section.opportunities .container .opportunities-form > form {
+    padding-left: 70px;
+    padding-right: 70px;
+  }
+  section.opportunities .container .opportunities-list {
+    padding-left: 10px;
+  }
+  section.opportunities .container .opportunities-list > ul {
+    width: 100%;
+    padding-left: 12px;
+  }
+  section.opportunities .container .opportunities-list ul li > p {
+    width: 240px;
+    max-width: 300px;
+  }
+  .faq-info-answer-active-height7 {
+    height: 125px;
+  }
+  ul li > p {
+    padding-left: 38px;
+    font-size: 14px;
+  }
+  .faq-info-answer-active-height2 {
+    height: 165px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 390px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 235px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 765px;
+  }
+  .navbar-active {
+    transform: translateX(30%);
+    -webkit-transform: translateX(30%);
+    -moz-transform: translateX(30%);
+    -ms-transform: translateX(30%);
+    -o-transform: translateX(30%);
+  }
+}
+@media screen and (max-width: 313px) {
+  section.main-info div.container .content > p {
+    width: 260px;
+    font-size: 18px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 890px;
+  }
+}
+@media screen and (max-width: 308px) {
+  .faq-info-answer-active-height6 {
+    height: 920px;
+  }
+}
+@media screen and (max-width: 307px) {
+  .faq-info-answer-active-height2 {
+    height: 215px;
+  }
+}
+@media screen and (max-width: 305px) {
+  .faq-info-answer-active-height3 {
+    height: 460px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 940px;
+  }
+}
+@media screen and (max-width: 301px) {
+  section.our-bot-can .container > .our-bot-can-skills .left > ul li::before,
+  section.our-bot-can .container > .our-bot-can-skills .right > ul li::before,
+  section.opportunities .container .opportunities-list > ul li::before {
+    clear: both;
+    position: absolute;
+    font-family: FontAwesome;
+    content: "\2714";
+    padding: 2px 7px;
+    color: #fff;
+    background: -webkit-linear-gradient(
+      left,
+      #5ad0ff 0%,
+      #3224e9 50%,
+      #5ad0ff 100%
+    );
+    background-size: 300%, 1px;
+    background-position: 0%;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+  }
+
+  .faq-info-answer-active-height5 {
+    height: 282px;
+  }
+  a[name="we-create"].rel {
+    top: -110px;
+  }
+  a[name="whats-bot"].rel {
+    top: -1000px;
+  }
+  a[name="our-bot-can"].rel {
+    top: -50px;
+  }
+  a[name="opportunities"].rel {
+    top: 460px;
+  }
+  a[name="faq"].rel {
+    top: 270px;
+  }
+  a[name="contacts"].rel {
+    top: -30px;
+  }
+}
+@media screen and (max-width: 290px) {
+  section.we-create .container > h3 {
+    font-size: 26px;
+    width: 250px;
+    margin-bottom: 30px;
+  }
+  .faq-info-answer-active-height1 {
+    height: 170px;
+  }
+  .faq-info-answer-active-height3 {
+    height: 80px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 450px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 300px;
+  }
+  .faq-info-answer-active-height6 {
+    height: 920px;
+  }
+  .navbar-active {
+    transform: translateX(24%);
+    -webkit-transform: translateX(24%);
+    -moz-transform: translateX(24%);
+    -ms-transform: translateX(24%);
+    -o-transform: translateX(24%);
+  }
+  section.main-info div.container .content > p {
+    width: 270px;
+    font-size: 20px;
+    font-weight: 100;
+  }
+}
+@media screen and (max-width: 283px) {
+  .faq-info-answer-active-height1 {
+    height: 165px;
+  }
+  .faq-info-answer-active-height3 {
+    height: 90px;
+  }
+  .faq-info-answer-active-height4 {
+    height: 450px;
+  }
+  .faq-info-answer-active-height5 {
+    height: 280px;
+  }
+}
+@media (orientation: landscape) {
+  body {
+    flex-direction: row;
+  }
+}
+@media (orientation: portrait) {
+  body {
+    flex-direction: column;
+  }
+}
