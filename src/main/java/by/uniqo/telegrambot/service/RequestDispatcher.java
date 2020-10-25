@@ -1,18 +1,13 @@
 package by.uniqo.telegrambot.service;
 
 
-import by.uniqo.telegrambot.buttons.InlineKeyboard.NumberOfEmployeesButtons;
 import by.uniqo.telegrambot.buttons.InlineKeyboard.PriceButtons;
-import by.uniqo.telegrambot.buttons.ReplyKeyboard.ReplyButtonProcessor;
-import by.uniqo.telegrambot.cache.UserDataCache;
 import by.uniqo.telegrambot.enums.BotCommand;
 import by.uniqo.telegrambot.model.UserProfileData;
 import by.uniqo.telegrambot.processor.*;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -34,8 +29,6 @@ public class RequestDispatcher {
     SevenProcessor sevenProcessor;
     @Autowired
     AboutBotProcessor aboutBotProcessor;
-    @Autowired
-    ReplyButtonProcessor replyButtonProcessor;
     @Autowired
     FAQProcessor faqProcessor;
     @Autowired
@@ -142,8 +135,6 @@ public class RequestDispatcher {
     private BotCommand getCommand(Update update) {
         if (update.hasMessage()) {
             Message message = update.getMessage();
-            System.out.println(message.getChatId());
-            System.out.println(message.getText());
             if (message != null && message.hasText()) {
                 String msgText = message.getText();
                 if (msgText.startsWith(BotCommand.HELP.getCommand())) {

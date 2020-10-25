@@ -58,7 +58,7 @@ public class MessageService {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(message.getChatId().toString());
         sendMessage.setText(text);
-        if (text.startsWith("СТОЙ")) {
+        if (text.contains("Каждый бот")) {
             sendMessage.setReplyMarkup(step1buttons.getButtonsMarkupStep1());
         } else if (text.startsWith("Выбери")) {
             sendMessage.setReplyMarkup(priceButtons.getGenderButtonsMarkup());
