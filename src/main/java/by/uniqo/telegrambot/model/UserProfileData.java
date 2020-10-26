@@ -1,14 +1,13 @@
 package by.uniqo.telegrambot.model;
 
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.experimental.FieldDefaults;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
+
 @Component
 public class UserProfileData implements Serializable {
     String id;
@@ -18,8 +17,14 @@ public class UserProfileData implements Serializable {
     String Lastname;
     String typeOfBot;
     String numberOfEmployees;
+    String botCommand;
+    Integer date;
 
     long chatId;
+
+    private Date getDate(int date) {
+        return new java.util.Date((long)date*1000);
+    }
 
 
     @Override
@@ -30,6 +35,16 @@ public class UserProfileData implements Serializable {
                 + "\nname: "+ getLastname()
                 + "\nuserId: " + getId()
                 + "\ntypeOfBot: " + getTypeOfBot()
-                + "\nnumberOfEmployees: " + getNumberOfEmployees());
+                + "\nnumberOfEmployees: " + getNumberOfEmployees())
+                + "\nс какой кнопки пришел: " + getBotCommand()
+                + "\nпоследнее время обращения: " + getDate(date).toString();
+    }
+    public String toStringTellMeMoreButton() {
+        return String.format("\nnickname: "+ getUsername()
+                + "\nfirstname : "+ getFirstname()
+                + "\nname: "+ getLastname()
+                + "\nuserId: " + getId()
+                + "\nс какой кнопки пришел: " + getBotCommand()
+                + "\nпоследнее время обращения: " + getDate(date).toString());
     }
 }

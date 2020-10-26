@@ -5,6 +5,7 @@ import by.uniqo.telegrambot.buttons.InlineKeyboard.PriceButtons;
 import by.uniqo.telegrambot.enums.BotCommand;
 import by.uniqo.telegrambot.model.UserProfileData;
 import by.uniqo.telegrambot.processor.*;
+//import by.uniqo.telegrambot.repo.UserProfileRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,6 +62,8 @@ public class RequestDispatcher {
     PhoneErrorProcessor phoneErrorProcessor;
     @Autowired
     LocaleMessageService localeMessageService;
+//    @Autowired
+//    UserProfileRepo userProfileRepo;
 
     public void dispatch(Update update) {
         switch (getCommand(update)) {
@@ -135,7 +138,12 @@ public class RequestDispatcher {
     private BotCommand getCommand(Update update) {
         if (update.hasMessage()) {
             Message message = update.getMessage();
-            if (message != null && message.hasText()) {
+            userProfileData.setId(message.getChat().getId().toString());
+            userProfileData.setUsername(message.getFrom().getUserName());
+            userProfileData.setFirstname(message.getFrom().getFirstName());
+            userProfileData.setLastname(message.getFrom().getLastName());
+            System.out.println(message.getChatId());
+            if (message.hasText()) {
                 String msgText = message.getText();
                 if (msgText.startsWith(BotCommand.HELP.getCommand())) {
                     return BotCommand.HELP;
@@ -150,21 +158,20 @@ public class RequestDispatcher {
                 } else if (msgText.startsWith(BotCommand.SCOPEOFAPP.getCommand())) {
                     return BotCommand.SCOPEOFAPP;
                 } else if (msgText.startsWith(BotCommand.PRICE.getCommand())) {
+                    userProfileData.setBotCommand(BotCommand.PRICE.name());
                     return BotCommand.PRICE;
                 } else if (msgText.startsWith(BotCommand.FAQ.getCommand())) {
                     return BotCommand.FAQ;
                 } else if (msgText.startsWith(BotCommand.TELLMEMORE.getCommand())) {
+                    userProfileData.setBotCommand(BotCommand.TELLMEMORE.name());
                     return BotCommand.TELLMEMORE;
                 } else if (msgText.startsWith(BotCommand.MANAGER.getCommand())) {
                     return BotCommand.MANAGER;
                 } else if (msgText.startsWith(BotCommand.ABOUTOURBOT.getCommand())) {
                     return BotCommand.ABOUTOURBOT;
                 } else if (msgText.length() >= 7) {
-                    userProfileData.setId(message.getChat().getId().toString());
-                    userProfileData.setUsername(message.getFrom().getUserName());
-                    userProfileData.setFirstname(message.getFrom().getFirstName());
-                    userProfileData.setLastname(message.getFrom().getLastName());
                     userProfileData.setText(message.getText());
+                    userProfileData.setDate(message.getDate());
                     return BotCommand.PRICEQUESTIONCHAINSTEP4;
                 } else if (msgText.length() < 7) {
                     return BotCommand.SENDPHONEERROR;

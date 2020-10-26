@@ -40,9 +40,6 @@ public class MessageService {
 
     public void sendMessage(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
-//        if (message.getChatId() == null) {
-//            telegramBot.execute() // TODO сдделать юзер профиль для того, чтобы брать оттуда chatID 21.10.2020
-//        }
         sendMessage.setChatId(message.getChatId().toString());
         sendMessage.setParseMode("HTML");
         sendMessage.setText(text);
@@ -72,16 +69,4 @@ public class MessageService {
             e.printStackTrace();
         }
     }
-
-    public void sendMessageText(String chatId, String text) {
-        SendMessage send = new SendMessage();
-        send.setChatId(chatId);
-        send.setText(text);
-        try {
-            telegramBot.execute(send);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

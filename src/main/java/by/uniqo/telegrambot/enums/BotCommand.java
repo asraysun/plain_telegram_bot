@@ -8,7 +8,7 @@ public enum BotCommand {
     SEVEN("/seven"),
     ABOUTBOT("Что умеет чат бот"),
     SCOPEOFAPP("Сферы применения"),
-    PRICE("Узнать стоймость"),
+    PRICE("Узнать стоимость"),
     FAQ("Ответы на частые вопросы"),
     TELLMEMORE("Узнать больше"),
     MANAGER("Связаться с менеджером"),

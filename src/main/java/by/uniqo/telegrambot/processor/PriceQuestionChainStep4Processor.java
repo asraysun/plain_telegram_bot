@@ -19,14 +19,15 @@ public class PriceQuestionChainStep4Processor implements ProcessorI{
     @Override
     public String run() {
         SendMessage send = new SendMessage();
-        send.setChatId((long) 764602851);
+        send.setChatId((long) 1307084432);
 //        764602851 - id в телеге Антона
+//        1307084432 - id Nastya
         send.setText("номер телефона: " + userProfileData.toString());
         try {
             telegramBot.execute(send);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-        return "Спасибо за заявку";
+        return "Спасибо за заявку. Наш менеджер свяжется с Вами в ближайшее время.";
     }
 }
