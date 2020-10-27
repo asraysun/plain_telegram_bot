@@ -57,15 +57,14 @@ public class RequestDispatcher {
     @Autowired
     PriceQuestionChainStep4Processor priceQuestionChainStep4Processor;
     @Autowired
-    UserProfileData userProfileData;
+    UserProfileDataService userProfileDataService; // TODO теперь инфа сохраняется в БД, подключить её и переписать методы, которые раньше сохраняли инфу в бин UserProfileData 27.10.2020
     @Autowired
     PhoneErrorProcessor phoneErrorProcessor;
     @Autowired
     LocaleMessageService localeMessageService;
-//    @Autowired
-//    UserProfileRepo userProfileRepo;
+    UserProfileData userProfileData = new UserProfileData();
 
-    public void dispatch(Update update) {
+    public void dispatch(Update update) { // TODO добавить проверку на ID для админа
         switch (getCommand(update)) {
             case HELP:
                 messageService.sendMessage(update.getMessage(), helpProcessor.run());
@@ -136,9 +135,16 @@ public class RequestDispatcher {
     }
 
     private BotCommand getCommand(Update update) {
+
+        if(userProfileDataService.findAll() == null) {
+            UserProfileData userProfileData = new UserProfileData();
+        } else if (userProfileDataService.findAll()!=null) {
+            userProfileDataService.findById(userProfileData.getId());
+        }
+
         if (update.hasMessage()) {
             Message message = update.getMessage();
-            userProfileData.setId(message.getChat().getId().toString());
+            userProfileData.setId(message.getChat().getId()); // TODO теперь инфа сохраняется в БД, подключить userProfileRepository 27-10-2020
             userProfileData.setUsername(message.getFrom().getUserName());
             userProfileData.setFirstname(message.getFrom().getFirstName());
             userProfileData.setLastname(message.getFrom().getLastName());
@@ -177,7 +183,7 @@ public class RequestDispatcher {
                     return BotCommand.SENDPHONEERROR;
                 }
             }
-        } else if (update.hasCallbackQuery()) {
+        } else if (update.hasCallbackQuery()) { //TODO добавить обработку кнопок админа
             CallbackQuery buttonQuery = update.getCallbackQuery();
             if (buttonQuery.getData().equals("buttonVar1") ||
                     buttonQuery.getData().equals("buttonVar2") ||
