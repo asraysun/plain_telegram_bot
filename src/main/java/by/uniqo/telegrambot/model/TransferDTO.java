@@ -1,6 +1,7 @@
 package by.uniqo.telegrambot.model;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -25,8 +26,8 @@ public class TransferDTO implements Serializable{
     private Integer date;
     private Long chatId;
 
-//    @Autowired
-//    UserProfileData userProfileData;
+    @Autowired
+    UserProfileData userProfileData;
 
     private Date getDate(int date) {
         return new java.util.Date((long) date * 1000);
