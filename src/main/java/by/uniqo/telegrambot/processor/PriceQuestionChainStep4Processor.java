@@ -1,6 +1,7 @@
 package by.uniqo.telegrambot.processor;
 
 import by.uniqo.telegrambot.bean.TelegramBot;
+import by.uniqo.telegrambot.model.TransferDTO;
 import by.uniqo.telegrambot.model.UserProfileData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ public class PriceQuestionChainStep4Processor implements ProcessorI{
     @Autowired
     SendDocumentProcessor sendDocumentProcessor;
     @Autowired
-    UserProfileData userProfileData;
+    TransferDTO transferDTO;
     @Autowired
     TelegramBot telegramBot;
 
@@ -22,7 +23,7 @@ public class PriceQuestionChainStep4Processor implements ProcessorI{
         send.setChatId((long) 1307084432);
 //        764602851 - id в телеге Антона
 //        1307084432 - id Nastya
-        send.setText("номер телефона: " + userProfileData.toString());
+        send.setText("номер телефона: " + transferDTO.toString());
         try {
             telegramBot.execute(send);
         } catch (TelegramApiException e) {

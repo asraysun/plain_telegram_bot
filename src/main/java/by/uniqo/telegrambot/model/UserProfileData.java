@@ -6,13 +6,13 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-
+@Component
 @Data
 @Entity
 @Table(name = "user_profile_data")
 public class UserProfileData implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
     @Column(name = "message_text")
@@ -57,8 +57,8 @@ public class UserProfileData implements Serializable {
                 + "\nuserId: " + getId()
                 + "\ntypeOfBot: " + getTypeOfBot()
                 + "\nnumberOfEmployees: " + getNumberOfEmployees())
-                + "\nс какой кнопки пришел: " + getBotCommand()
-                + "\nпоследнее время обращения: " + getDate(date).toString();
+                + "\nс какой кнопки пришел: " + getBotCommand();
+//                + "\nпоследнее время обращения: " + getDate(date).toString();
     }
 
     public String toStringTellMeMoreButton() {

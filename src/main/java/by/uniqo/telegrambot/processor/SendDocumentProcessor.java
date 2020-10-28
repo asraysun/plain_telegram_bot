@@ -1,6 +1,7 @@
 package by.uniqo.telegrambot.processor;
 
 import by.uniqo.telegrambot.bean.TelegramBot;
+import by.uniqo.telegrambot.model.TransferDTO;
 import by.uniqo.telegrambot.model.UserProfileData;
 import by.uniqo.telegrambot.service.LocaleMessageService;
 import by.uniqo.telegrambot.service.RequestDispatcher;
@@ -14,14 +15,10 @@ import org.springframework.stereotype.Service;
 public class SendDocumentProcessor implements ProcessorI{
 
     @Autowired
-    TelegramBot telegramBot;
-    @Autowired
-    RequestDispatcher requestDispatcher;
-    @Autowired
-    UserProfileData userProfileData;
+    TransferDTO transferDTO;
 
     @Override
     public String run() {
-        return userProfileData.toString();
+        return transferDTO.toString();
     }
 }
