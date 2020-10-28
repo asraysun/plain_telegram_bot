@@ -32,6 +32,6 @@ public class PriceQuestionChainStep4Processor implements ProcessorI{
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-        return localeMessageService.getMessage("reply.tellMeMore").concat("\nСпасибо за заявку.");
+        return localeMessageService.getMessage("\nСпасибо за заявку. В ближайшее время наш менеджер свяжется с вами");
     }
 }
