@@ -25,15 +25,18 @@ public class TellMeMoreProcessor implements ProcessorI{
     @Override
     public String run() {
         SendMessage send = new SendMessage();
+        SendMessage send1 = new SendMessage();
         send.setChatId((long) 764602851);
-        send.setChatId((long) 956524755);
+        send1.setChatId((long) 956524755);
 //        764602851 - id в телеге Антона
 //        1307084432 - id Nastya
         //956524755 - мой ид
 
         send.setText(transferDTO.toStringTellMeMoreButton());
+        send1.setText(transferDTO.toStringTellMeMoreButton());
         try {
             telegramBot.execute(send);
+            telegramBot.execute(send1);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
