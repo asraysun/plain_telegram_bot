@@ -7,6 +7,6 @@ public class PriceQuestionChainStep3Processor implements ProcessorI{
 
     @Override
     public String run() {
-        return "Укажите номер телефона для связи";
+        return "Поделиться контактом";
     }
 }

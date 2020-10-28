@@ -3,6 +3,7 @@ package by.uniqo.telegrambot.processor;
 import by.uniqo.telegrambot.bean.TelegramBot;
 import by.uniqo.telegrambot.model.TransferDTO;
 import by.uniqo.telegrambot.model.UserProfileData;
+import by.uniqo.telegrambot.service.LocaleMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -16,11 +17,13 @@ public class PriceQuestionChainStep4Processor implements ProcessorI{
     TransferDTO transferDTO;
     @Autowired
     TelegramBot telegramBot;
+    @Autowired
+    LocaleMessageService localeMessageService;
 
     @Override
     public String run() {
         SendMessage send = new SendMessage();
-        send.setChatId((long) 1307084432);
+        send.setChatId((long) 764602851);
 //        764602851 - id в телеге Антона
 //        1307084432 - id Nastya
         send.setText("номер телефона: " + transferDTO.toString());
@@ -29,6 +32,6 @@ public class PriceQuestionChainStep4Processor implements ProcessorI{
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-        return "Спасибо за заявку. Наш менеджер свяжется с Вами в ближайшее время.";
+        return localeMessageService.getMessage("reply.tellMeMore").concat("\nСпасибо за заявку.");
     }
 }

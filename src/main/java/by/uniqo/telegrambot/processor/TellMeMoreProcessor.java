@@ -25,7 +25,7 @@ public class TellMeMoreProcessor implements ProcessorI{
     @Override
     public String run() {
         SendMessage send = new SendMessage();
-        send.setChatId((long) 1307084432);
+        send.setChatId((long) 764602851);
 //        764602851 - id в телеге Антона
 //        1307084432 - id Nastya
 
@@ -40,7 +40,7 @@ public class TellMeMoreProcessor implements ProcessorI{
     }
 
 
-//    TODO when creating message to user, split a message and emogis into to methods
+//    TODO when creating message to user, split a message and emojis into to methods
 //    public String run_redundant() {
 //        return localeMessageService.getMessage("reply.tellMeMore", Emojis.CHECK, Emojis.CHECK,
 //                Emojis.CHECK, Emojis.CHECK, Emojis.CHECK);

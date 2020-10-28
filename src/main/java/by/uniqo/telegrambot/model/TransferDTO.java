@@ -45,17 +45,18 @@ public class TransferDTO implements Serializable{
                 + "\nuserId: " + getId()
                 + "\ntypeOfBot: " + getTypeOfBot()
                 + "\nnumberOfEmployees: " + getNumberOfEmployees())
-                + "\nс какой кнопки пришел: " + getBotCommand();
-//                + "\nпоследнее время обращения: " + getDate(date).toString();
+                + "\nс какой кнопки пришел: " + getBotCommand()
+                + "\nпоследнее время обращения: " + getDate(date).toString();
     }
 
     public String toStringTellMeMoreButton() {
+        Date dateTime=java.util.Calendar.getInstance().getTime();
         return String.format("\nnickname: " + getUsername()
                 + "\nfirstname : " + getFirstname()
                 + "\nname: " + getLastname()
                 + "\nuserId: " + getId()
-                + "\nс какой кнопки пришел: " + getBotCommand());
-//                + "\nпоследнее время обращения: " + getDate(date).toString());
+                + "\nс какой кнопки пришел: " + getBotCommand())
+                + "\nпоследнее время обращения: " + dateTime;
     }
 
     public void setId(Long id) {

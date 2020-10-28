@@ -184,6 +184,7 @@ public class RequestDispatcher {
             }
         } else if (update.hasCallbackQuery()) { //TODO добавить обработку кнопок админа
             CallbackQuery buttonQuery = update.getCallbackQuery();
+            transferDTO.setDate(buttonQuery.getMessage().getDate());
             if (buttonQuery.getData().equals("buttonVar1") ||
                     buttonQuery.getData().equals("buttonVar2") ||
                     buttonQuery.getData().equals("buttonVar3")) {
