@@ -4,7 +4,7 @@ package by.uniqo.telegrambot.service;
 import by.uniqo.telegrambot.buttons.InlineKeyboard.PriceButtons;
 import by.uniqo.telegrambot.enums.BotCommand;
 import by.uniqo.telegrambot.model.TransferDTO;
-import by.uniqo.telegrambot.model.UserProfileData;
+//import by.uniqo.telegrambot.model.UserProfileData;
 import by.uniqo.telegrambot.processor.*;
 //import by.uniqo.telegrambot.repo.UserProfileRepo;
 import lombok.extern.slf4j.Slf4j;
@@ -65,8 +65,8 @@ public class RequestDispatcher {
     SendDocumentProcessor sendDocumentProcessor;
     @Autowired
     PriceQuestionChainStep4Processor priceQuestionChainStep4Processor;
-    @Autowired
-    UserProfileDataService userProfileDataService; // TODO теперь инфа сохраняется в БД, подключить её и переписать методы, которые раньше сохраняли инфу в бин UserProfileData 27.10.2020
+//    @Autowired
+//    UserProfileDataService userProfileDataService; // TODO теперь инфа сохраняется в БД, подключить её и переписать методы, которые раньше сохраняли инфу в бин UserProfileData 27.10.2020
     @Autowired
     PhoneErrorProcessor phoneErrorProcessor;
     @Autowired

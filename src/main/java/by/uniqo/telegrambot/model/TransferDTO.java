@@ -1,10 +1,8 @@
 package by.uniqo.telegrambot.model;
 
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -27,8 +25,8 @@ public class TransferDTO implements Serializable{
     private Integer date;
     private Long chatId;
 
-    @Autowired
-    UserProfileData userProfileData;
+//    @Autowired
+//    UserProfileData userProfileData;
 
     private Date getDate(int date) {
         return new java.util.Date((long) date * 1000);
@@ -63,10 +61,10 @@ public class TransferDTO implements Serializable{
         this.id = id;
     }
 
-    public void setTextToDB(UserProfileData userProfileData, TransferDTO transferDTO) {
-        userProfileData.setText(transferDTO.getText());
-
-    }
+//    public void setTextToDB(UserProfileData userProfileData, TransferDTO transferDTO) {
+//        userProfileData.setText(transferDTO.getText());
+//
+//    }
 
     public void setUsername(String username) {
         this.username = username;

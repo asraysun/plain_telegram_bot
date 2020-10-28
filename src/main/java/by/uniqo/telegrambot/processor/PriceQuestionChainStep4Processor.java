@@ -2,7 +2,7 @@ package by.uniqo.telegrambot.processor;
 
 import by.uniqo.telegrambot.bean.TelegramBot;
 import by.uniqo.telegrambot.model.TransferDTO;
-import by.uniqo.telegrambot.model.UserProfileData;
+//import by.uniqo.telegrambot.model.UserProfileData;
 import by.uniqo.telegrambot.service.LocaleMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
