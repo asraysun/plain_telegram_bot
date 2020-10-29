@@ -25,6 +25,7 @@ public enum Emojis {
     GEAR(EmojiParser.parseToUnicode(":gear:")),
     BOOKS(EmojiParser.parseToUnicode(":books:")),
     GIFT(EmojiParser.parseToUnicode(":gift:")),
+    ROBOTFACE(EmojiParser.parseToUnicode(":robot_face:")),
     TOOLS(EmojiParser.parseToUnicode(":hammer_and_wrench:"));
 
     private String emojiName;

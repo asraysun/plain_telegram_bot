@@ -24,8 +24,8 @@ public class PriceQuestionChainStep4Processor implements ProcessorI{
     public String run() {
         SendMessage send = new SendMessage();
         SendMessage send1 = new SendMessage();
-        send.setChatId((long) 764602851);
-        send1.setChatId((long) 956524755);
+        send.setChatId((long) 1307084432);
+//        send1.setChatId((long) 956524755);
 //        764602851 - id в телеге Антона
 //        1307084432 - id Nastya
         send.setText("номер телефона: " + transferDTO.toString());
