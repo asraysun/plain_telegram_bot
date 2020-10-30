@@ -1,23 +1,17 @@
 package by.uniqo.telegrambot.service;
 
 import by.uniqo.telegrambot.bean.TelegramBot;
+import by.uniqo.telegrambot.buttons.InlineKeyboard.ManagerApproveButtons;
 import by.uniqo.telegrambot.buttons.InlineKeyboard.NumberOfEmployeesButtons;
 import by.uniqo.telegrambot.buttons.InlineKeyboard.PriceButtons;
 import by.uniqo.telegrambot.buttons.InlineKeyboard.Step1buttons;
 import by.uniqo.telegrambot.buttons.ReplyKeyboard.MainMenuButton;
-import by.uniqo.telegrambot.enums.BotCommand;
-import lombok.SneakyThrows;
+import by.uniqo.telegrambot.buttons.ReplyKeyboard.MainMenuButtonForAdditionMenu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-
-import java.io.File;
-import java.util.Objects;
 
 @Service
 public class MessageService {
@@ -30,6 +24,8 @@ public class MessageService {
     @Autowired
     MainMenuButton mainMenuButton;
     @Autowired
+    MainMenuButtonForAdditionMenu mainMenuButtonForAdditionMenu;
+    @Autowired
     PriceButtons priceButtons;
     @Autowired
     RequestDispatcher requestDispatcher;
@@ -37,6 +33,8 @@ public class MessageService {
     Step1buttons step1buttons;
     @Autowired
     NumberOfEmployeesButtons numberOfEmployeesButtons;
+    @Autowired
+    ManagerApproveButtons managerApproveButtons;
 
     public void sendMessage(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
@@ -44,6 +42,18 @@ public class MessageService {
         sendMessage.setParseMode("HTML");
         sendMessage.setText(text);
         sendMessage.setReplyMarkup(mainMenuButton.getMainMenuKeyboard());
+        try {
+            telegramBot.execute(sendMessage);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+    public void sendMessageWithAdditionMenu(Message message, String text) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(message.getChatId().toString());
+        sendMessage.setParseMode("HTML");
+        sendMessage.setText(text);
+        sendMessage.setReplyMarkup(mainMenuButtonForAdditionMenu.getAdditionMenuKeyboard());
         try {
             telegramBot.execute(sendMessage);
         } catch (TelegramApiException e) {
@@ -61,6 +71,10 @@ public class MessageService {
             sendMessage.setReplyMarkup(priceButtons.getGenderButtonsMarkup());
         } else if (text.startsWith("Укажите кол")) {
             sendMessage.setReplyMarkup(numberOfEmployeesButtons.getNumberOfEmployeesButtonsMarkup());
+        } else if (text.startsWith("Поделиться кон")) {
+            sendMessage.setReplyMarkup(mainMenuButtonForAdditionMenu.getAdditionMenuKeyboard());
+        } else if (text.startsWith("Воспользуйтесь этой")) {
+            sendMessage.setReplyMarkup(managerApproveButtons.getManagerInlineApproveMarkup());
         }
 
         try {

@@ -2,6 +2,7 @@ package by.uniqo.telegrambot.service;
 
 
 import by.uniqo.telegrambot.buttons.InlineKeyboard.PriceButtons;
+import by.uniqo.telegrambot.buttons.ReplyKeyboard.MainMenuButtonForAdditionMenu;
 import by.uniqo.telegrambot.enums.BotCommand;
 import by.uniqo.telegrambot.model.TransferDTO;
 //import by.uniqo.telegrambot.model.UserProfileData;
@@ -65,7 +66,7 @@ public class RequestDispatcher {
     SendDocumentProcessor sendDocumentProcessor;
     @Autowired
     PriceQuestionChainStep4Processor priceQuestionChainStep4Processor;
-//    @Autowired
+    //    @Autowired
 //    UserProfileDataService userProfileDataService; // TODO теперь инфа сохраняется в БД, подключить её и переписать методы, которые раньше сохраняли инфу в бин UserProfileData 27.10.2020
     @Autowired
     PhoneErrorProcessor phoneErrorProcessor;
@@ -73,6 +74,8 @@ public class RequestDispatcher {
     LocaleMessageService localeMessageService;
     @Autowired
     TransferDTO transferDTO;
+    @Autowired
+    ManagerAnswerProcessor managerAnswerProcessor;
 
     public void dispatch(Update update) { // TODO добавить проверку на ID для админа
         switch (getCommand(update)) {
@@ -107,7 +110,7 @@ public class RequestDispatcher {
                 messageService.sendMessage(update.getMessage(), tellMeMoreProcessor.run());
                 break;
             case MANAGER:
-                messageService.sendMessage(update.getMessage(), managerProcessor.run());
+                messageService.sendMessageWithCallBackQuery(update.getMessage(), managerProcessor.run());
                 break;
             case ABOUTOURBOT:
                 messageService.sendMessage(update.getMessage(), aboutOurProcessor.run());
@@ -132,6 +135,10 @@ public class RequestDispatcher {
                 break;
             case SENDDOCUMENT:
                 messageService.sendMessage(update.getMessage(), sendDocumentProcessor.run());
+                break;
+            case MANAGERANSWER:
+                CallbackQuery send4 = update.getCallbackQuery();
+                messageService.sendMessage(send4.getMessage(), managerAnswerProcessor.run());
                 break;
             case SENDPHONEERROR:
                 messageService.sendMessage(update.getMessage(), phoneErrorProcessor.run());
@@ -188,13 +195,15 @@ public class RequestDispatcher {
             if (buttonQuery.getData().equals("buttonVar1") ||
                     buttonQuery.getData().equals("buttonVar2") ||
                     buttonQuery.getData().equals("buttonVar3")) {
-                transferDTO.setTypeOfBot(localeMessageService.getMessage("button." +buttonQuery.getData()));
+                transferDTO.setTypeOfBot(localeMessageService.getMessage("button." + buttonQuery.getData()));
                 return BotCommand.PRICEQUESTIONCHAINSTEP2;
             } else if (buttonQuery.getData().equals("buttonSetPrice")) {
                 return BotCommand.PRICEQUESTIONCHAINSTEP1;
+            } else if (buttonQuery.getData().equals("buttonManagerCallBack")) {
+                return BotCommand.MANAGERANSWER;
             } else if (buttonQuery.getData().equals("buttonStep1") || buttonQuery.getData().equals("buttonStep2") ||
                     buttonQuery.getData().equals("buttonStep3") || buttonQuery.getData().equals("buttonStep4")) {
-                transferDTO.setNumberOfEmployees(localeMessageService.getMessage("button." +buttonQuery.getData()));
+                transferDTO.setNumberOfEmployees(localeMessageService.getMessage("button." + buttonQuery.getData()));
                 return BotCommand.PRICEQUESTIONCHAINSTEP3;
             } else return BotCommand.PRICEQUESTIONCHAIN;
         }
