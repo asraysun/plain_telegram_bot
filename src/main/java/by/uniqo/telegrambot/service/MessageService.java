@@ -7,6 +7,7 @@ import by.uniqo.telegrambot.buttons.InlineKeyboard.PriceButtons;
 import by.uniqo.telegrambot.buttons.InlineKeyboard.Step1buttons;
 import by.uniqo.telegrambot.buttons.ReplyKeyboard.MainMenuButton;
 import by.uniqo.telegrambot.buttons.ReplyKeyboard.MainMenuButtonForAdditionMenu;
+import by.uniqo.telegrambot.model.TransferDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -35,6 +36,8 @@ public class MessageService {
     NumberOfEmployeesButtons numberOfEmployeesButtons;
     @Autowired
     ManagerApproveButtons managerApproveButtons;
+    @Autowired
+    TransferDTO transferDTO;
 
     public void sendMessage(Message message, String text) {
         SendMessage sendMessage = new SendMessage();

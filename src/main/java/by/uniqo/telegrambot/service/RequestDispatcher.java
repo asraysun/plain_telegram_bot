@@ -2,24 +2,15 @@ package by.uniqo.telegrambot.service;
 
 
 import by.uniqo.telegrambot.buttons.InlineKeyboard.PriceButtons;
-import by.uniqo.telegrambot.buttons.ReplyKeyboard.MainMenuButtonForAdditionMenu;
 import by.uniqo.telegrambot.enums.BotCommand;
 import by.uniqo.telegrambot.model.TransferDTO;
-//import by.uniqo.telegrambot.model.UserProfileData;
 import by.uniqo.telegrambot.processor.*;
-//import by.uniqo.telegrambot.repo.UserProfileRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 
 @Slf4j
@@ -75,6 +66,10 @@ public class RequestDispatcher {
     @Autowired
     TransferDTO transferDTO;
     @Autowired
+    SayThanksProcessor sayThanksProcessor;
+    @Autowired
+    NewUpdatesProcessor newUpdatesProcessor;
+    @Autowired
     ManagerAnswerProcessor managerAnswerProcessor;
 
     public void dispatch(Update update) { // TODO добавить проверку на ID для админа
@@ -102,6 +97,9 @@ public class RequestDispatcher {
                 break;
             case PRICE:
                 messageService.sendMessageWithCallBackQuery(update.getMessage(), priceProcessor.run());
+                break;
+            case NEWUPDATES:
+                messageService.sendMessageWithCallBackQuery(update.getMessage(), newUpdatesProcessor.run());
                 break;
             case FAQ:
                 messageService.sendMessage(update.getMessage(), faqProcessor.run());
@@ -136,6 +134,9 @@ public class RequestDispatcher {
             case SENDDOCUMENT:
                 messageService.sendMessage(update.getMessage(), sendDocumentProcessor.run());
                 break;
+            case SAYTHANKS:
+                messageService.sendMessage(update.getMessage(), sayThanksProcessor.run());
+                break;
             case MANAGERANSWER:
                 CallbackQuery send4 = update.getCallbackQuery();
                 messageService.sendMessage(send4.getMessage(), managerAnswerProcessor.run());
@@ -149,11 +150,16 @@ public class RequestDispatcher {
 
     private BotCommand getCommand(Update update) {
         if (update.hasMessage()) {
+            if (update.getMessage().hasContact()) {
+                return BotCommand.SAYTHANKS;
+            }
             Message message = update.getMessage();
-            transferDTO.setId(message.getChat().getId()); // TODO теперь инфа сохраняется в БД, подключить userProfileRepository 27-10-2020
-            transferDTO.setUsername(message.getFrom().getUserName());
-            transferDTO.setFirstname(message.getFrom().getFirstName());
-            transferDTO.setLastname(message.getFrom().getLastName());
+            if (transferDTO.getId() == null) {
+                transferDTO.setId(message.getChat().getId()); // TODO теперь инфа сохраняется в БД, подключить userProfileRepository 27-10-2020
+                transferDTO.setUsername(message.getFrom().getUserName());
+                transferDTO.setFirstname(message.getFrom().getFirstName());
+                transferDTO.setLastname(message.getFrom().getLastName());
+            }
             System.out.println(message.getChatId());
             if (message.hasText()) {
                 String msgText = message.getText();
@@ -179,6 +185,8 @@ public class RequestDispatcher {
                     return BotCommand.TELLMEMORE;
                 } else if (msgText.startsWith(BotCommand.MANAGER.getCommand())) {
                     return BotCommand.MANAGER;
+                } else if (msgText.startsWith("Нет")) {
+                    return BotCommand.NEWUPDATES;
                 } else if (msgText.startsWith(BotCommand.ABOUTOURBOT.getCommand())) {
                     return BotCommand.ABOUTOURBOT;
                 } else if (msgText.length() >= 7) {
@@ -191,6 +199,7 @@ public class RequestDispatcher {
             }
         } else if (update.hasCallbackQuery()) { //TODO добавить обработку кнопок админа
             CallbackQuery buttonQuery = update.getCallbackQuery();
+//            System.out.println(update.getCallbackQuery().getMessage().hasContact());
             transferDTO.setDate(buttonQuery.getMessage().getDate());
             if (buttonQuery.getData().equals("buttonVar1") ||
                     buttonQuery.getData().equals("buttonVar2") ||

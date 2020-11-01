@@ -25,6 +25,7 @@ public class TransferDTO implements Serializable{
     private String botCommand;
     private Integer date;
     private Long chatId;
+    private Integer messageId;
 
     @Autowired
     UserProfileData userProfileData;
