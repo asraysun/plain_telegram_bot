@@ -78,6 +78,8 @@ public class MessageService {
             sendMessage.setReplyMarkup(mainMenuButtonForAdditionMenu.getAdditionMenuKeyboard());
         } else if (text.startsWith("Воспользуйтесь этой")) {
             sendMessage.setReplyMarkup(managerApproveButtons.getManagerInlineApproveMarkup());
+        } else if (text.startsWith("Оставайтесь на")) {
+            sendMessage.setReplyMarkup(mainMenuButton.getMainMenuKeyboard());
         }
 
         try {

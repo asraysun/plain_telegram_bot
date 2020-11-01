@@ -16,6 +16,7 @@ public class ManagerApproveButtons extends InlineKeyboardMarkup {
     public InlineKeyboardMarkup getManagerInlineApproveMarkup() {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         InlineKeyboardButton buttonManagerCallBack = new InlineKeyboardButton().setText("Написать менеджеру");
+        buttonManagerCallBack.setUrl("http://t.me/yqpuss");
 
         //Every button must have callBackData, or else not work !
         buttonManagerCallBack.setCallbackData("buttonManagerCallBack");

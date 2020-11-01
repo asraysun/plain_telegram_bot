@@ -49,7 +49,7 @@ public class TellMeMoreProcessor implements ProcessorI{
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-        return "Спасибо";
+        return "Наш менеджер расскажет вам подробности";
 
     }
 
