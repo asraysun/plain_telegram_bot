@@ -36,6 +36,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     public void onUpdateReceived(Update update) {
+        System.out.println(update);
         requestDispatcher.dispatch(update);
     }
 

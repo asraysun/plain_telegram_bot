@@ -155,7 +155,15 @@ public class RequestDispatcher {
             }
             Message message = update.getMessage();
             if (transferDTO.getId() == null) {
-                transferDTO.setId(message.getChat().getId()); // TODO теперь инфа сохраняется в БД, подключить userProfileRepository 27-10-2020
+                transferDTO.setChatId(message.getChat().getId());
+                transferDTO.setId(message.getFrom().getId().longValue()); // TODO теперь инфа сохраняется в БД, подключить userProfileRepository 27-10-2020
+                transferDTO.setUsername(message.getFrom().getUserName());
+                transferDTO.setFirstname(message.getFrom().getFirstName());
+                transferDTO.setLastname(message.getFrom().getLastName());
+            }
+            if (!transferDTO.getId().equals(update.getMessage().getFrom().getId().longValue())) {
+                transferDTO.setChatId(message.getChat().getId());
+                transferDTO.setId(message.getFrom().getId().longValue()); // TODO теперь инфа сохраняется в БД, подключить userProfileRepository 27-10-2020
                 transferDTO.setUsername(message.getFrom().getUserName());
                 transferDTO.setFirstname(message.getFrom().getFirstName());
                 transferDTO.setLastname(message.getFrom().getLastName());
