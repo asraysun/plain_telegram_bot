@@ -35,6 +35,7 @@ public class TellMeMoreProcessor implements ProcessorI{
         send.setChatId((long) 1307084432);
         send.setText(transferDTO.toStringTellMeMoreButton());
         send1.setChatId((long) 764602851);
+        send1.setText(transferDTO.toStringTellMeMoreButton());
 //        764602851 - id в телеге Антона
 //        1307084432 - id Nastya
         //956524755 - мой ид
