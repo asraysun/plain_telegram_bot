@@ -39,7 +39,7 @@ public class TellMeMoreProcessor implements ProcessorI{
 //        1307084432 - id Nastya
         //956524755 - мой ид
         sendContact.setReplyToMessageId(send.getReplyToMessageId());
-        sendContact.setChatId((long) 956524755);
+        sendContact.setChatId((long) 764602851);
         sendContact.setPhoneNumber("+37544 735 7152");
         sendContact.setFirstName("Антон");
         sendContact.setLastName("Купрейчик");
