@@ -4,7 +4,9 @@ package by.uniqo.telegrambot.service;
 import by.uniqo.telegrambot.buttons.InlineKeyboard.PriceButtons;
 import by.uniqo.telegrambot.enums.BotCommand;
 import by.uniqo.telegrambot.model.TransferDTO;
+import by.uniqo.telegrambot.model.UserProfileData;
 import by.uniqo.telegrambot.processor.*;
+import by.uniqo.telegrambot.repository.UserProfileRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,6 +58,11 @@ public class RequestDispatcher {
     @Autowired
     SendDocumentProcessor sendDocumentProcessor;
     @Autowired
+    UserProfileRepository userProfileRepository;
+    @Autowired
+    UserProfileDataService userProfileDataService;
+
+    @Autowired
     PriceQuestionChainStep4Processor priceQuestionChainStep4Processor;
     //    @Autowired
 //    UserProfileDataService userProfileDataService; // TODO теперь инфа сохраняется в БД, подключить её и переписать методы, которые раньше сохраняли инфу в бин UserProfileData 27.10.2020
@@ -79,6 +86,7 @@ public class RequestDispatcher {
                 break;
             case START:
                 messageService.sendMessage(update.getMessage(), startProcessor.run());
+                saveUser(update.getMessage());
                 break;
             case SETTING:
                 messageService.sendMessage(update.getMessage(), settingsProcessor.run());
@@ -105,6 +113,7 @@ public class RequestDispatcher {
                 messageService.sendMessage(update.getMessage(), faqProcessor.run());
                 break;
             case TELLMEMORE:
+
                 messageService.sendMessage(update.getMessage(), tellMeMoreProcessor.run());
                 break;
             case MANAGER:
@@ -149,81 +158,121 @@ public class RequestDispatcher {
     }
 
     private BotCommand getCommand(Update update) {
-        if (update.hasMessage()) {
-            if (update.getMessage().hasContact()) {
-                return BotCommand.SAYTHANKS;
-            }
-            Message message = update.getMessage();
-            if (transferDTO.getId() == null) {
-                transferDTO.setChatId(message.getChat().getId());
-                transferDTO.setId(message.getFrom().getId().longValue()); // TODO теперь инфа сохраняется в БД, подключить userProfileRepository 27-10-2020
-                transferDTO.setUsername(message.getFrom().getUserName());
-                transferDTO.setFirstname(message.getFrom().getFirstName());
-                transferDTO.setLastname(message.getFrom().getLastName());
-            }
-            if (!transferDTO.getId().equals(update.getMessage().getFrom().getId().longValue())) {
-                transferDTO.setChatId(message.getChat().getId());
-                transferDTO.setId(message.getFrom().getId().longValue()); // TODO теперь инфа сохраняется в БД, подключить userProfileRepository 27-10-2020
-                transferDTO.setUsername(message.getFrom().getUserName());
-                transferDTO.setFirstname(message.getFrom().getFirstName());
-                transferDTO.setLastname(message.getFrom().getLastName());
-            }
-            System.out.println(message.getChatId());
-            if (message.hasText()) {
-                String msgText = message.getText();
-                if (msgText.startsWith(BotCommand.HELP.getCommand())) {
-                    return BotCommand.HELP;
-                } else if (msgText.startsWith(BotCommand.START.getCommand())) {
-                    return BotCommand.START;
-                } else if (msgText.startsWith(BotCommand.SETTING.getCommand())) {
-                    return BotCommand.SETTING;
-                } else if (msgText.startsWith(BotCommand.SEVEN.getCommand())) {
-                    return BotCommand.SEVEN;
-                } else if (msgText.startsWith(BotCommand.ABOUTBOT.getCommand())) {
-                    return BotCommand.ABOUTBOT;
-                } else if (msgText.startsWith(BotCommand.SCOPEOFAPP.getCommand())) {
-                    return BotCommand.SCOPEOFAPP;
-                } else if (msgText.startsWith(BotCommand.PRICE.getCommand())) {
-                    transferDTO.setBotCommand(BotCommand.PRICE.name());
-                    return BotCommand.PRICE;
-                } else if (msgText.startsWith(BotCommand.FAQ.getCommand())) {
-                    return BotCommand.FAQ;
-                } else if (msgText.startsWith(BotCommand.TELLMEMORE.getCommand())) {
-                    transferDTO.setBotCommand(BotCommand.TELLMEMORE.name());
-                    return BotCommand.TELLMEMORE;
-                } else if (msgText.startsWith(BotCommand.MANAGER.getCommand())) {
-                    return BotCommand.MANAGER;
-                } else if (msgText.startsWith("Нет")) {
-                    return BotCommand.NEWUPDATES;
-                } else if (msgText.startsWith(BotCommand.ABOUTOURBOT.getCommand())) {
-                    return BotCommand.ABOUTOURBOT;
-                } else if (msgText.length() >= 7) {
-                    transferDTO.setText(message.getText());
-                    transferDTO.setDate(message.getDate());
-                    return BotCommand.PRICEQUESTIONCHAINSTEP4;
-                } else if (msgText.length() < 7) {
-                    return BotCommand.SENDPHONEERROR;
+
+        UserProfileData userProfileData = null;
+        if(userProfileRepository.findUserProfileDataByChatId(getUserId(update).longValue())!= null) {
+            userProfileData = userProfileRepository.findUserProfileDataByChatId(getUserId(update).longValue());
+            if (update.hasMessage()) {
+
+
+//            if (update.getMessage().hasContact()) {
+//                transferDTO.setPhoneNumber(update.getMessage().getContact().getPhoneNumber());
+//            }
+                if (update.getMessage().hasContact()) {
+                    return BotCommand.SAYTHANKS;
                 }
-            }
-        } else if (update.hasCallbackQuery()) { //TODO добавить обработку кнопок админа
-            CallbackQuery buttonQuery = update.getCallbackQuery();
+                Message message = update.getMessage();
+
+//            if (transferDTO.getChatId() == null) {
+//                transferDTO.setChatId(message.getChat().getId());
+//                transferDTO.setUsername(message.getFrom().getUserName());
+//                transferDTO.setFirstname(message.getFrom().getFirstName());
+//                transferDTO.setLastname(message.getFrom().getLastName());
+//            }
+//            if (!transferDTO.getChatId().equals(update.getMessage().getFrom().getId().longValue())) {
+//                transferDTO.setChatId(message.getChat().getId());
+//                transferDTO.setUsername(message.getFrom().getUserName());
+//                transferDTO.setFirstname(message.getFrom().getFirstName());
+//                transferDTO.setLastname(message.getFrom().getLastName());
+//            }
+                System.out.println(message.getChatId());
+                if (message.hasText()) {
+                    String msgText = message.getText();
+                    if (msgText.startsWith(BotCommand.HELP.getCommand())) {
+                        return BotCommand.HELP;
+                    } else if (msgText.startsWith(BotCommand.START.getCommand())) {
+                        return BotCommand.START;
+                    } else if (msgText.startsWith(BotCommand.SETTING.getCommand())) {
+                        return BotCommand.SETTING;
+                    } else if (msgText.startsWith(BotCommand.SEVEN.getCommand())) {
+                        return BotCommand.SEVEN;
+                    } else if (msgText.startsWith(BotCommand.ABOUTBOT.getCommand())) {
+                        return BotCommand.ABOUTBOT;
+                    } else if (msgText.startsWith(BotCommand.SCOPEOFAPP.getCommand())) {
+                        return BotCommand.SCOPEOFAPP;
+                    } else if (msgText.startsWith(BotCommand.PRICE.getCommand())) {
+                        userProfileData.setBotCommand(BotCommand.PRICE.name());
+                        userProfileRepository.save(userProfileData);
+                        return BotCommand.PRICE;
+                    } else if (msgText.startsWith(BotCommand.FAQ.getCommand())) {
+                        return BotCommand.FAQ;
+                    } else if (msgText.startsWith(BotCommand.TELLMEMORE.getCommand())) {
+                        TellMeMoreProcessor.chatId = userProfileData.getChatId();
+                        userProfileData.setBotCommand(BotCommand.TELLMEMORE.name());
+                        userProfileRepository.save(userProfileData);
+                        return BotCommand.TELLMEMORE;
+                    } else if (msgText.startsWith(BotCommand.MANAGER.getCommand())) {
+                        return BotCommand.MANAGER;
+                    } else if (msgText.startsWith("Нет")) {
+                        return BotCommand.NEWUPDATES;
+                    } else if (msgText.startsWith(BotCommand.ABOUTOURBOT.getCommand())) {
+                        return BotCommand.ABOUTOURBOT;
+                    } else if (msgText.length() >= 7) {
+                        userProfileData.setText(message.getText());
+                        userProfileData.setDate(message.getDate());
+                        userProfileRepository.save(userProfileData);
+                        return BotCommand.PRICEQUESTIONCHAINSTEP4;
+                    } else if (msgText.length() < 7) {
+                        return BotCommand.SENDPHONEERROR;
+                    }
+                }
+            } else if (update.hasCallbackQuery()) { //TODO добавить обработку кнопок админа
+                CallbackQuery buttonQuery = update.getCallbackQuery();
 //            System.out.println(update.getCallbackQuery().getMessage().hasContact());
-            transferDTO.setDate(buttonQuery.getMessage().getDate());
-            if (buttonQuery.getData().equals("buttonVar1") ||
-                    buttonQuery.getData().equals("buttonVar2") ||
-                    buttonQuery.getData().equals("buttonVar3")) {
-                transferDTO.setTypeOfBot(localeMessageService.getMessage("button." + buttonQuery.getData()));
-                return BotCommand.PRICEQUESTIONCHAINSTEP2;
-            } else if (buttonQuery.getData().equals("buttonSetPrice")) {
-                return BotCommand.PRICEQUESTIONCHAINSTEP1;
-            } else if (buttonQuery.getData().equals("buttonManagerCallBack")) {
-                return BotCommand.MANAGERANSWER;
-            } else if (buttonQuery.getData().equals("buttonStep1") || buttonQuery.getData().equals("buttonStep2") ||
-                    buttonQuery.getData().equals("buttonStep3") || buttonQuery.getData().equals("buttonStep4")) {
-                transferDTO.setNumberOfEmployees(localeMessageService.getMessage("button." + buttonQuery.getData()));
-                return BotCommand.PRICEQUESTIONCHAINSTEP3;
-            } else return BotCommand.PRICEQUESTIONCHAIN;
-        }
+                transferDTO.setDate(buttonQuery.getMessage().getDate());
+                if (buttonQuery.getData().equals("buttonVar1") ||
+                        buttonQuery.getData().equals("buttonVar2") ||
+                        buttonQuery.getData().equals("buttonVar3")) {
+                    userProfileData.setTypeOfBot(localeMessageService.getMessage("button." + buttonQuery.getData()));
+                    userProfileRepository.save(userProfileData);
+                    return BotCommand.PRICEQUESTIONCHAINSTEP2;
+                } else if (buttonQuery.getData().equals("buttonSetPrice")) {
+                    return BotCommand.PRICEQUESTIONCHAINSTEP1;
+                } else if (buttonQuery.getData().equals("buttonManagerCallBack")) {
+                    return BotCommand.MANAGERANSWER;
+                } else if (buttonQuery.getData().equals("buttonStep1") || buttonQuery.getData().equals("buttonStep2") ||
+                        buttonQuery.getData().equals("buttonStep3") || buttonQuery.getData().equals("buttonStep4")) {
+                    TellMeMoreProcessor.chatId = userProfileData.getChatId();
+                    userProfileData.setNumberOfEmployees(localeMessageService.getMessage("button." + buttonQuery.getData()));
+                    userProfileRepository.save(userProfileData);
+                    return BotCommand.PRICEQUESTIONCHAINSTEP3;
+                } else return BotCommand.PRICEQUESTIONCHAIN;
+            }
+        } else {saveUser(update.getMessage());
+        getCommand(update);}
+
         return BotCommand.NONE;
+    }
+    private void saveUser(Message message) {
+        UserProfileData userProfileData = UserProfileData.builder()
+                .firstname(message.getFrom().getFirstName())
+                .username(message.getFrom().getUserName())
+                .lastname(message.getFrom().getLastName())
+                .chatId(message.getFrom().getId().longValue())
+                .build();
+        if (userProfileRepository.findUserProfileDataByChatId(message.getChatId()) == null) {
+            userProfileRepository.save(userProfileData);
+        }
+    }
+    private Integer getUserId(Update update) {
+        int userId = 0;
+        if (update.getEditedMessage() != null) {
+            userId = update.getEditedMessage().getFrom().getId();
+        } else if (update.getCallbackQuery() == null) {
+            userId = update.getMessage().getFrom().getId();
+        } else if (update.getMessage() == null) {
+            userId = update.getCallbackQuery().getFrom().getId();
+        }
+        return userId;
     }
 }

@@ -1,14 +1,20 @@
 package by.uniqo.telegrambot.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-@Component
-@Data
+
 @Entity
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "user_profile_data")
 public class UserProfileData implements Serializable {
     @Id
@@ -42,6 +48,7 @@ public class UserProfileData implements Serializable {
     @Column(name = "chat_id")
     Long chatId;
 
+
     private Date getDate(int date) {
         return new java.util.Date((long) date * 1000);
     }
@@ -50,6 +57,7 @@ public class UserProfileData implements Serializable {
 
     @Override
     public String toString() {
+        Date dateTime=java.util.Calendar.getInstance().getTime();
         return String.format("\n " + getText()
                 + "\nname: " + getUsername()
                 + "\nfirstname : " + getFirstname()
@@ -57,16 +65,17 @@ public class UserProfileData implements Serializable {
                 + "\nuserId: " + getId()
                 + "\ntypeOfBot: " + getTypeOfBot()
                 + "\nnumberOfEmployees: " + getNumberOfEmployees())
-                + "\nс какой кнопки пришел: " + getBotCommand();
-//                + "\nпоследнее время обращения: " + getDate(date).toString();
+                + "\nс какой кнопки пришел: " + getBotCommand()
+                + "\nпоследнее время обращения: " + dateTime;
     }
 
     public String toStringTellMeMoreButton() {
+        Date dateTime=java.util.Calendar.getInstance().getTime();
         return String.format("\nnickname: " + getUsername()
                 + "\nfirstname : " + getFirstname()
                 + "\nname: " + getLastname()
                 + "\nuserId: " + getId()
-                + "\nс какой кнопки пришел: " + getBotCommand());
-//                + "\nпоследнее время обращения: " + getDate(date).toString());
+                + "\nс какой кнопки пришел: " + getBotCommand())
+                + "\nпоследнее время обращения: " + dateTime;
     }
 }

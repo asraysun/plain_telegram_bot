@@ -21,14 +21,12 @@ public class TransferDTO implements Serializable{
     private String firstname;
     private String lastname;
     private String typeOfBot;
+    private String phoneNumber;
     private String numberOfEmployees;
     private String botCommand;
     private Integer date;
     private Long chatId;
     private Integer messageId;
-
-    @Autowired
-    UserProfileData userProfileData;
 
     private Date getDate(int date) {
         return new java.util.Date((long) date * 1000);
