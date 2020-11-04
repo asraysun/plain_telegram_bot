@@ -3,9 +3,18 @@ package by.uniqo.telegrambot.service;
 
 import by.uniqo.telegrambot.buttons.InlineKeyboard.PriceButtons;
 import by.uniqo.telegrambot.enums.BotCommand;
-import by.uniqo.telegrambot.model.TransferDTO;
 import by.uniqo.telegrambot.model.UserProfileData;
 import by.uniqo.telegrambot.processor.*;
+import by.uniqo.telegrambot.processor.mainmenu.AboutBotProcessor;
+import by.uniqo.telegrambot.processor.mainmenu.AboutOurProcessor;
+import by.uniqo.telegrambot.processor.mainmenu.ScopeOfAppProcessor;
+import by.uniqo.telegrambot.processor.mainmenu.TellMeMoreProcessor;
+import by.uniqo.telegrambot.processor.mainmenu.defaultProcessors.HelpProcessor;
+import by.uniqo.telegrambot.processor.mainmenu.defaultProcessors.SettingsProcessor;
+import by.uniqo.telegrambot.processor.mainmenu.defaultProcessors.SevenProcessor;
+import by.uniqo.telegrambot.processor.mainmenu.errors.NoneProcessor;
+import by.uniqo.telegrambot.processor.mainmenu.errors.PhoneErrorProcessor;
+import by.uniqo.telegrambot.processor.mainmenu.pricebutton.*;
 import by.uniqo.telegrambot.repository.UserProfileRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,24 +69,21 @@ public class RequestDispatcher {
     @Autowired
     UserProfileRepository userProfileRepository;
     @Autowired
-    UserProfileDataService userProfileDataService;
-
-    @Autowired
     PriceQuestionChainStep4Processor priceQuestionChainStep4Processor;
-    //    @Autowired
-//    UserProfileDataService userProfileDataService; // TODO теперь инфа сохраняется в БД, подключить её и переписать методы, которые раньше сохраняли инфу в бин UserProfileData 27.10.2020
-    @Autowired
-    PhoneErrorProcessor phoneErrorProcessor;
+   @Autowired
+   PhoneErrorProcessor phoneErrorProcessor;
     @Autowired
     LocaleMessageService localeMessageService;
-    @Autowired
-    TransferDTO transferDTO;
     @Autowired
     SayThanksProcessor sayThanksProcessor;
     @Autowired
     NewUpdatesProcessor newUpdatesProcessor;
     @Autowired
+    FindByProcessor findByProcessor;
+    @Autowired
     ManagerAnswerProcessor managerAnswerProcessor;
+    @Autowired
+    AdminStartProcessor adminStartProcessor;
 
     public void dispatch(Update update) { // TODO добавить проверку на ID для админа
         switch (getCommand(update)) {
@@ -85,7 +91,9 @@ public class RequestDispatcher {
                 messageService.sendMessage(update.getMessage(), helpProcessor.run());
                 break;
             case START:
-                messageService.sendMessage(update.getMessage(), startProcessor.run());
+                if(update.getMessage().getFrom().getId() == 1307084432) {
+                    messageService.sendMessage(update.getMessage(), adminStartProcessor.run());
+                } else messageService.sendMessage(update.getMessage(), startProcessor.run());
                 saveUser(update.getMessage());
                 break;
             case SETTING:
@@ -113,7 +121,6 @@ public class RequestDispatcher {
                 messageService.sendMessage(update.getMessage(), faqProcessor.run());
                 break;
             case TELLMEMORE:
-
                 messageService.sendMessage(update.getMessage(), tellMeMoreProcessor.run());
                 break;
             case MANAGER:
@@ -121,6 +128,9 @@ public class RequestDispatcher {
                 break;
             case ABOUTOURBOT:
                 messageService.sendMessage(update.getMessage(), aboutOurProcessor.run());
+                break;
+            case FINDBY:
+                messageService.sendMessageWithCallBackQuery(update.getMessage(), findByProcessor.run());
                 break;
             case PRICEQUESTIONCHAIN:
                 messageService.sendMessage(update.getMessage(), priceQuestionChainProcessor.run());
@@ -163,29 +173,10 @@ public class RequestDispatcher {
         if(userProfileRepository.findUserProfileDataByChatId(getUserId(update).longValue())!= null) {
             userProfileData = userProfileRepository.findUserProfileDataByChatId(getUserId(update).longValue());
             if (update.hasMessage()) {
-
-
-//            if (update.getMessage().hasContact()) {
-//                transferDTO.setPhoneNumber(update.getMessage().getContact().getPhoneNumber());
-//            }
-                if (update.getMessage().hasContact()) {
-                    return BotCommand.SAYTHANKS;
-                }
+//                if (update.getMessage().hasContact()) {  // TODO из-за этой проверки возвращается после нажатия незахендленной кнопки текст - "Спасибо за ваш заказ..."
+//                    return BotCommand.SAYTHANKS;
+//                }
                 Message message = update.getMessage();
-
-//            if (transferDTO.getChatId() == null) {
-//                transferDTO.setChatId(message.getChat().getId());
-//                transferDTO.setUsername(message.getFrom().getUserName());
-//                transferDTO.setFirstname(message.getFrom().getFirstName());
-//                transferDTO.setLastname(message.getFrom().getLastName());
-//            }
-//            if (!transferDTO.getChatId().equals(update.getMessage().getFrom().getId().longValue())) {
-//                transferDTO.setChatId(message.getChat().getId());
-//                transferDTO.setUsername(message.getFrom().getUserName());
-//                transferDTO.setFirstname(message.getFrom().getFirstName());
-//                transferDTO.setLastname(message.getFrom().getLastName());
-//            }
-                System.out.println(message.getChatId());
                 if (message.hasText()) {
                     String msgText = message.getText();
                     if (msgText.startsWith(BotCommand.HELP.getCommand())) {
@@ -194,6 +185,8 @@ public class RequestDispatcher {
                         return BotCommand.START;
                     } else if (msgText.startsWith(BotCommand.SETTING.getCommand())) {
                         return BotCommand.SETTING;
+                    } else if (msgText.startsWith("Поиск клиент")){
+                        return BotCommand.FINDBY;
                     } else if (msgText.startsWith(BotCommand.SEVEN.getCommand())) {
                         return BotCommand.SEVEN;
                     } else if (msgText.startsWith(BotCommand.ABOUTBOT.getCommand())) {
@@ -228,8 +221,6 @@ public class RequestDispatcher {
                 }
             } else if (update.hasCallbackQuery()) { //TODO добавить обработку кнопок админа
                 CallbackQuery buttonQuery = update.getCallbackQuery();
-//            System.out.println(update.getCallbackQuery().getMessage().hasContact());
-                transferDTO.setDate(buttonQuery.getMessage().getDate());
                 if (buttonQuery.getData().equals("buttonVar1") ||
                         buttonQuery.getData().equals("buttonVar2") ||
                         buttonQuery.getData().equals("buttonVar3")) {

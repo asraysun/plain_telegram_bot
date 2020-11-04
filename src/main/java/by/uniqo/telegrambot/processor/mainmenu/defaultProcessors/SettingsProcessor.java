@@ -1,5 +1,6 @@
-package by.uniqo.telegrambot.processor;
+package by.uniqo.telegrambot.processor.mainmenu.defaultProcessors;
 
+import by.uniqo.telegrambot.processor.ProcessorI;
 import org.springframework.stereotype.Service;
 
 @Service

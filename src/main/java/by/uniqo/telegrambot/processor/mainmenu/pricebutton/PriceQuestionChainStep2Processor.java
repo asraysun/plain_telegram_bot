@@ -1,9 +1,10 @@
-package by.uniqo.telegrambot.processor;
+package by.uniqo.telegrambot.processor.mainmenu.pricebutton;
 
+import by.uniqo.telegrambot.processor.ProcessorI;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PriceQuestionChainStep2Processor implements ProcessorI{
+public class PriceQuestionChainStep2Processor implements ProcessorI {
 
     @Override
     public String run() {

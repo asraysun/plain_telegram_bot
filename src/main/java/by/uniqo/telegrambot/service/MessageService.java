@@ -1,13 +1,10 @@
 package by.uniqo.telegrambot.service;
 
 import by.uniqo.telegrambot.bean.TelegramBot;
-import by.uniqo.telegrambot.buttons.InlineKeyboard.ManagerApproveButtons;
-import by.uniqo.telegrambot.buttons.InlineKeyboard.NumberOfEmployeesButtons;
-import by.uniqo.telegrambot.buttons.InlineKeyboard.PriceButtons;
-import by.uniqo.telegrambot.buttons.InlineKeyboard.Step1buttons;
+import by.uniqo.telegrambot.buttons.InlineKeyboard.*;
+import by.uniqo.telegrambot.buttons.ReplyKeyboard.AdminMenuButton;
 import by.uniqo.telegrambot.buttons.ReplyKeyboard.MainMenuButton;
 import by.uniqo.telegrambot.buttons.ReplyKeyboard.MainMenuButtonForAdditionMenu;
-import by.uniqo.telegrambot.model.TransferDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -37,32 +34,36 @@ public class MessageService {
     @Autowired
     ManagerApproveButtons managerApproveButtons;
     @Autowired
-    TransferDTO transferDTO;
+    AdminMenuButton adminMenuButton;
+    @Autowired
+    FindByButtons findByButtons;
 
     public void sendMessage(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(message.getChatId().toString());
         sendMessage.setParseMode("HTML");
         sendMessage.setText(text);
-        sendMessage.setReplyMarkup(mainMenuButton.getMainMenuKeyboard());
+        if(message.getFrom().getId() == 1307084432) {
+            sendMessage.setReplyMarkup(adminMenuButton.getAdminMenuKeyboard());
+        } else sendMessage.setReplyMarkup(mainMenuButton.getMainMenuKeyboard());
         try {
             telegramBot.execute(sendMessage);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
     }
-    public void sendMessageWithAdditionMenu(Message message, String text) {
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.setChatId(message.getChatId().toString());
-        sendMessage.setParseMode("HTML");
-        sendMessage.setText(text);
-        sendMessage.setReplyMarkup(mainMenuButtonForAdditionMenu.getAdditionMenuKeyboard());
-        try {
-            telegramBot.execute(sendMessage);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void sendMessageWithAdditionMenu(Message message, String text) {
+//        SendMessage sendMessage = new SendMessage();
+//        sendMessage.setChatId(message.getChatId().toString());
+//        sendMessage.setParseMode("HTML");
+//        sendMessage.setText(text);
+//        sendMessage.setReplyMarkup(mainMenuButtonForAdditionMenu.getAdditionMenuKeyboard());
+//        try {
+//            telegramBot.execute(sendMessage);
+//        } catch (TelegramApiException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void sendMessageWithCallBackQuery(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
@@ -70,7 +71,7 @@ public class MessageService {
         sendMessage.setText(text);
         if (text.contains("Каждый бот")) {
             sendMessage.setReplyMarkup(step1buttons.getButtonsMarkupStep1());
-        } else if (text.startsWith("Выбери")) {
+        } else if (text.startsWith("Выберите тип навыка бота")) {
             sendMessage.setReplyMarkup(priceButtons.getGenderButtonsMarkup());
         } else if (text.startsWith("Укажите кол")) {
             sendMessage.setReplyMarkup(numberOfEmployeesButtons.getNumberOfEmployeesButtonsMarkup());
@@ -80,6 +81,8 @@ public class MessageService {
             sendMessage.setReplyMarkup(managerApproveButtons.getManagerInlineApproveMarkup());
         } else if (text.startsWith("Оставайтесь на")) {
             sendMessage.setReplyMarkup(mainMenuButton.getMainMenuKeyboard());
+        } else if (text.startsWith("Выберите способ")) {
+            sendMessage.setReplyMarkup(findByButtons.getFindByButtonsMarkup());
         }
 
         try {

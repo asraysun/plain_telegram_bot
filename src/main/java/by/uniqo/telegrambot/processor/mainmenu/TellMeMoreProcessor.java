@@ -1,9 +1,9 @@
-package by.uniqo.telegrambot.processor;
+package by.uniqo.telegrambot.processor.mainmenu;
 
 import by.uniqo.telegrambot.bean.TelegramBot;
 import by.uniqo.telegrambot.buttons.ReplyKeyboard.MainMenuButtonForAdditionMenu;
-import by.uniqo.telegrambot.model.TransferDTO;
 import by.uniqo.telegrambot.model.UserProfileData;
+import by.uniqo.telegrambot.processor.ProcessorI;
 import by.uniqo.telegrambot.repository.UserProfileRepository;
 import by.uniqo.telegrambot.service.LocaleMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +12,10 @@ import org.telegram.telegrambots.meta.api.methods.send.SendContact;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.Date;
-
 @Service
-public class TellMeMoreProcessor implements ProcessorI{
+public class TellMeMoreProcessor implements ProcessorI {
     @Autowired
     LocaleMessageService localeMessageService;
-    @Autowired
-    TransferDTO transferDTO;
     @Autowired
     TelegramBot telegramBot;
     @Autowired
@@ -33,13 +29,13 @@ public class TellMeMoreProcessor implements ProcessorI{
         if(userProfileRepository.findUserProfileDataByChatId(chatId) != null) {
             UserProfileData userProfileData = userProfileRepository.findUserProfileDataByChatId(chatId);
         SendMessage send = new SendMessage();
-        SendMessage send1 = new SendMessage();
+//        SendMessage send1 = new SendMessage();
         SendContact sendContact = new SendContact();
 
         send.setChatId((long) 1307084432);
         send.setText(userProfileData.toStringTellMeMoreButton());
-        send1.setChatId((long) 764602851);
-        send1.setText(userProfileData.toStringTellMeMoreButton());
+//        send1.setChatId((long) 764602851);
+//        send1.setText(userProfileData.toStringTellMeMoreButton());
 //        764602851 - id в телеге Антона
 //        1307084432 - id Nastya
         //956524755 - мой ид
@@ -51,7 +47,7 @@ public class TellMeMoreProcessor implements ProcessorI{
         sendContact.setReplyMarkup(mainMenuButtonForAdditionMenu.getAdditionMenuKeyboard());
         try {
             telegramBot.execute(send);
-            telegramBot.execute(send1);
+//            telegramBot.execute(send1);
             telegramBot.execute(sendContact);
         } catch (TelegramApiException e) {
             e.printStackTrace();

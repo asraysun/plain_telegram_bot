@@ -22,9 +22,12 @@ public class AdminMenuButton extends ReplyKeyboardMarkup {
         List<KeyboardRow> keyboard = new ArrayList<>();
 
         KeyboardRow row1 = new KeyboardRow();
+        KeyboardRow row2 = new KeyboardRow();
         row1.add(new KeyboardButton("Список клиентов"));
-        row1.add(new KeyboardButton("Отправить сообщение клиенту"));
+        row1.add(new KeyboardButton("Поиск клиентов по "));
+        row2.add(new KeyboardButton("Отправить сообщение клиенту"));
         keyboard.add(row1);
+        keyboard.add(row2);
         replyKeyboardMarkupAdmin.setKeyboard(keyboard);
         return replyKeyboardMarkupAdmin;
     }

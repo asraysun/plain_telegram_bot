@@ -13,6 +13,7 @@ public enum BotCommand {
     TELLMEMORE("Узнать больше"),
     MANAGER("Связаться с менеджером"),
     ABOUTOURBOT("Что умеют наши боты?"),
+    FINDBY("Поиск клиентов по "),
     PRICEQUESTIONCHAIN,
     PRICEQUESTIONCHAINSTEP1,
     PRICEQUESTIONCHAINSTEP2,
