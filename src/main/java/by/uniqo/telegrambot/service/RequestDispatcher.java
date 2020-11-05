@@ -1,6 +1,7 @@
 package by.uniqo.telegrambot.service;
 
 
+import by.uniqo.telegrambot.bean.TelegramBot;
 import by.uniqo.telegrambot.buttons.InlineKeyboard.PriceButtons;
 import by.uniqo.telegrambot.enums.BotCommand;
 import by.uniqo.telegrambot.model.UserProfileData;
@@ -19,9 +20,14 @@ import by.uniqo.telegrambot.repository.UserProfileRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import java.io.PrintStream;
+import java.util.List;
 
 
 @Slf4j
@@ -70,8 +76,8 @@ public class RequestDispatcher {
     UserProfileRepository userProfileRepository;
     @Autowired
     PriceQuestionChainStep4Processor priceQuestionChainStep4Processor;
-   @Autowired
-   PhoneErrorProcessor phoneErrorProcessor;
+    @Autowired
+    PhoneErrorProcessor phoneErrorProcessor;
     @Autowired
     LocaleMessageService localeMessageService;
     @Autowired
@@ -83,7 +89,11 @@ public class RequestDispatcher {
     @Autowired
     ManagerAnswerProcessor managerAnswerProcessor;
     @Autowired
+    AdminSendMessageProcessor adminSendMessageProcessor;
+    @Autowired
     AdminStartProcessor adminStartProcessor;
+    @Autowired
+    TelegramBot telegramBot;
 
     public void dispatch(Update update) { // TODO добавить проверку на ID для админа
         switch (getCommand(update)) {
@@ -91,7 +101,7 @@ public class RequestDispatcher {
                 messageService.sendMessage(update.getMessage(), helpProcessor.run());
                 break;
             case START:
-                if(update.getMessage().getFrom().getId() == 1307084432) {
+                if (update.getMessage().getFrom().getId() == 1307084432) {
                     messageService.sendMessage(update.getMessage(), adminStartProcessor.run());
                 } else messageService.sendMessage(update.getMessage(), startProcessor.run());
                 saveUser(update.getMessage());
@@ -128,6 +138,26 @@ public class RequestDispatcher {
                 break;
             case ABOUTOURBOT:
                 messageService.sendMessage(update.getMessage(), aboutOurProcessor.run());
+                break;
+            case SENDCLIENTSLIST:
+                List<UserProfileData> users = userProfileRepository.findAll();
+                for (UserProfileData user : users) {
+                    SendMessage send = new SendMessage();
+//        SendMessage send1 = new SendMessage();
+                    send.setChatId(1307084432L);
+//        send1.setChatId((long) 764602851);
+//        764602851 - id в телеге Антона
+//        1307084432 - id Nastya
+                    send.setText("номер телефона: " + user.toString());
+//        send1.setText("номер телефона: " + userProfileData.toString());
+                    try {
+                        telegramBot.execute(send);
+//            telegramBot.execute(send1);
+                    } catch (TelegramApiException e) {
+                        e.printStackTrace();
+                    }
+                }
+                messageService.sendMessage(update.getMessage(), adminSendMessageProcessor.run());
                 break;
             case FINDBY:
                 messageService.sendMessageWithCallBackQuery(update.getMessage(), findByProcessor.run());
@@ -170,7 +200,7 @@ public class RequestDispatcher {
     private BotCommand getCommand(Update update) {
 
         UserProfileData userProfileData = null;
-        if(userProfileRepository.findUserProfileDataByChatId(getUserId(update).longValue())!= null) {
+        if (userProfileRepository.findUserProfileDataByChatId(getUserId(update).longValue()) != null) {
             userProfileData = userProfileRepository.findUserProfileDataByChatId(getUserId(update).longValue());
             if (update.hasMessage()) {
 //                if (update.getMessage().hasContact()) {  // TODO из-за этой проверки возвращается после нажатия незахендленной кнопки текст - "Спасибо за ваш заказ..."
@@ -185,8 +215,16 @@ public class RequestDispatcher {
                         return BotCommand.START;
                     } else if (msgText.startsWith(BotCommand.SETTING.getCommand())) {
                         return BotCommand.SETTING;
-                    } else if (msgText.startsWith("Поиск клиент")){
+                    } else if (msgText.startsWith("Поиск клиент")) {
                         return BotCommand.FINDBY;
+                    } else if (msgText.equals("Список клиентов")) {
+//                        List<UserProfileData> list =
+//                        for (:
+//                             ) {
+//
+//                        }
+
+                        return BotCommand.SENDCLIENTSLIST;
                     } else if (msgText.startsWith(BotCommand.SEVEN.getCommand())) {
                         return BotCommand.SEVEN;
                     } else if (msgText.startsWith(BotCommand.ABOUTBOT.getCommand())) {
@@ -239,11 +277,14 @@ public class RequestDispatcher {
                     return BotCommand.PRICEQUESTIONCHAINSTEP3;
                 } else return BotCommand.PRICEQUESTIONCHAIN;
             }
-        } else {saveUser(update.getMessage());
-        getCommand(update);}
+        } else {
+            saveUser(update.getMessage());
+            getCommand(update);
+        }
 
         return BotCommand.NONE;
     }
+
     private void saveUser(Message message) {
         UserProfileData userProfileData = UserProfileData.builder()
                 .firstname(message.getFrom().getFirstName())
@@ -255,6 +296,7 @@ public class RequestDispatcher {
             userProfileRepository.save(userProfileData);
         }
     }
+
     private Integer getUserId(Update update) {
         int userId = 0;
         if (update.getEditedMessage() != null) {
