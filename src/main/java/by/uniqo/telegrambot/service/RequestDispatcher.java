@@ -20,14 +20,9 @@ import by.uniqo.telegrambot.repository.UserProfileRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-
-import java.io.PrintStream;
-import java.util.List;
 
 
 @Slf4j
@@ -71,7 +66,7 @@ public class RequestDispatcher {
     @Autowired
     PriceQuestionChainStep3Processor priceQuestionChainStep3Processor;
     @Autowired
-    SendDocumentProcessor sendDocumentProcessor;
+    SendMessageToClientsProcessor sendMessageToClientsProcessor;
     @Autowired
     UserProfileRepository userProfileRepository;
     @Autowired
@@ -87,11 +82,15 @@ public class RequestDispatcher {
     @Autowired
     FindByProcessor findByProcessor;
     @Autowired
+    FindBySomethingProcessor findBySomethingProcessor;
+    @Autowired
     ManagerAnswerProcessor managerAnswerProcessor;
     @Autowired
-    AdminSendMessageProcessor adminSendMessageProcessor;
+    AdminSendClientsListProcessor adminSendClientsListProcessor;
     @Autowired
     AdminStartProcessor adminStartProcessor;
+    @Autowired
+    FindByInputMessageProcessor findByInputMessageProcessor;
     @Autowired
     TelegramBot telegramBot;
 
@@ -140,27 +139,13 @@ public class RequestDispatcher {
                 messageService.sendMessage(update.getMessage(), aboutOurProcessor.run());
                 break;
             case SENDCLIENTSLIST:
-                List<UserProfileData> users = userProfileRepository.findAll();
-                for (UserProfileData user : users) {
-                    SendMessage send = new SendMessage();
-//        SendMessage send1 = new SendMessage();
-                    send.setChatId(1307084432L);
-//        send1.setChatId((long) 764602851);
-//        764602851 - id в телеге Антона
-//        1307084432 - id Nastya
-                    send.setText("номер телефона: " + user.toString());
-//        send1.setText("номер телефона: " + userProfileData.toString());
-                    try {
-                        telegramBot.execute(send);
-//            telegramBot.execute(send1);
-                    } catch (TelegramApiException e) {
-                        e.printStackTrace();
-                    }
-                }
-                messageService.sendMessage(update.getMessage(), adminSendMessageProcessor.run());
+                messageService.sendMessage(update.getMessage(), adminSendClientsListProcessor.run());
                 break;
             case FINDBY:
                 messageService.sendMessageWithCallBackQuery(update.getMessage(), findByProcessor.run());
+                break;
+            case FINDBYSOMETHING:
+                messageService.sendMessage(update.getMessage(), findBySomethingProcessor.run());
                 break;
             case PRICEQUESTIONCHAIN:
                 messageService.sendMessage(update.getMessage(), priceQuestionChainProcessor.run());
@@ -180,8 +165,11 @@ public class RequestDispatcher {
             case PRICEQUESTIONCHAINSTEP4:
                 messageService.sendMessage(update.getMessage(), priceQuestionChainStep4Processor.run());
                 break;
-            case SENDDOCUMENT:
-                messageService.sendMessage(update.getMessage(), sendDocumentProcessor.run());
+//            case SENDDOCUMENT:
+//                messageService.sendMessage(update.getMessage(), sendMessageProcessor.run());
+//                break;
+            case SENDMESSAGETOCLIENTS:
+                messageService.sendMessage(update.getMessage(), sendMessageToClientsProcessor.run());
                 break;
             case SAYTHANKS:
                 messageService.sendMessage(update.getMessage(), sayThanksProcessor.run());
@@ -192,6 +180,9 @@ public class RequestDispatcher {
                 break;
             case SENDPHONEERROR:
                 messageService.sendMessage(update.getMessage(), phoneErrorProcessor.run());
+                break;
+            case FINDBYINPUTMSG:
+                messageService.sendMessage(update.getMessage(), findByInputMessageProcessor.run());
                 break;
 
         }
@@ -218,13 +209,9 @@ public class RequestDispatcher {
                     } else if (msgText.startsWith("Поиск клиент")) {
                         return BotCommand.FINDBY;
                     } else if (msgText.equals("Список клиентов")) {
-//                        List<UserProfileData> list =
-//                        for (:
-//                             ) {
-//
-//                        }
-
                         return BotCommand.SENDCLIENTSLIST;
+                    } else if (msgText.equals("Отправить сообщение клиенту")) {
+                        return BotCommand.SENDMESSAGETOCLIENTS;
                     } else if (msgText.startsWith(BotCommand.SEVEN.getCommand())) {
                         return BotCommand.SEVEN;
                     } else if (msgText.startsWith(BotCommand.ABOUTBOT.getCommand())) {
@@ -248,14 +235,15 @@ public class RequestDispatcher {
                         return BotCommand.NEWUPDATES;
                     } else if (msgText.startsWith(BotCommand.ABOUTOURBOT.getCommand())) {
                         return BotCommand.ABOUTOURBOT;
-                    } else if (msgText.length() >= 7) {
-                        userProfileData.setText(message.getText());
-                        userProfileData.setDate(message.getDate());
-                        userProfileRepository.save(userProfileData);
-                        return BotCommand.PRICEQUESTIONCHAINSTEP4;
-                    } else if (msgText.length() < 7) {
-                        return BotCommand.SENDPHONEERROR;
                     }
+//                    else if (msgText.length() >= 7) {
+//                        userProfileData.setText(message.getText());
+//                        userProfileData.setDate(message.getDate());
+//                        userProfileRepository.save(userProfileData);
+//                        return BotCommand.PRICEQUESTIONCHAINSTEP4;
+//                    } else if (msgText.length() < 7) {
+//                        return BotCommand.SENDPHONEERROR;
+//                    }
                 }
             } else if (update.hasCallbackQuery()) { //TODO добавить обработку кнопок админа
                 CallbackQuery buttonQuery = update.getCallbackQuery();
@@ -275,6 +263,9 @@ public class RequestDispatcher {
                     userProfileData.setNumberOfEmployees(localeMessageService.getMessage("button." + buttonQuery.getData()));
                     userProfileRepository.save(userProfileData);
                     return BotCommand.PRICEQUESTIONCHAINSTEP3;
+                } else if (buttonQuery.getData().equals("buttonFindByName") || buttonQuery.getData().equals("buttonFindByID") ||
+                        buttonQuery.getData().equals("buttonFindByPhoneNumber") || buttonQuery.getData().equals("buttonFindByDate")) {
+                    return BotCommand.FINDBYINPUTMSG;
                 } else return BotCommand.PRICEQUESTIONCHAIN;
             }
         } else {

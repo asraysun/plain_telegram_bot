@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserProfileRepository extends JpaRepository<UserProfileData, Long> {
     UserProfileData findUserProfileDataByChatId(Long chatId);
+    UserProfileData findUserProfileDataByFirstname(String firstname);
+    UserProfileData getUserProfileDataByFirstname(String firstname);
+
 }
