@@ -38,14 +38,4 @@ public class TelegramBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         requestDispatcher.dispatch(update);
     }
-
-    @SneakyThrows
-    public void sendDocument(long chatId, String caption, File sendFile) {
-        SendDocument sendDocument = new SendDocument();
-        sendDocument.setChatId(chatId);
-        sendDocument.setCaption(caption);
-        sendDocument.setDocument(sendFile);
-        execute(sendDocument);
-    }
-
 }

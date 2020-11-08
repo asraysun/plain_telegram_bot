@@ -3,26 +3,37 @@ package by.uniqo.telegrambot.service;
 
 import by.uniqo.telegrambot.bean.TelegramBot;
 import by.uniqo.telegrambot.buttons.InlineKeyboard.PriceButtons;
+import by.uniqo.telegrambot.cache.DataCache;
 import by.uniqo.telegrambot.enums.BotCommand;
+import by.uniqo.telegrambot.enums.BotState;
+import by.uniqo.telegrambot.model.TextHistorySendedToClients;
 import by.uniqo.telegrambot.model.UserProfileData;
 import by.uniqo.telegrambot.processor.*;
+import by.uniqo.telegrambot.processor.findBy.*;
 import by.uniqo.telegrambot.processor.mainmenu.AboutBotProcessor;
 import by.uniqo.telegrambot.processor.mainmenu.AboutOurProcessor;
 import by.uniqo.telegrambot.processor.mainmenu.ScopeOfAppProcessor;
 import by.uniqo.telegrambot.processor.mainmenu.TellMeMoreProcessor;
 import by.uniqo.telegrambot.processor.mainmenu.defaultProcessors.HelpProcessor;
+import by.uniqo.telegrambot.processor.mainmenu.defaultProcessors.SendProcessor;
 import by.uniqo.telegrambot.processor.mainmenu.defaultProcessors.SettingsProcessor;
 import by.uniqo.telegrambot.processor.mainmenu.defaultProcessors.SevenProcessor;
 import by.uniqo.telegrambot.processor.mainmenu.errors.NoneProcessor;
 import by.uniqo.telegrambot.processor.mainmenu.errors.PhoneErrorProcessor;
 import by.uniqo.telegrambot.processor.mainmenu.pricebutton.*;
+import by.uniqo.telegrambot.repository.TextHistorySendedToClientsRepository;
 import by.uniqo.telegrambot.repository.UserProfileRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import java.util.List;
 
 
 @Slf4j
@@ -82,22 +93,40 @@ public class RequestDispatcher {
     @Autowired
     FindByProcessor findByProcessor;
     @Autowired
-    FindBySomethingProcessor findBySomethingProcessor;
+    FindByNameProcessor findByNameProcessor;
+    @Autowired
+    FindByIdProcessor findByIdProcessor;
+    @Autowired
+    FindByPhoneNumberProcessor findByPhoneNumberProcessor;
+    @Autowired
+    FindByTimeStampProcessor findByTimeStampProcessor;
     @Autowired
     ManagerAnswerProcessor managerAnswerProcessor;
     @Autowired
     AdminSendClientsListProcessor adminSendClientsListProcessor;
     @Autowired
+    TextHistorySendedToClientsRepository textHistorySendedToClientsRepository;
+    @Autowired
     AdminStartProcessor adminStartProcessor;
+    @Autowired
+    SendProcessor sendProcessor;
     @Autowired
     FindByInputMessageProcessor findByInputMessageProcessor;
     @Autowired
     TelegramBot telegramBot;
+    @Autowired
+    DataCache dataCache;
 
-    public void dispatch(Update update) { // TODO добавить проверку на ID для админа
+    public void dispatch(Update update) {// TODO добавить проверку на ID для админа
         switch (getCommand(update)) {
             case HELP:
                 messageService.sendMessage(update.getMessage(), helpProcessor.run());
+                break;
+            case SEND:
+                if (update.getMessage().getFrom().getId() == 1307084432) {
+                    dataCache.setSetStatus("hold");
+                }
+                messageService.sendMessage(update.getMessage(), sendProcessor.run());
                 break;
             case START:
                 if (update.getMessage().getFrom().getId() == 1307084432) {
@@ -139,13 +168,23 @@ public class RequestDispatcher {
                 messageService.sendMessage(update.getMessage(), aboutOurProcessor.run());
                 break;
             case SENDCLIENTSLIST:
+                deleteMessage();
                 messageService.sendMessage(update.getMessage(), adminSendClientsListProcessor.run());
                 break;
             case FINDBY:
                 messageService.sendMessageWithCallBackQuery(update.getMessage(), findByProcessor.run());
                 break;
-            case FINDBYSOMETHING:
-                messageService.sendMessage(update.getMessage(), findBySomethingProcessor.run());
+            case FINDBYNAME:
+                messageService.sendMessage(update.getMessage(), findByNameProcessor.run());
+                break;
+            case FINDBYID:
+                messageService.sendMessage(update.getMessage(), findByIdProcessor.run());
+                break;
+            case FINDBYPHONENUMBER:
+                messageService.sendMessage(update.getMessage(), findByPhoneNumberProcessor.run());
+                break;
+            case FINDBYTIMESTAMP:
+                messageService.sendMessage(update.getMessage(), findByTimeStampProcessor.run());
                 break;
             case PRICEQUESTIONCHAIN:
                 messageService.sendMessage(update.getMessage(), priceQuestionChainProcessor.run());
@@ -189,14 +228,15 @@ public class RequestDispatcher {
     }
 
     private BotCommand getCommand(Update update) {
-
         UserProfileData userProfileData = null;
+        TextHistorySendedToClients textHistorySendedToClients = null;
+//        saveMessage(update.getMessage());
         if (userProfileRepository.findUserProfileDataByChatId(getUserId(update).longValue()) != null) {
             userProfileData = userProfileRepository.findUserProfileDataByChatId(getUserId(update).longValue());
             if (update.hasMessage()) {
-//                if (update.getMessage().hasContact()) {  // TODO из-за этой проверки возвращается после нажатия незахендленной кнопки текст - "Спасибо за ваш заказ..."
-//                    return BotCommand.SAYTHANKS;
-//                }
+                if (update.getMessage().hasContact()) {  // TODO из-за этой проверки возвращается после нажатия незахендленной кнопки текст - "Спасибо за ваш заказ..."
+                    return BotCommand.SAYTHANKS;
+                }
                 Message message = update.getMessage();
                 if (message.hasText()) {
                     String msgText = message.getText();
@@ -208,12 +248,24 @@ public class RequestDispatcher {
                         return BotCommand.SETTING;
                     } else if (msgText.startsWith("Поиск клиент")) {
                         return BotCommand.FINDBY;
+                    } else if (msgText.startsWith("Отправить сообщение клиенту")) {
+                        return BotCommand.SEND;
                     } else if (msgText.equals("Список клиентов")) {
                         return BotCommand.SENDCLIENTSLIST;
-                    } else if (msgText.equals("Отправить сообщение клиенту")) {
+                    } else if (dataCache.getSetStatus().equals("hold")) {
+                        sendMessageForClients(update.getMessage().getText());
+//                        if (update.getMessage().getFrom().getId() == 1307084432) {
+//                            dataCache.setSetStatus("hold");
+//                        }
+//                        if(dataCache.getSetStatus().equals("hold")){
+//
+//                        }
+                        dataCache.setSetStatus("stop");
                         return BotCommand.SENDMESSAGETOCLIENTS;
                     } else if (msgText.startsWith(BotCommand.SEVEN.getCommand())) {
                         return BotCommand.SEVEN;
+                    } else if (msgText.startsWith(BotCommand.SEND.getCommand())) {
+                        return BotCommand.SEND;
                     } else if (msgText.startsWith(BotCommand.ABOUTBOT.getCommand())) {
                         return BotCommand.ABOUTBOT;
                     } else if (msgText.startsWith(BotCommand.SCOPEOFAPP.getCommand())) {
@@ -263,10 +315,15 @@ public class RequestDispatcher {
                     userProfileData.setNumberOfEmployees(localeMessageService.getMessage("button." + buttonQuery.getData()));
                     userProfileRepository.save(userProfileData);
                     return BotCommand.PRICEQUESTIONCHAINSTEP3;
-                } else if (buttonQuery.getData().equals("buttonFindByName") || buttonQuery.getData().equals("buttonFindByID") ||
-                        buttonQuery.getData().equals("buttonFindByPhoneNumber") || buttonQuery.getData().equals("buttonFindByDate")) {
-                    return BotCommand.FINDBYINPUTMSG;
-                } else return BotCommand.PRICEQUESTIONCHAIN;
+                } else if (buttonQuery.getData().equals("buttonFindByName")) {
+                    return BotCommand.FINDBYNAME;
+                } else if (buttonQuery.getData().equals("buttonFindByID")) {
+                    return BotCommand.FINDBYID;
+                } else if (buttonQuery.getData().equals("buttonFindByPhoneNumber")) {
+                    return BotCommand.FINDBYPHONENUMBER;
+                } else if (buttonQuery.getData().equals("buttonFindByDate")) {
+                    return BotCommand.FINDBYTIMESTAMP;
+                } return BotCommand.PRICEQUESTIONCHAIN;
             }
         } else {
             saveUser(update.getMessage());
@@ -288,6 +345,34 @@ public class RequestDispatcher {
         }
     }
 
+//    private void saveMessage(Message message) {
+//        if(message.getChatId()==null) {
+//
+//        }
+//        TextHistorySendedToClients textHistorySendedToClients = TextHistorySendedToClients.builder()
+//                .chatId(message.getChatId())
+//                .timestamp(message.getDate().toString())
+////                .audio(message.getAudio().getFileId())
+//                .text(message.getText())
+//                .messageId(message.getMessageId().longValue())
+//                .build();
+//        if (textHistorySendedToClientsRepository.findTextHistorySendedToClientsByMessageIdAndAndChatId(message.getMessageId().longValue(), message.getChatId()) == null) {
+//            textHistorySendedToClientsRepository.save(textHistorySendedToClients);
+//        }
+//    }
+    private void deleteMessage() {
+        DeleteMessage deleteMessage = new DeleteMessage();
+        deleteMessage.setChatId(956524755L);
+        deleteMessage.setMessageId(8027);
+        try {
+            telegramBot.execute(deleteMessage);
+//            telegramBot.execute(send1);
+//            telegramBot.execute(sendContact);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
     private Integer getUserId(Update update) {
         int userId = 0;
         if (update.getEditedMessage() != null) {
@@ -298,5 +383,24 @@ public class RequestDispatcher {
             userId = update.getCallbackQuery().getFrom().getId();
         }
         return userId;
+    }
+    private void sendMessageForClients(String text) {
+        List<UserProfileData> users = userProfileRepository.findAll();
+        for (UserProfileData user : users) {
+            SendMessage send = new SendMessage();
+//        SendMessage send1 = new SendMessage();
+            send.setChatId(user.getChatId());
+//        send1.setChatId((long) 764602851);
+//        764602851 - id в телеге Антона
+//        1307084432 - id Nastya
+            send.setText(text);
+//        send1.setText("номер телефона: " + userProfileData.toString());
+            try {
+                telegramBot.execute(send);
+//            telegramBot.execute(send1);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -26,32 +26,33 @@ public class TellMeMoreProcessor implements ProcessorI {
 
     @Override
     public String run() {
-        if(userProfileRepository.findUserProfileDataByChatId(chatId) != null) {
+        if (userProfileRepository.findUserProfileDataByChatId(chatId) != null) {
             UserProfileData userProfileData = userProfileRepository.findUserProfileDataByChatId(chatId);
-        SendMessage send = new SendMessage();
+            SendMessage send = new SendMessage();
 //        SendMessage send1 = new SendMessage();
-        SendContact sendContact = new SendContact();
+            SendContact sendContact = new SendContact();
 
-        send.setChatId((long) 1307084432);
-        send.setText(userProfileData.toStringTellMeMoreButton());
+            send.setChatId((long) 1307084432);
+            send.setText(userProfileData.toStringTellMeMoreButton());
 //        send1.setChatId((long) 764602851);
 //        send1.setText(userProfileData.toStringTellMeMoreButton());
 //        764602851 - id в телеге Антона
 //        1307084432 - id Nastya
-        //956524755 - мой ид
-        sendContact.setReplyToMessageId(send.getReplyToMessageId());
-        sendContact.setChatId(userProfileData.getChatId());
-        sendContact.setPhoneNumber("+37544 735 7152");
-        sendContact.setFirstName("Антон");
-        sendContact.setLastName("Купрейчик");
-        sendContact.setReplyMarkup(mainMenuButtonForAdditionMenu.getAdditionMenuKeyboard());
-        try {
-            telegramBot.execute(send);
+            //956524755 - мой ид
+            sendContact.setReplyToMessageId(send.getReplyToMessageId());
+            sendContact.setChatId(userProfileData.getChatId());
+            sendContact.setPhoneNumber("+37544 735 7152");
+            sendContact.setFirstName("Антон");
+            sendContact.setLastName("Купрейчик");
+            sendContact.setReplyMarkup(mainMenuButtonForAdditionMenu.getAdditionMenuKeyboard());
+            try {
+                telegramBot.execute(send);
 //            telegramBot.execute(send1);
-            telegramBot.execute(sendContact);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }}
+                telegramBot.execute(sendContact);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+        }
         return "Наш менеджер расскажет вам подробности";
 
     }
