@@ -43,7 +43,8 @@ public class MessageService {
         sendMessage.setChatId(message.getChatId().toString());
         sendMessage.setParseMode("HTML");
         sendMessage.setText(text);
-        if(message.getFrom().getId() == 1307084432) {
+//        if(message.getFrom().getId() == 1307084432) {
+        if(message.getFrom().getId() == 764602851) {
             sendMessage.setReplyMarkup(adminMenuButton.getAdminMenuKeyboard());
         } else sendMessage.setReplyMarkup(mainMenuButton.getMainMenuKeyboard());
         try {

@@ -27,7 +27,7 @@ public class AdminSendClientsListProcessor implements ProcessorI {
         for (UserProfileData user : users) {
             SendMessage send = new SendMessage();
 //        SendMessage send1 = new SendMessage();
-            send.setChatId(1307084432L);
+            send.setChatId(764602851L);
 //        send1.setChatId((long) 764602851);
 //        764602851 - id в телеге Антона
 //        1307084432 - id Nastya

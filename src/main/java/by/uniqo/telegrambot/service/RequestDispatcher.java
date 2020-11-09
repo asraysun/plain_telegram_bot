@@ -123,13 +123,15 @@ public class RequestDispatcher {
                 messageService.sendMessage(update.getMessage(), helpProcessor.run());
                 break;
             case SEND:
-                if (update.getMessage().getFrom().getId() == 1307084432) {
+                if (update.getMessage().getFrom().getId() == 764602851) {
+//                if (update.getMessage().getFrom().getId() == 1307084432) {
                     dataCache.setSetStatus("hold");
                 }
                 messageService.sendMessage(update.getMessage(), sendProcessor.run());
                 break;
             case START:
-                if (update.getMessage().getFrom().getId() == 1307084432) {
+                if (update.getMessage().getFrom().getId() == 764602851) {
+//                if (update.getMessage().getFrom().getId() == 1307084432) {
                     messageService.sendMessage(update.getMessage(), adminStartProcessor.run());
                 } else messageService.sendMessage(update.getMessage(), startProcessor.run());
                 saveUser(update.getMessage());
@@ -168,7 +170,7 @@ public class RequestDispatcher {
                 messageService.sendMessage(update.getMessage(), aboutOurProcessor.run());
                 break;
             case SENDCLIENTSLIST:
-                deleteMessage();
+//                deleteMessage();
                 messageService.sendMessage(update.getMessage(), adminSendClientsListProcessor.run());
                 break;
             case FINDBY:
@@ -360,18 +362,18 @@ public class RequestDispatcher {
 //            textHistorySendedToClientsRepository.save(textHistorySendedToClients);
 //        }
 //    }
-    private void deleteMessage() {
-        DeleteMessage deleteMessage = new DeleteMessage();
-        deleteMessage.setChatId(956524755L);
-        deleteMessage.setMessageId(8027);
-        try {
-            telegramBot.execute(deleteMessage);
-//            telegramBot.execute(send1);
-//            telegramBot.execute(sendContact);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void deleteMessage() {
+//        DeleteMessage deleteMessage = new DeleteMessage();
+//        deleteMessage.setChatId(956524755L);
+//        deleteMessage.setMessageId(8027);
+//        try {
+//            telegramBot.execute(deleteMessage);
+////            telegramBot.execute(send1);
+////            telegramBot.execute(sendContact);
+//        } catch (TelegramApiException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private Integer getUserId(Update update) {
         int userId = 0;

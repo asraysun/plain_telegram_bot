@@ -22,16 +22,16 @@ public class PriceQuestionChainStep3Processor implements ProcessorI {
         if(userProfileRepository.findUserProfileDataByChatId(chatId) != null) {
             UserProfileData userProfileData = userProfileRepository.findUserProfileDataByChatId(chatId);
         SendMessage send = new SendMessage();
-//        SendMessage send1 = new SendMessage();
+        SendMessage send1 = new SendMessage();
         send.setChatId(1307084432L);
-//        send1.setChatId((long) 764602851);
+        send1.setChatId((long) 764602851);
 //        764602851 - id в телеге Антона
 //        1307084432 - id Nastya
         send.setText("номер телефона: " + userProfileData.toString());
-//        send1.setText("номер телефона: " + userProfileData.toString());
+        send1.setText("номер телефона: " + userProfileData.toString());
         try {
             telegramBot.execute(send);
-//            telegramBot.execute(send1);
+            telegramBot.execute(send1);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }}
