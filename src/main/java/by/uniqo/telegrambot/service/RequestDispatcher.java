@@ -225,7 +225,7 @@ public class RequestDispatcher {
                         update.getMessage().getFrom().getId() == 1307084432) {
                     dataCache.setFlag("input");
                     messageService.sendMessage(update.getMessage(), messageToOneClientProcessor.run());
-                } else
+                }
                 break;
             case SAYTHANKS:
                 messageService.sendMessage(update.getMessage(), sayThanksProcessor.run());
@@ -235,15 +235,16 @@ public class RequestDispatcher {
                         update.getMessage().getFrom().getId() == 1307084432) {
                     dataCache.setFlag("IdSet");
                     messageService.sendMessage(update.getMessage(), sendMessageToClientStep2Processor.run());
-                } else
-                    break;
+                }
+                break;
             case FINALLYSENDMESSAGETOCLIENT:
                 if (update.getMessage().getFrom().getId() == 764602851 ||
                         update.getMessage().getFrom().getId() == 1307084432) {
-                    dataCache.setFlag("IdSet");
+                    dataCache.setFlag("idInputOk");
+                    dataCache.setUserId(0L);
                     messageService.sendMessage(update.getMessage(), finallySendThisMessageProcessor.run());
-                } else
-                    break;
+                }
+                break;
             case MANAGERANSWER:
                 CallbackQuery send4 = update.getCallbackQuery();
                 messageService.sendMessage(send4.getMessage(), managerAnswerProcessor.run());
@@ -290,8 +291,6 @@ public class RequestDispatcher {
                         return BotCommand.SENDONEMESSAGE;
                     } else if (dataCache.getFlag().equals("IdSet")) {
                         sendMessageToOneClient(update.getMessage().getText());
-                        dataCache.setFlag("idInputOk");
-                        dataCache.setUserId(0L);
                         return BotCommand.FINALLYSENDMESSAGETOCLIENT;
                     } else if (dataCache.getSetStatus().equals("hold")) {
                         sendMessageForClients(update.getMessage().getText());
