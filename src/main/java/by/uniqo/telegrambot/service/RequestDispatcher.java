@@ -23,6 +23,7 @@ import by.uniqo.telegrambot.processor.mainmenu.errors.PhoneErrorProcessor;
 import by.uniqo.telegrambot.processor.mainmenu.pricebutton.*;
 import by.uniqo.telegrambot.repository.TextHistorySendedToClientsRepository;
 import by.uniqo.telegrambot.repository.UserProfileRepository;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -109,9 +110,15 @@ public class RequestDispatcher {
     @Autowired
     AdminStartProcessor adminStartProcessor;
     @Autowired
+    MessageToOneClientProcessor messageToOneClientProcessor;
+    @Autowired
     SendProcessor sendProcessor;
     @Autowired
+    FinallySendThisMessageProcessor finallySendThisMessageProcessor;
+    @Autowired
     FindByInputMessageProcessor findByInputMessageProcessor;
+    @Autowired
+    SendMessageToClientStep2Processor sendMessageToClientStep2Processor;
     @Autowired
     TelegramBot telegramBot;
     @Autowired
@@ -130,7 +137,8 @@ public class RequestDispatcher {
                 messageService.sendMessage(update.getMessage(), sendProcessor.run());
                 break;
             case START:
-                if (update.getMessage().getFrom().getId() == 764602851) {
+                if (update.getMessage().getFrom().getId() == 764602851 ||
+                        update.getMessage().getFrom().getId() == 1307084432) {
 //                if (update.getMessage().getFrom().getId() == 1307084432) {
                     messageService.sendMessage(update.getMessage(), adminStartProcessor.run());
                 } else messageService.sendMessage(update.getMessage(), startProcessor.run());
@@ -212,9 +220,30 @@ public class RequestDispatcher {
             case SENDMESSAGETOCLIENTS:
                 messageService.sendMessage(update.getMessage(), sendMessageToClientsProcessor.run());
                 break;
+            case MSGONECLIENT:
+                if (update.getMessage().getFrom().getId() == 764602851 ||
+                        update.getMessage().getFrom().getId() == 1307084432) {
+                    dataCache.setFlag("input");
+                    messageService.sendMessage(update.getMessage(), messageToOneClientProcessor.run());
+                } else
+                break;
             case SAYTHANKS:
                 messageService.sendMessage(update.getMessage(), sayThanksProcessor.run());
                 break;
+            case SENDONEMESSAGE:
+                if (update.getMessage().getFrom().getId() == 764602851 ||
+                        update.getMessage().getFrom().getId() == 1307084432) {
+                    dataCache.setFlag("IdSet");
+                    messageService.sendMessage(update.getMessage(), sendMessageToClientStep2Processor.run());
+                } else
+                    break;
+            case FINALLYSENDMESSAGETOCLIENT:
+                if (update.getMessage().getFrom().getId() == 764602851 ||
+                        update.getMessage().getFrom().getId() == 1307084432) {
+                    dataCache.setFlag("IdSet");
+                    messageService.sendMessage(update.getMessage(), finallySendThisMessageProcessor.run());
+                } else
+                    break;
             case MANAGERANSWER:
                 CallbackQuery send4 = update.getCallbackQuery();
                 messageService.sendMessage(send4.getMessage(), managerAnswerProcessor.run());
@@ -229,6 +258,7 @@ public class RequestDispatcher {
         }
     }
 
+    @SneakyThrows
     private BotCommand getCommand(Update update) {
         UserProfileData userProfileData = null;
         TextHistorySendedToClients textHistorySendedToClients = null;
@@ -254,6 +284,15 @@ public class RequestDispatcher {
                         return BotCommand.SEND;
                     } else if (msgText.equals("Список клиентов")) {
                         return BotCommand.SENDCLIENTSLIST;
+                    } else if (dataCache.getFlag().equals("input")) {
+                        Long numberUserId = Long.parseLong(update.getMessage().getText());
+                        getClient(numberUserId);
+                        return BotCommand.SENDONEMESSAGE;
+                    } else if (dataCache.getFlag().equals("IdSet")) {
+                        sendMessageToOneClient(update.getMessage().getText());
+                        dataCache.setFlag("idInputOk");
+                        dataCache.setUserId(0L);
+                        return BotCommand.FINALLYSENDMESSAGETOCLIENT;
                     } else if (dataCache.getSetStatus().equals("hold")) {
                         sendMessageForClients(update.getMessage().getText());
 //                        if (update.getMessage().getFrom().getId() == 1307084432) {
@@ -266,6 +305,8 @@ public class RequestDispatcher {
                         return BotCommand.SENDMESSAGETOCLIENTS;
                     } else if (msgText.startsWith(BotCommand.SEVEN.getCommand())) {
                         return BotCommand.SEVEN;
+                    } else if (msgText.equals("Сообщение одному клиенту")) {
+                        return BotCommand.MSGONECLIENT;
                     } else if (msgText.startsWith(BotCommand.SEND.getCommand())) {
                         return BotCommand.SEND;
                     } else if (msgText.startsWith(BotCommand.ABOUTBOT.getCommand())) {
@@ -325,11 +366,12 @@ public class RequestDispatcher {
                     return BotCommand.FINDBYPHONENUMBER;
                 } else if (buttonQuery.getData().equals("buttonFindByDate")) {
                     return BotCommand.FINDBYTIMESTAMP;
-                } return BotCommand.PRICEQUESTIONCHAIN;
+                }
+                return BotCommand.PRICEQUESTIONCHAIN;
             }
         } else {
             saveUser(update.getMessage());
-            getCommand(update);
+            return BotCommand.START;
         }
 
         return BotCommand.NONE;
@@ -386,6 +428,7 @@ public class RequestDispatcher {
         }
         return userId;
     }
+
     private void sendMessageForClients(String text) {
         List<UserProfileData> users = userProfileRepository.findAll();
         for (UserProfileData user : users) {
@@ -404,5 +447,26 @@ public class RequestDispatcher {
                 e.printStackTrace();
             }
         }
+    }
+    private void sendMessageToOneClient(String text) {
+            SendMessage send = new SendMessage();
+//        SendMessage send1 = new SendMessage();
+            send.setChatId(dataCache.getUserId());
+//        send1.setChatId((long) 764602851);
+//        764602851 - id в телеге Антона
+//        1307084432 - id Nastya
+            send.setText(text);
+//        send1.setText("номер телефона: " + userProfileData.toString());
+            try {
+                telegramBot.execute(send);
+//            telegramBot.execute(send1);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+    }
+
+    private void getClient(Long id) {
+        UserProfileData user = userProfileRepository.getUserNameById(id);
+            dataCache.setUserId(user.getChatId());
     }
 }

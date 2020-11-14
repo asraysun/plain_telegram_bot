@@ -27,7 +27,7 @@ public class AdminMenuButton extends ReplyKeyboardMarkup {
         row1.add(new KeyboardButton("Список клиентов"));
         row1.add(new KeyboardButton("Поиск клиентов по "));
         row2.add(new KeyboardButton("Отправить сообщение клиенту"));
-        row3.add(new KeyboardButton("Удалить сообщение у клиента"));
+        row3.add(new KeyboardButton("Сообщение одному клиенту"));
         keyboard.add(row1);
         keyboard.add(row2);
         keyboard.add(row3);

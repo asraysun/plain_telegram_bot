@@ -62,7 +62,8 @@ public class UserProfileData implements Serializable {
                 + "\nname: " + getUsername()
                 + "\nfirstname : " + getFirstname()
                 + "\nname: " + getLastname()
-                + "\nuserId: " + getId()
+                + "\nidInDB: " + getId()
+                + "\nuserId: " + getChatId()
                 + "\ntypeOfBot: " + getTypeOfBot()
                 + "\nnumberOfEmployees: " + getNumberOfEmployees())
                 + "\nс какой кнопки пришел: " + getBotCommand()
@@ -74,7 +75,8 @@ public class UserProfileData implements Serializable {
         return String.format("\nnickname: " + getUsername()
                 + "\nfirstname : " + getFirstname()
                 + "\nname: " + getLastname()
-                + "\nuserId: " + getId()
+                + "\nidInDB: " + getId()
+                + "\nuserId: " + getChatId()
                 + "\nс какой кнопки пришел: " + getBotCommand())
                 + "\nпоследнее время обращения: " + dateTime;
     }

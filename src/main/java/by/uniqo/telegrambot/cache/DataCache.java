@@ -7,4 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataCache {
     private String setStatus = "stop";
+    private String flag = "idInputOk";
+    private Long userId;
 }

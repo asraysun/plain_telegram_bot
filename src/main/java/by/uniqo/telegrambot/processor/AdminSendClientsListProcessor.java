@@ -26,16 +26,16 @@ public class AdminSendClientsListProcessor implements ProcessorI {
         List<UserProfileData> users = userProfileRepository.findAll();
         for (UserProfileData user : users) {
             SendMessage send = new SendMessage();
-//        SendMessage send1 = new SendMessage();
-            send.setChatId(764602851L);
-//        send1.setChatId((long) 764602851);
+        SendMessage send1 = new SendMessage();
+            send.setChatId(1307084432L);
+        send1.setChatId((long) 764602851);
 //        764602851 - id в телеге Антона
 //        1307084432 - id Nastya
             send.setText("номер телефона: " + user.toString());
-//        send1.setText("номер телефона: " + userProfileData.toString());
+        send1.setText("номер телефона: " + user.toString());
             try {
-                telegramBot.execute(send);
-//            telegramBot.execute(send1);
+                telegramBot.execute(send1);
+            telegramBot.execute(send);
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
