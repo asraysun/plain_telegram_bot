@@ -77,14 +77,20 @@ public class AdminSendClientsListProcessor implements ProcessorI {
 
         InlineKeyboardButton buttonNextClient = new InlineKeyboardButton().setText("Next");
         InlineKeyboardButton buttonPreviousClient = new InlineKeyboardButton().setText("Previous");
+        InlineKeyboardButton buttonFirst = new InlineKeyboardButton().setText(users.get(currentClient).getId().toString());
+        InlineKeyboardButton buttonSecond = new InlineKeyboardButton().setText(users.get(nextClient).getId().toString());
 
         //Every button must have callBackData, or else not work !
         buttonNextClient.setCallbackData("buttonNextClient");
         buttonPreviousClient.setCallbackData("buttonPreviousClient");
+        buttonFirst.setCallbackData("buttonFirst");
+        buttonSecond.setCallbackData("buttonSecond");
 
         List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
-        keyboardButtonsRow1.add(buttonNextClient);
         keyboardButtonsRow1.add(buttonPreviousClient);
+        keyboardButtonsRow1.add(buttonFirst);
+        keyboardButtonsRow1.add(buttonSecond);
+        keyboardButtonsRow1.add(buttonNextClient);
 
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
         rowList.add(keyboardButtonsRow1);

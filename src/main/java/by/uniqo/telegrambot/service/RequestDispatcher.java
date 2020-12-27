@@ -384,6 +384,29 @@ public class RequestDispatcher {
                         adminSendClientsListProcessor.setNextClient(adminSendClientsListProcessor.getNextClient() - 2);
                     }
                     return BotCommand.SENDCLIENTSLIST;
+                } else if (buttonQuery.getData().equals("buttonFirst")) {
+                    List<UserProfileData> users = userProfileRepository.findAll();
+                    SendMessage send = new SendMessage();
+                    send.setText(users.get(adminSendClientsListProcessor.getCurrentClient()).toString());
+                    send.setChatId(1307084432L);
+                    try {
+                        telegramBot.execute(send);
+                    }catch (Exception e) {
+
+                    }
+                    return BotCommand.SENDCLIENTSLIST;
+                } else if (buttonQuery.getData().equals("buttonSecond")) {
+                    List<UserProfileData> users = userProfileRepository.findAll();
+
+                    SendMessage send = new SendMessage();
+                    send.setText(users.get(adminSendClientsListProcessor.getNextClient()).toString());
+                    send.setChatId(1307084432L);
+                    try {
+                        telegramBot.execute(send);
+                    } catch (Exception e) {
+
+                    }
+                    return BotCommand.SENDCLIENTSLIST;
                 }
                 return BotCommand.PRICEQUESTIONCHAIN;
             }
