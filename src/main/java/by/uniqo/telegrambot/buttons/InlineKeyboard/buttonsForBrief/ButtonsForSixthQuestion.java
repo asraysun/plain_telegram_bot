@@ -10,32 +10,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class buttonsForFourthQuestion extends InlineKeyboardMarkup {
+public class ButtonsForSixthQuestion extends InlineKeyboardMarkup {
 
 
-    public InlineKeyboardMarkup getFindByButtonsMarkup() {
+    public InlineKeyboardMarkup getButtonsForSixQuestionMarkup() {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-        InlineKeyboardButton answerEighteen = new InlineKeyboardButton().setText("1");
-        InlineKeyboardButton answerNineteen = new InlineKeyboardButton().setText("2");
-        InlineKeyboardButton answerTwenty = new InlineKeyboardButton().setText("3");
-        InlineKeyboardButton answerTwentyOne = new InlineKeyboardButton().setText("4");
-        InlineKeyboardButton answerTwentyTwo = new InlineKeyboardButton().setText("5");
+        InlineKeyboardButton answerTwentyEight = new InlineKeyboardButton().setText("1");
+        InlineKeyboardButton answerTwentyNine = new InlineKeyboardButton().setText("2");
+        InlineKeyboardButton answerThirty = new InlineKeyboardButton().setText("3");
 
 
         //Every button must have callBackData, or else not work !
-        answerEighteen.setCallbackData("answerEighteen");
-        answerNineteen.setCallbackData("answerNineteen");
-        answerTwenty.setCallbackData("answerTwenty");
-        answerTwentyOne.setCallbackData("answerTwentyOne");
-        answerTwentyTwo.setCallbackData("answerTwentyTwo");
+        answerThirty.setCallbackData("answerThirty");
+        answerTwentyEight.setCallbackData("answerTwentyEight");
+        answerTwentyNine.setCallbackData("answerTwentyNine");
 
 
         List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
-        keyboardButtonsRow1.add(answerEighteen);
-        keyboardButtonsRow1.add(answerNineteen);
-        keyboardButtonsRow1.add(answerTwenty);
-        keyboardButtonsRow1.add(answerTwentyOne);
-        keyboardButtonsRow1.add(answerTwentyTwo);
+        keyboardButtonsRow1.add(answerTwentyEight);
+        keyboardButtonsRow1.add(answerTwentyNine);
+        keyboardButtonsRow1.add(answerThirty);
 
 
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();

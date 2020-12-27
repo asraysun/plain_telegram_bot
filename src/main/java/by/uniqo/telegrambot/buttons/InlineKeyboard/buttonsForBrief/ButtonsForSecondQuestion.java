@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class buttonsForSecondQuestion extends InlineKeyboardMarkup {
+public class ButtonsForSecondQuestion extends InlineKeyboardMarkup {
 
 
-    public InlineKeyboardMarkup getFindByButtonsMarkup() {
+    public InlineKeyboardMarkup getButtonsForSecondQuestionMarkup() {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         InlineKeyboardButton answerTen = new InlineKeyboardButton().setText("1");
         InlineKeyboardButton answerEleven = new InlineKeyboardButton().setText("2");

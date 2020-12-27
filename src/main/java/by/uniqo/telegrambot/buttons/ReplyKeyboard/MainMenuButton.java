@@ -29,6 +29,7 @@ public class MainMenuButton extends ReplyKeyboardMarkup {
         row3.add(new KeyboardButton("Узнать больше"));
         row3.add(new KeyboardButton("Связаться с менеджером"));
         row1.add(new KeyboardButton("Что умеют наши боты?"));
+        row1.add(new KeyboardButton("Brief"));
         keyboard.add(row1);
         keyboard.add(row2);
         keyboard.add(row3);

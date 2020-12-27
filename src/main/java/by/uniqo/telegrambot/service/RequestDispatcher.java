@@ -10,10 +10,8 @@ import by.uniqo.telegrambot.model.TextHistorySendedToClients;
 import by.uniqo.telegrambot.model.UserProfileData;
 import by.uniqo.telegrambot.processor.*;
 import by.uniqo.telegrambot.processor.findBy.*;
-import by.uniqo.telegrambot.processor.mainmenu.AboutBotProcessor;
-import by.uniqo.telegrambot.processor.mainmenu.AboutOurProcessor;
-import by.uniqo.telegrambot.processor.mainmenu.ScopeOfAppProcessor;
-import by.uniqo.telegrambot.processor.mainmenu.TellMeMoreProcessor;
+import by.uniqo.telegrambot.processor.mainmenu.*;
+import by.uniqo.telegrambot.processor.mainmenu.briefQuestionChain.*;
 import by.uniqo.telegrambot.processor.mainmenu.defaultProcessors.HelpProcessor;
 import by.uniqo.telegrambot.processor.mainmenu.defaultProcessors.SendProcessor;
 import by.uniqo.telegrambot.processor.mainmenu.defaultProcessors.SettingsProcessor;
@@ -120,6 +118,22 @@ public class RequestDispatcher {
     @Autowired
     SendMessageToClientStep2Processor sendMessageToClientStep2Processor;
     @Autowired
+    BriefProcessor briefProcessor;
+    @Autowired
+    BriefQuestionTwoProcessor briefQuestionTwoProcessor;
+    @Autowired
+    BriefQuestionThreeProcessor briefQuestionThreeProcessor;
+    @Autowired
+    BriefQuestionFourProcessor briefQuestionFourProcessor;
+    @Autowired
+    BriefQuestionFiveProcessor briefQuestionFiveProcessor;
+    @Autowired
+    BriefQuestionSixProcessor briefQuestionSixProcessor;
+    @Autowired
+    BriefQuestionSevenProcessor briefQuestionSevenProcessor;
+    @Autowired
+    BriefQuestionEightProcessor briefQuestionEightProcessor;
+    @Autowired
     TelegramBot telegramBot;
     @Autowired
     DataCache dataCache;
@@ -149,7 +163,8 @@ public class RequestDispatcher {
                 messageService.sendMessage(update.getMessage(), settingsProcessor.run());
                 break;
             case SEVEN:
-                messageService.sendMessage(update.getMessage(), sevenProcessor.run());
+                CallbackQuery send11 = update.getCallbackQuery();
+                messageService.sendMessageWithCallBackQuery(send11.getMessage(), sevenProcessor.run());
                 break;
             case ABOUTBOT:
                 messageService.sendMessage(update.getMessage(), aboutBotProcessor.run());
@@ -179,7 +194,6 @@ public class RequestDispatcher {
                 messageService.sendMessage(update.getMessage(), aboutOurProcessor.run());
                 break;
             case SENDCLIENTSLIST:
-//                deleteMessage();
                 messageService.sendMessage(update.getMessage(), adminSendClientsListProcessor.run());
                 break;
             case FINDBY:
@@ -215,9 +229,6 @@ public class RequestDispatcher {
             case PRICEQUESTIONCHAINSTEP4:
                 messageService.sendMessage(update.getMessage(), priceQuestionChainStep4Processor.run());
                 break;
-//            case SENDDOCUMENT:
-//                messageService.sendMessage(update.getMessage(), sendMessageProcessor.run());
-//                break;
             case SENDMESSAGETOCLIENTS:
                 messageService.sendMessage(update.getMessage(), sendMessageToClientsProcessor.run());
                 break;
@@ -259,6 +270,39 @@ public class RequestDispatcher {
             case FINDBYINPUTMSG:
                 messageService.sendMessage(update.getMessage(), findByInputMessageProcessor.run());
                 break;
+            case BRIEFQUESTIONONE:
+                messageService.sendMessageWithCallBackQuery(update.getMessage(), briefProcessor.run());
+                System.out.println("briefProcessor"+"running");
+                break;
+            case BRIEFQUESTIONTWO:
+                CallbackQuery send3 = update.getCallbackQuery();
+                messageService.sendMessageWithCallBackQuery(send3.getMessage(), briefQuestionTwoProcessor.run());
+                System.out.println("briefQuestionTwoProcessor"+"running");
+                break;
+            case BRIEFQUESTIONTHREE:
+                CallbackQuery send5 = update.getCallbackQuery();
+                messageService.sendMessageWithCallBackQuery(send5.getMessage(), briefQuestionThreeProcessor.run());
+                break;
+            case BRIEFQUESTIONFOUR:
+                CallbackQuery send6 = update.getCallbackQuery();
+                messageService.sendMessageWithCallBackQuery(send6.getMessage(), briefQuestionFourProcessor.run());
+                break;
+            case BRIEFQUESTIONFIVE:
+                CallbackQuery send7 = update.getCallbackQuery();
+                messageService.sendMessageWithCallBackQuery(send7.getMessage(), briefQuestionFiveProcessor.run());
+                break;
+            case BRIEFQUESTIONSIX:
+                CallbackQuery send8 = update.getCallbackQuery();
+                messageService.sendMessageWithCallBackQuery(send8.getMessage(), briefQuestionSixProcessor.run());
+                break;
+            case BRIEFQUESTIONSEVEN:
+                CallbackQuery send9 = update.getCallbackQuery();
+                messageService.sendMessageWithCallBackQuery(send9.getMessage(), briefQuestionSevenProcessor.run());
+                break;
+            case BRIEFQUESTIONEIGHT:
+                CallbackQuery send10 = update.getCallbackQuery();
+                messageService.sendMessageWithCallBackQuery(send10.getMessage(), briefQuestionEightProcessor.run());
+                break;
 
         }
     }
@@ -299,12 +343,6 @@ public class RequestDispatcher {
                         return BotCommand.FINALLYSENDMESSAGETOCLIENT;
                     } else if (dataCache.getSetStatus().equals("hold")) {
                         sendMessageForClients(update.getMessage().getText());
-//                        if (update.getMessage().getFrom().getId() == 1307084432) {
-//                            dataCache.setSetStatus("hold");
-//                        }
-//                        if(dataCache.getSetStatus().equals("hold")){
-//
-//                        }
                         dataCache.setSetStatus("stop");
                         return BotCommand.SENDMESSAGETOCLIENTS;
                     } else if (msgText.startsWith(BotCommand.SEVEN.getCommand())) {
@@ -334,19 +372,14 @@ public class RequestDispatcher {
                         return BotCommand.NEWUPDATES;
                     } else if (msgText.startsWith(BotCommand.ABOUTOURBOT.getCommand())) {
                         return BotCommand.ABOUTOURBOT;
+                    } else if (msgText.startsWith(BotCommand.BRIEFQUESTIONONE.getCommand())) {
+                        return BotCommand.BRIEFQUESTIONONE;
                     }
-//                    else if (msgText.length() >= 7) {
-//                        userProfileData.setText(message.getText());
-//                        userProfileData.setDate(message.getDate());
-//                        userProfileRepository.save(userProfileData);
-//                        return BotCommand.PRICEQUESTIONCHAINSTEP4;
-//                    } else if (msgText.length() < 7) {
-//                        return BotCommand.SENDPHONEERROR;
-//                    }
                 }
             } else if (update.hasCallbackQuery()) { //TODO добавить обработку кнопок админа
                 System.out.println("has callback" + update.getCallbackQuery().getMessage().getMessageId());
                 CallbackQuery buttonQuery = update.getCallbackQuery();
+                System.out.println(buttonQuery.getData());
                 if (buttonQuery.getData().equals("buttonVar1") ||
                         buttonQuery.getData().equals("buttonVar2") ||
                         buttonQuery.getData().equals("buttonVar3")) {
@@ -372,8 +405,8 @@ public class RequestDispatcher {
                 } else if (buttonQuery.getData().equals("buttonFindByDate")) {
                     return BotCommand.FINDBYTIMESTAMP;
                 } else if (buttonQuery.getData().equals("buttonNextClient")) {
-                        adminSendClientsListProcessor.setCurrentClient(adminSendClientsListProcessor.getCurrentClient() + 2);
-                        adminSendClientsListProcessor.setNextClient(adminSendClientsListProcessor.getNextClient() + 2);
+                    adminSendClientsListProcessor.setCurrentClient(adminSendClientsListProcessor.getCurrentClient() + 2);
+                    adminSendClientsListProcessor.setNextClient(adminSendClientsListProcessor.getNextClient() + 2);
                     return BotCommand.SENDCLIENTSLIST;
                 } else if (buttonQuery.getData().equals("buttonPreviousClient")) {
                     if (adminSendClientsListProcessor.getCurrentClient().equals(0)) {
@@ -384,6 +417,22 @@ public class RequestDispatcher {
                         adminSendClientsListProcessor.setNextClient(adminSendClientsListProcessor.getNextClient() - 2);
                     }
                     return BotCommand.SENDCLIENTSLIST;
+                } else if (buttonQuery.getData().equals("answerThirtyOne")) {
+                    return BotCommand.BRIEFQUESTIONTWO;
+                } else if (buttonQuery.getData().equals("answerTen")) {
+                    return BotCommand.BRIEFQUESTIONTHREE;
+                } else if (buttonQuery.getData().equals("answerSeventeen")) {
+                    return BotCommand.BRIEFQUESTIONFOUR;
+                } else if (buttonQuery.getData().equals("answerEighteen")) {
+                    return BotCommand.BRIEFQUESTIONFIVE;
+                } else if (buttonQuery.getData().equals("answerTwentyThree")) {
+                    return BotCommand.BRIEFQUESTIONSIX;
+                } else if (buttonQuery.getData().equals("answerTwentyEight")) {
+                    return BotCommand.BRIEFQUESTIONSEVEN;
+                } else if (buttonQuery.getData().equals("answerFiftyFive")) {
+                    return BotCommand.BRIEFQUESTIONEIGHT;
+                } else if (buttonQuery.getData().equals("answerFiftyEight")) {
+                    return BotCommand.SEVEN;
                 } else if (buttonQuery.getData().equals("buttonFirst")) {
                     List<UserProfileData> users = userProfileRepository.findAll();
                     SendMessage send = new SendMessage();
@@ -391,7 +440,7 @@ public class RequestDispatcher {
                     send.setChatId(1307084432L);
                     try {
                         telegramBot.execute(send);
-                    }catch (Exception e) {
+                    } catch (Exception e) {
 
                     }
                     return BotCommand.SENDCLIENTSLIST;

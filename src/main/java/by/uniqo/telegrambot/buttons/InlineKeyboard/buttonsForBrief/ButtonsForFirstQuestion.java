@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class buttonsForFirstQuestion extends InlineKeyboardMarkup {
+public class ButtonsForFirstQuestion extends InlineKeyboardMarkup {
 
 
-    public InlineKeyboardMarkup getFindByButtonsMarkup() {
+    public InlineKeyboardMarkup getButtonsForFirstQuestionMarkup() {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         InlineKeyboardButton buttonAnswerOne = new InlineKeyboardButton().setText("1");
         InlineKeyboardButton buttonAnswerTwo = new InlineKeyboardButton().setText("2");
@@ -27,7 +27,7 @@ public class buttonsForFirstQuestion extends InlineKeyboardMarkup {
 
 
         //Every button must have callBackData, or else not work !
-        buttonAnswerOne.setCallbackData("buttonAnswerOne");
+        buttonAnswerOne.setCallbackData("answerThirtyOne");
         buttonAnswerTwo.setCallbackData("buttonAnswerTwo");
         buttonAnswerThree.setCallbackData("buttonAnswerThree");
         buttonAnswerFour.setCallbackData("buttonAnswerFour");
@@ -44,14 +44,16 @@ public class buttonsForFirstQuestion extends InlineKeyboardMarkup {
         keyboardButtonsRow1.add(buttonAnswerThree);
         keyboardButtonsRow1.add(buttonAnswerFour);
         keyboardButtonsRow1.add(buttonAnswerFive);
-        keyboardButtonsRow1.add(buttonAnswerSix);
-        keyboardButtonsRow1.add(buttonAnswerSeven);
-        keyboardButtonsRow1.add(buttonAnswerEight);
-        keyboardButtonsRow1.add(buttonAnswerNine);
 
+        List<InlineKeyboardButton> keyboardButtonsRow2 = new ArrayList<>();
+        keyboardButtonsRow2.add(buttonAnswerSix);
+        keyboardButtonsRow2.add(buttonAnswerSeven);
+        keyboardButtonsRow2.add(buttonAnswerEight);
+        keyboardButtonsRow2.add(buttonAnswerNine);
 
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
         rowList.add(keyboardButtonsRow1);
+        rowList.add(keyboardButtonsRow2);
 
         inlineKeyboardMarkup.setKeyboard(rowList);
 

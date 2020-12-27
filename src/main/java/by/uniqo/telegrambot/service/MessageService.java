@@ -2,6 +2,7 @@ package by.uniqo.telegrambot.service;
 
 import by.uniqo.telegrambot.bean.TelegramBot;
 import by.uniqo.telegrambot.buttons.InlineKeyboard.*;
+import by.uniqo.telegrambot.buttons.InlineKeyboard.buttonsForBrief.*;
 import by.uniqo.telegrambot.buttons.ReplyKeyboard.AdminMenuButton;
 import by.uniqo.telegrambot.buttons.ReplyKeyboard.MainMenuButton;
 import by.uniqo.telegrambot.buttons.ReplyKeyboard.MainMenuButtonForAdditionMenu;
@@ -37,6 +38,23 @@ public class MessageService {
     AdminMenuButton adminMenuButton;
     @Autowired
     FindByButtons findByButtons;
+    @Autowired
+    ButtonsForFirstQuestion buttonsForFirstQuestion;
+    @Autowired
+    ButtonsForSecondQuestion buttonsForSecondQuestion;
+    @Autowired
+    ButtonsForThirdQuestion buttonsForThirdQuestion;
+    @Autowired
+    ButtonsForFourthQuestion buttonsForFourthQuestion;
+    @Autowired
+    ButtonsForFiveQuestion buttonsForFiveQuestion;
+    @Autowired
+    ButtonsForSixthQuestion buttonsForSixthQuestion;
+    @Autowired
+    ButtonsForSeventhQuestion buttonsForSeventhQuestion;
+    @Autowired
+    ButtonsForEighthQuestion buttonsForEighthQuestion;
+
 
     public void sendMessage(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
@@ -67,8 +85,10 @@ public class MessageService {
 //    }
 
     public void sendMessageWithCallBackQuery(Message message, String text) {
+        System.out.println(message);
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(message.getChatId().toString());
+        System.out.println(message.getChatId());
         sendMessage.setText(text);
         if (text.contains("Каждый бот")) {
             sendMessage.setReplyMarkup(step1buttons.getButtonsMarkupStep1());
@@ -84,6 +104,22 @@ public class MessageService {
             sendMessage.setReplyMarkup(mainMenuButton.getMainMenuKeyboard());
         } else if (text.startsWith("Выберите способ")) {
             sendMessage.setReplyMarkup(findByButtons.getFindByButtonsMarkup());
+        } else if (text.startsWith("Какая у Вас сфера бизнеса?")) {
+            sendMessage.setReplyMarkup(buttonsForFirstQuestion.getButtonsForFirstQuestionMarkup());
+        } else if (text.startsWith("Используете ли Вы соцсети и мессенджеры в своем бизнесе?")) {
+            sendMessage.setReplyMarkup(buttonsForSecondQuestion.getButtonsForSecondQuestionMarkup());
+        } else if (text.startsWith("Сколько менеджеров в Вашей компании занимаются общением с клиентами?")) {
+            sendMessage.setReplyMarkup(buttonsForThirdQuestion.getButtonsForThirdQuestionMarkup());
+        } else if (text.startsWith("Какой бюджет на интернет-рекламу Вы тратите ежемесячно?")) {
+            sendMessage.setReplyMarkup(buttonsForFourthQuestion.getButtonsForFourthQuestionMarkup());
+        } else if (text.startsWith("Какие задачи будет выполнять чат-бот?")) {
+            sendMessage.setReplyMarkup(buttonsForFiveQuestion.getButtonsForFiveQuestionMarkup());
+        } else if (text.startsWith("Можете ли Вы дать tripwire?")) {
+            sendMessage.setReplyMarkup(buttonsForSixthQuestion.getButtonsForSixQuestionMarkup());
+        } else if (text.startsWith("Будет ли необходимость принимать оплату напрямую через бота?")) {
+            sendMessage.setReplyMarkup(buttonsForSeventhQuestion.getButtonsForSeventhQuestionMarkup());
+        } else if (text.startsWith("Есть ли необходимость в интеграции с CRM-системой или иными сервисами?")) {
+            sendMessage.setReplyMarkup(buttonsForEighthQuestion.getButtonsForEighthQuestionMarkup());
         }
 
         try {
