@@ -15,39 +15,27 @@ public class buttonsForFourthQuestion extends InlineKeyboardMarkup {
 
     public InlineKeyboardMarkup getFindByButtonsMarkup() {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-        InlineKeyboardButton buttonAnswerOne = new InlineKeyboardButton().setText("1");
-        InlineKeyboardButton buttonAnswerTwo = new InlineKeyboardButton().setText("2");
-        InlineKeyboardButton buttonAnswerThree = new InlineKeyboardButton().setText("3");
-        InlineKeyboardButton buttonAnswerFour = new InlineKeyboardButton().setText("4");
-        InlineKeyboardButton buttonAnswerFive = new InlineKeyboardButton().setText("5");
-        InlineKeyboardButton buttonAnswerSix = new InlineKeyboardButton().setText("6");
-        InlineKeyboardButton buttonAnswerSeven = new InlineKeyboardButton().setText("7");
-        InlineKeyboardButton buttonAnswerEight = new InlineKeyboardButton().setText("8");
-        InlineKeyboardButton buttonAnswerNine = new InlineKeyboardButton().setText("9");
+        InlineKeyboardButton answerEighteen = new InlineKeyboardButton().setText("1");
+        InlineKeyboardButton answerNineteen = new InlineKeyboardButton().setText("2");
+        InlineKeyboardButton answerTwenty = new InlineKeyboardButton().setText("3");
+        InlineKeyboardButton answerTwentyOne = new InlineKeyboardButton().setText("4");
+        InlineKeyboardButton answerTwentyTwo = new InlineKeyboardButton().setText("5");
 
 
         //Every button must have callBackData, or else not work !
-        buttonAnswerOne.setCallbackData("buttonAnswerOne");
-        buttonAnswerTwo.setCallbackData("buttonAnswerTwo");
-        buttonAnswerThree.setCallbackData("buttonAnswerThree");
-        buttonAnswerFour.setCallbackData("buttonAnswerFour");
-        buttonAnswerFive.setCallbackData("buttonAnswerFive");
-        buttonAnswerSix.setCallbackData("buttonAnswerSix");
-        buttonAnswerSeven.setCallbackData("buttonAnswerSeven");
-        buttonAnswerEight.setCallbackData("buttonAnswerEight");
-        buttonAnswerNine.setCallbackData("buttonAnswerNine");
+        answerEighteen.setCallbackData("answerEighteen");
+        answerNineteen.setCallbackData("answerNineteen");
+        answerTwenty.setCallbackData("answerTwenty");
+        answerTwentyOne.setCallbackData("answerTwentyOne");
+        answerTwentyTwo.setCallbackData("answerTwentyTwo");
 
 
         List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
-        keyboardButtonsRow1.add(buttonAnswerOne);
-        keyboardButtonsRow1.add(buttonAnswerTwo);
-        keyboardButtonsRow1.add(buttonAnswerThree);
-        keyboardButtonsRow1.add(buttonAnswerFour);
-        keyboardButtonsRow1.add(buttonAnswerFive);
-        keyboardButtonsRow1.add(buttonAnswerSix);
-        keyboardButtonsRow1.add(buttonAnswerSeven);
-        keyboardButtonsRow1.add(buttonAnswerEight);
-        keyboardButtonsRow1.add(buttonAnswerNine);
+        keyboardButtonsRow1.add(answerEighteen);
+        keyboardButtonsRow1.add(answerNineteen);
+        keyboardButtonsRow1.add(answerTwenty);
+        keyboardButtonsRow1.add(answerTwentyOne);
+        keyboardButtonsRow1.add(answerTwentyTwo);
 
 
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
