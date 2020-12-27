@@ -34,7 +34,7 @@ public class TellMeMoreProcessor implements ProcessorI {
 
             send.setChatId((long) 1307084432);
             send.setText(userProfileData.toStringTellMeMoreButton());
-        send1.setChatId((long) 764602851);
+//        send1.setChatId((long) 764602851);
         send1.setText(userProfileData.toStringTellMeMoreButton());
 //        764602851 - id в телеге Антона
 //        1307084432 - id Nastya
@@ -47,7 +47,7 @@ public class TellMeMoreProcessor implements ProcessorI {
             sendContact.setReplyMarkup(mainMenuButtonForAdditionMenu.getAdditionMenuKeyboard());
             try {
                 telegramBot.execute(send);
-            telegramBot.execute(send1);
+//            telegramBot.execute(send1);
                 telegramBot.execute(sendContact);
             } catch (TelegramApiException e) {
                 e.printStackTrace();

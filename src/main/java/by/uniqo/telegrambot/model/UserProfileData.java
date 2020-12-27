@@ -80,4 +80,18 @@ public class UserProfileData implements Serializable {
                 + "\nс какой кнопки пришел: " + getBotCommand())
                 + "\nпоследнее время обращения: " + dateTime;
     }
+
+    public String toStringJustClientsNames() {
+        String answer = "";
+
+        if(!getUsername().isEmpty()){
+            answer.concat(getUsername().concat(getId().toString()));
+
+        } else if(!getFirstname().isEmpty()) {
+            answer.concat(getFirstname().concat(getId().toString()));
+        }
+
+
+        return answer;
+    }
 }

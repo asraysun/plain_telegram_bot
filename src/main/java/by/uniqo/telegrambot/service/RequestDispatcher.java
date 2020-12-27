@@ -125,21 +125,22 @@ public class RequestDispatcher {
     DataCache dataCache;
 
     public void dispatch(Update update) {// TODO добавить проверку на ID для админа
+
         switch (getCommand(update)) {
             case HELP:
                 messageService.sendMessage(update.getMessage(), helpProcessor.run());
                 break;
             case SEND:
-                if (update.getMessage().getFrom().getId() == 764602851) {
-//                if (update.getMessage().getFrom().getId() == 1307084432) {
+//                if (update.getMessage().getFrom().getId() == 764602851) {
+                if (update.getMessage().getFrom().getId() == 1307084432) {
                     dataCache.setSetStatus("hold");
                 }
                 messageService.sendMessage(update.getMessage(), sendProcessor.run());
                 break;
             case START:
-                if (update.getMessage().getFrom().getId() == 764602851 ||
-                        update.getMessage().getFrom().getId() == 1307084432) {
-//                if (update.getMessage().getFrom().getId() == 1307084432) {
+//                if (update.getMessage().getFrom().getId() == 764602851 ||
+//                        update.getMessage().getFrom().getId() == 1307084432) {
+                if (update.getMessage().getFrom().getId() == 1307084432) {
                     messageService.sendMessage(update.getMessage(), adminStartProcessor.run());
                 } else messageService.sendMessage(update.getMessage(), startProcessor.run());
                 saveUser(update.getMessage());
@@ -221,7 +222,8 @@ public class RequestDispatcher {
                 messageService.sendMessage(update.getMessage(), sendMessageToClientsProcessor.run());
                 break;
             case MSGONECLIENT:
-                if (update.getMessage().getFrom().getId() == 764602851 ||
+//                if (update.getMessage().getFrom().getId() == 764602851 ||
+                if (
                         update.getMessage().getFrom().getId() == 1307084432) {
                     dataCache.setFlag("input");
                     messageService.sendMessage(update.getMessage(), messageToOneClientProcessor.run());
@@ -231,14 +233,16 @@ public class RequestDispatcher {
                 messageService.sendMessage(update.getMessage(), sayThanksProcessor.run());
                 break;
             case SENDONEMESSAGE:
-                if (update.getMessage().getFrom().getId() == 764602851 ||
+//                if (update.getMessage().getFrom().getId() == 764602851 ||
+                if (
                         update.getMessage().getFrom().getId() == 1307084432) {
                     dataCache.setFlag("IdSet");
                     messageService.sendMessage(update.getMessage(), sendMessageToClientStep2Processor.run());
                 }
                 break;
             case FINALLYSENDMESSAGETOCLIENT:
-                if (update.getMessage().getFrom().getId() == 764602851 ||
+//                if (update.getMessage().getFrom().getId() == 764602851 ||
+                if (
                         update.getMessage().getFrom().getId() == 1307084432) {
                     dataCache.setFlag("idInputOk");
                     dataCache.setUserId(0L);
@@ -267,6 +271,7 @@ public class RequestDispatcher {
         if (userProfileRepository.findUserProfileDataByChatId(getUserId(update).longValue()) != null) {
             userProfileData = userProfileRepository.findUserProfileDataByChatId(getUserId(update).longValue());
             if (update.hasMessage()) {
+                System.out.println("have message" + update.getMessage().getMessageId());
                 if (update.getMessage().hasContact()) {  // TODO из-за этой проверки возвращается после нажатия незахендленной кнопки текст - "Спасибо за ваш заказ..."
                     return BotCommand.SAYTHANKS;
                 }
@@ -340,6 +345,7 @@ public class RequestDispatcher {
 //                    }
                 }
             } else if (update.hasCallbackQuery()) { //TODO добавить обработку кнопок админа
+                System.out.println("has callback" + update.getCallbackQuery().getMessage().getMessageId());
                 CallbackQuery buttonQuery = update.getCallbackQuery();
                 if (buttonQuery.getData().equals("buttonVar1") ||
                         buttonQuery.getData().equals("buttonVar2") ||
@@ -365,6 +371,19 @@ public class RequestDispatcher {
                     return BotCommand.FINDBYPHONENUMBER;
                 } else if (buttonQuery.getData().equals("buttonFindByDate")) {
                     return BotCommand.FINDBYTIMESTAMP;
+                } else if (buttonQuery.getData().equals("buttonNextClient")) {
+                        adminSendClientsListProcessor.setCurrentClient(adminSendClientsListProcessor.getCurrentClient() + 2);
+                        adminSendClientsListProcessor.setNextClient(adminSendClientsListProcessor.getNextClient() + 2);
+                    return BotCommand.SENDCLIENTSLIST;
+                } else if (buttonQuery.getData().equals("buttonPreviousClient")) {
+                    if (adminSendClientsListProcessor.getCurrentClient().equals(0)) {
+                        adminSendClientsListProcessor.setCurrentClient(0);
+                        adminSendClientsListProcessor.setNextClient(1);
+                    } else {
+                        adminSendClientsListProcessor.setCurrentClient(adminSendClientsListProcessor.getCurrentClient() - 2);
+                        adminSendClientsListProcessor.setNextClient(adminSendClientsListProcessor.getNextClient() - 2);
+                    }
+                    return BotCommand.SENDCLIENTSLIST;
                 }
                 return BotCommand.PRICEQUESTIONCHAIN;
             }
@@ -447,25 +466,26 @@ public class RequestDispatcher {
             }
         }
     }
+
     private void sendMessageToOneClient(String text) {
-            SendMessage send = new SendMessage();
+        SendMessage send = new SendMessage();
 //        SendMessage send1 = new SendMessage();
-            send.setChatId(dataCache.getUserId());
+        send.setChatId(dataCache.getUserId());
 //        send1.setChatId((long) 764602851);
 //        764602851 - id в телеге Антона
 //        1307084432 - id Nastya
-            send.setText(text);
+        send.setText(text);
 //        send1.setText("номер телефона: " + userProfileData.toString());
-            try {
-                telegramBot.execute(send);
+        try {
+            telegramBot.execute(send);
 //            telegramBot.execute(send1);
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
-            }
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
     }
 
     private void getClient(Long id) {
         UserProfileData user = userProfileRepository.getUserNameById(id);
-            dataCache.setUserId(user.getChatId());
+        dataCache.setUserId(user.getChatId());
     }
 }
