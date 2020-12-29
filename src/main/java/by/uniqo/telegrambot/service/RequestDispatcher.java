@@ -272,12 +272,12 @@ public class RequestDispatcher {
                 break;
             case BRIEFQUESTIONONE:
                 messageService.sendMessageWithCallBackQuery(update.getMessage(), briefProcessor.run());
-                System.out.println("briefProcessor"+"running");
+                System.out.println("briefProcessor" + "running");
                 break;
             case BRIEFQUESTIONTWO:
                 CallbackQuery send3 = update.getCallbackQuery();
                 messageService.sendMessageWithCallBackQuery(send3.getMessage(), briefQuestionTwoProcessor.run());
-                System.out.println("briefQuestionTwoProcessor"+"running");
+                System.out.println("briefQuestionTwoProcessor" + "running");
                 break;
             case BRIEFQUESTIONTHREE:
                 CallbackQuery send5 = update.getCallbackQuery();
@@ -417,21 +417,53 @@ public class RequestDispatcher {
                         adminSendClientsListProcessor.setNextClient(adminSendClientsListProcessor.getNextClient() - 2);
                     }
                     return BotCommand.SENDCLIENTSLIST;
-                } else if (buttonQuery.getData().equals("answerThirtyOne")) {
+                } else if (buttonQuery.getData().equals("answerThirtyOne")
+                        || buttonQuery.getData().equals("answerThirtyTwo")
+                        || buttonQuery.getData().equals("answerThirtyThree")
+                        || buttonQuery.getData().equals("answerThirtyFour")
+                        || buttonQuery.getData().equals("answerThirtyFive")
+                        || buttonQuery.getData().equals("answerThirtySix")
+                        || buttonQuery.getData().equals("answerThirtySeven")
+                        || buttonQuery.getData().equals("answerThirtyEight")
+                        || buttonQuery.getData().equals("answerThirtyNine")) {
                     return BotCommand.BRIEFQUESTIONTWO;
-                } else if (buttonQuery.getData().equals("answerTen")) {
+                } else if (buttonQuery.getData().equals("answerTen")
+                        || buttonQuery.getData().equals("answerEleven")
+                        || buttonQuery.getData().equals("answerTwelve")
+                        || buttonQuery.getData().equals("answerThirteen")
+                        || buttonQuery.getData().equals("answerFourteen")
+                        || buttonQuery.getData().equals("answerFifteen")
+                        || buttonQuery.getData().equals("answerSixteen")) {
                     return BotCommand.BRIEFQUESTIONTHREE;
-                } else if (buttonQuery.getData().equals("answerSeventeen")) {
+                } else if (buttonQuery.getData().equals("answerSeventeen")
+                        || buttonQuery.getData().equals("answerForty")
+                        || buttonQuery.getData().equals("answerFortyOne")
+                        || buttonQuery.getData().equals("answerFortyTwo")
+                        || buttonQuery.getData().equals("answerFortyThree")) {
                     return BotCommand.BRIEFQUESTIONFOUR;
-                } else if (buttonQuery.getData().equals("answerEighteen")) {
+                } else if (buttonQuery.getData().equals("answerEighteen")
+                        || buttonQuery.getData().equals("answerNineteen")
+                        || buttonQuery.getData().equals("answerTwenty")
+                        || buttonQuery.getData().equals("answerTwentyOne")
+                        || buttonQuery.getData().equals("answerTwentyTwo")) {
                     return BotCommand.BRIEFQUESTIONFIVE;
-                } else if (buttonQuery.getData().equals("answerTwentyThree")) {
+                } else if (buttonQuery.getData().equals("answerTwentyThree")
+                        || buttonQuery.getData().equals("answerTwentyFour")
+                        || buttonQuery.getData().equals("answerTwentyFive")
+                        || buttonQuery.getData().equals("answerTwentySix")
+                        || buttonQuery.getData().equals("answerTwentySeven")) {
                     return BotCommand.BRIEFQUESTIONSIX;
-                } else if (buttonQuery.getData().equals("answerTwentyEight")) {
+                } else if (buttonQuery.getData().equals("answerTwentyEight")
+                        || buttonQuery.getData().equals("answerTwentyNine")
+                        || buttonQuery.getData().equals("answerThirty")) {
                     return BotCommand.BRIEFQUESTIONSEVEN;
-                } else if (buttonQuery.getData().equals("answerFiftyFive")) {
+                } else if (buttonQuery.getData().equals("answerFiftyFive")
+                        || buttonQuery.getData().equals("answerFiftySix")
+                        || buttonQuery.getData().equals("answerFiftySeven")) {
                     return BotCommand.BRIEFQUESTIONEIGHT;
-                } else if (buttonQuery.getData().equals("answerFiftyEight")) {
+                } else if (buttonQuery.getData().equals("answerFiftyEight")
+                        || buttonQuery.getData().equals("answerFiftyNine")
+                        || buttonQuery.getData().equals("answerSixty")) {
                     return BotCommand.SEVEN;
                 } else if (buttonQuery.getData().equals("buttonFirst")) {
                     List<UserProfileData> users = userProfileRepository.findAll();

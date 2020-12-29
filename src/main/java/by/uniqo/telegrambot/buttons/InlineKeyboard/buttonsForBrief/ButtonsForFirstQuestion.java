@@ -28,14 +28,14 @@ public class ButtonsForFirstQuestion extends InlineKeyboardMarkup {
 
         //Every button must have callBackData, or else not work !
         buttonAnswerOne.setCallbackData("answerThirtyOne");
-        buttonAnswerTwo.setCallbackData("buttonAnswerTwo");
-        buttonAnswerThree.setCallbackData("buttonAnswerThree");
-        buttonAnswerFour.setCallbackData("buttonAnswerFour");
-        buttonAnswerFive.setCallbackData("buttonAnswerFive");
-        buttonAnswerSix.setCallbackData("buttonAnswerSix");
-        buttonAnswerSeven.setCallbackData("buttonAnswerSeven");
-        buttonAnswerEight.setCallbackData("buttonAnswerEight");
-        buttonAnswerNine.setCallbackData("buttonAnswerNine");
+        buttonAnswerTwo.setCallbackData("answerThirtyTwo");
+        buttonAnswerThree.setCallbackData("answerThirtyThree");
+        buttonAnswerFour.setCallbackData("answerThirtyFour");
+        buttonAnswerFive.setCallbackData("answerThirtyFive");
+        buttonAnswerSix.setCallbackData("answerThirtySix");
+        buttonAnswerSeven.setCallbackData("answerThirtySeven");
+        buttonAnswerEight.setCallbackData("answerThirtyEight");
+        buttonAnswerNine.setCallbackData("answerThirtyNine");
 
 
         List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
